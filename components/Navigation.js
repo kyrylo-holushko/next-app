@@ -1,0 +1,26 @@
+import { Container, Navbar, Nav } from "react-bootstrap";
+
+export default function MainNav() {
+    return (
+        <>
+            <Navbar expand="lg" bg="light" data-bs-theme="light" className="bg-body-tertiary">
+                <Container>
+                    <Navbar.Brand href="#">username</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
+                        <Nav className="me-auto">
+                            <Nav.Link href="#bags">Bags</Nav.Link>
+                            <i class="bi bi-arrow-right-short"></i>
+                            <Nav.Link href="#bag">RedBag</Nav.Link>
+                        </Nav>
+                        <Nav>
+                            <Nav.Link href="#settings">Settings</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </>
+    )
+}
+
+//<i class="bi bi-arrow-right-short"></i>
