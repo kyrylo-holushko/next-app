@@ -5,9 +5,7 @@ export default function Layout(props) {
     return (
         <>
             <Navigation/>
-            <Container>
-                {props.children}
-            </Container>        
+            {props.children}      
         </>
     )
 }
