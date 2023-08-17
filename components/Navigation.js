@@ -10,8 +10,6 @@ export default function MainNav() {
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
                         <Nav className="me-auto">
                             <Nav.Link href="#bags">Bags</Nav.Link>
-                            <i class="bi bi-arrow-right-short"></i>
-                            <Nav.Link href="#bag">RedBag</Nav.Link>
                         </Nav>
                         <Nav>
                             <Nav.Link href="#settings">Settings</Nav.Link>
