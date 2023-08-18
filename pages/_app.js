@@ -2,6 +2,7 @@ import Layout from '../components/Layout'
 import '@/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from "react";
+import { Container } from 'react-bootstrap';
 
 export default function App({ Component, pageProps }) {
     useEffect(()=>{
@@ -10,7 +11,11 @@ export default function App({ Component, pageProps }) {
   
     return (<>
         <Layout>
-            <Component {...pageProps} />
+            <div className="bg-light">
+                <Container>
+                    <Component {...pageProps} />
+                </Container>
+            </div>
         </Layout>
     </>)
 }
