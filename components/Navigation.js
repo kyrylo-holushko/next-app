@@ -3,16 +3,20 @@ import { useAtom } from "jotai";
 import { tempAtom } from "../store";
 import { useState, createContext } from 'react';
 import Signup from "./Signup";
+import Login from "./Login";
 
-export const SetShowContext = createContext();
+export const SetShowSignupContext = createContext();
+export const SetShowLoginContext = createContext();
 
 export default function MainNav() {
 
     const [token, setToken] = useAtom(tempAtom);
 
-    const [show, setShow] = useState(false);
+    const [showSignup, setShowSignup] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
 
-    const handleShow = () => setShow(true);
+    const handleShowSignup = () => setShowSignup(true);
+    const handleShowLogin = () => setShowLogin(true);
 
     return (
         <>
@@ -26,16 +30,19 @@ export default function MainNav() {
                         </Nav>
                         <Nav className="ml-auto">
                             {token && <Nav.Link href="#settings">Settings</Nav.Link>}
-                            {!token && <Button variant="outline-light" onClick={(e)=>{setToken(true)}}>Login</Button>}
-                            {!token && <Button variant="outline-light" className="ms-2" onClick={handleShow}>Sign Up</Button>}
+                            {!token && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
+                            {!token && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
 
-            <SetShowContext.Provider value={setShow}>
-                <Signup show={show}/>
-            </SetShowContext.Provider>
+            <SetShowSignupContext.Provider value={setShowSignup}>
+                <Signup show={showSignup}/>
+            </SetShowSignupContext.Provider>
+            <SetShowLoginContext.Provider value={setShowLogin}>
+                <Login show={showLogin}/>
+            </SetShowLoginContext.Provider>
         </>
     )
 }
