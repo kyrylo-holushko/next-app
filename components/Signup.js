@@ -88,7 +88,7 @@ export default function Signup(props){
                     break;
             }
         });
-        
+
         if(errors)
             setValid(false);
         else
@@ -136,8 +136,12 @@ export default function Signup(props){
                                 ...current,
                                 username: e.target.value
                             }))}} 
-                            value={form.username}                 
+                            value={form.username}
+                            isInvalid={errors.username.empty||errors.username.maxlength||errors.username.alphanumeric}                 
                         />
+                        <Form.Control.Feedback type="invalid">
+                            
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Email</Form.Label>                                                                                                             
@@ -149,8 +153,12 @@ export default function Signup(props){
                                 ...current,
                                 email: e.target.value
                             }))}} 
-                            value={form.email}                                                            
-                        />                                                                                  
+                            value={form.email}
+                            isInvalid={errors.email.empty||errors.email.invalidEmail}                                                            
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            
+                        </Form.Control.Feedback>                                                                                  
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>                                                                                    
@@ -162,8 +170,12 @@ export default function Signup(props){
                                 ...current,
                                 password: e.target.value
                             }))}} 
-                            value={form.password}                                                        
-                        />                                                                            
+                            value={form.password} 
+                            isInvalid={errors.password.empty||errors.password.minlength}                                                       
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            
+                        </Form.Control.Feedback>                                                                            
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Confirm Password</Form.Label>                                                                                   
@@ -175,8 +187,12 @@ export default function Signup(props){
                                 ...current,
                                 passwordConfirmed: e.target.value
                             }))}} 
-                            value={form.passwordConfirmed}                                                        
-                        />                                                          
+                            value={form.passwordConfirmed}
+                            isInvalid={errors.passwordConfirmed.empty||errors.passwordConfirmed.minlength}                                                         
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            
+                        </Form.Control.Feedback>                                                          
                     </Form.Group>
                 </Form>
             </Modal.Body>
