@@ -1,6 +1,7 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
 import { SetShowSignupContext } from "./Navigation";
+import { email } from 'email-validator';
 
 export default function Signup(props){
 
@@ -13,12 +14,95 @@ export default function Signup(props){
         passwordConfirmed: ""
     };
 
+    var errors = {
+        username: {
+            empty: false,
+            maxlength: false,
+            alphanumeric: false
+        },
+        email: {
+            empty: false,
+            invalidEmail: false
+        },
+        password: {
+            empty: false,
+            minlength: false
+        },
+        passwordConfirmed: {
+            empty: false,
+            minlength: false
+        }
+    };
+
+    function formValidator(currentForm){
+        Object.entries(currentForm).forEach(([key,val])=>{
+            switch(key){
+                case 'username':
+                    if(val.length){
+                        errors.username.empty = false;
+                        if(val.length>15)
+                            errors.username.maxlength = true;
+                        else
+                            errors.username.maxlength = false;
+
+                        if(!/^[a-zA-Z0-9]$/.test(val))
+                            errors.username.alphanumeric = true;
+                        else
+                            errors.username.alphanumeric = false;
+                    } else {
+                        errors.username.empty = true;
+                    }   
+                    break;
+                case 'email':
+                    if(val.length){
+                        errors.email.empty = false;
+                        if(!email.validate(val))
+                            errors.email.invalidEmail = true;
+                        else
+                            errors.email.invalidEmail = false;
+                    } else {
+                        errors.email.empty = true;
+                    } 
+                    break;
+                case 'password':
+                    if(val.length){
+                        errors.password.empty = false;
+                        if(val.lenth<8)
+                            errors.password.minlength=true;
+                        else
+                            errors.password.minlength=false;
+                    } else {
+                        errors.password.empty = true;
+                    }
+                    break;
+                case 'passwordConfirmed':
+                    if(val.length){
+                        errors.passwordConfirmed.empty = false;
+                        if(val.lenth<8)
+                            errors.password.minlength=true;
+                        else
+                            errors.password.minlength=false;
+                    } else {
+                        errors.passwordConfirmed.empty = true;
+                    }
+                    break;
+            }
+        });
+        
+        if(errors)
+            setValid(false);
+        else
+            setValid(true);
+    };
+
     const [form, setForm] = useState(defaultForm);
     const [dirty, setDirty] = useState(false);
+    const [valid, setValid] = useState(false);
 
-    /* useEffect(()=>{
-        //validate form
-    }, [form]); */
+    useEffect(()=>{
+        if(dirty)
+            formValidator(form);
+    }, [form]);
 
     const handleClose = () => {
         setForm(defaultForm);
@@ -29,6 +113,10 @@ export default function Signup(props){
     async function submitForm(e) {
         console.log("The form's data", form);
         console.log("Dirty State", dirty);
+        if(valid){
+            console.log("VALID FORM");
+        }
+        
     }
 
     return (
