@@ -56,7 +56,7 @@ export default function Signup(props){
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>                                                                                    
                         <Form.Control 
-                            type="password"                                                                       
+                            type="password"                                                                 
                             onChange={e=>setForm(current=>({ 
                                 ...current,
                                 password: e.target.value
@@ -67,7 +67,7 @@ export default function Signup(props){
                     <Form.Group className="mb-3">
                         <Form.Label>Confirm Password</Form.Label>                                                                                   
                         <Form.Control 
-                            type="password"                                                                       
+                            type="password"                                                                   
                             onChange={e=>setForm(current=>({ 
                                 ...current,
                                 passwordConfirmed: e.target.value
@@ -85,3 +85,9 @@ export default function Signup(props){
         </Modal>
     )
 }
+
+//isInvalid={!(parseInt(bidAmount) > 0) && (bidAmount.length || formSubmitted)}
+
+{/* <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback> */}
