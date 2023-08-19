@@ -1,7 +1,7 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
 import { SetShowSignupContext } from "./Navigation";
-import { email } from 'email-validator';
+import * as email from 'email-validator';
 
 export default function Signup(props){
 
@@ -18,7 +18,7 @@ export default function Signup(props){
         username: {
             empty: false,
             maxlength: false,
-            alphanumeric: false
+            notAlphanumeric: false
         },
         email: {
             empty: false,
@@ -45,10 +45,10 @@ export default function Signup(props){
                         else
                             errors.username.maxlength = false;
 
-                        if(!/^[a-zA-Z0-9]$/.test(val))
-                            errors.username.alphanumeric = true;
+                        if(!/^[a-zA-Z0-9]+$/.test(val))
+                            errors.username.notAlphanumeric = true;
                         else
-                            errors.username.alphanumeric = false;
+                            errors.username.notAlphanumeric = false;
                     } else {
                         errors.username.empty = true;
                     }   
@@ -67,7 +67,7 @@ export default function Signup(props){
                 case 'password':
                     if(val.length){
                         errors.password.empty = false;
-                        if(val.lenth<8)
+                        if(val.length<8)
                             errors.password.minlength=true;
                         else
                             errors.password.minlength=false;
@@ -78,10 +78,10 @@ export default function Signup(props){
                 case 'passwordConfirmed':
                     if(val.length){
                         errors.passwordConfirmed.empty = false;
-                        if(val.lenth<8)
-                            errors.password.minlength=true;
+                        if(val.length<8)
+                            errors.passwordConfirmed.minlength=true;
                         else
-                            errors.password.minlength=false;
+                            errors.passwordConfirmed.minlength=false;
                     } else {
                         errors.passwordConfirmed.empty = true;
                     }
@@ -102,6 +102,7 @@ export default function Signup(props){
     useEffect(()=>{
         if(dirty)
             formValidator(form);
+        console.log(errors);
     }, [form]);
 
     const handleClose = () => {
