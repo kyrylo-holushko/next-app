@@ -140,7 +140,9 @@ export default function Signup(props){
                             isInvalid={errors.username.empty||errors.username.maxlength||errors.username.alphanumeric}                 
                         />
                         <Form.Control.Feedback type="invalid">
-                            
+                            {errors.username.empty && "Required Field"}
+                            {errors.username.maxlength && "Maximum 15 characters"}
+                            {errors.username.alphanumeric && "Username must be alphanumeric"}
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -157,7 +159,8 @@ export default function Signup(props){
                             isInvalid={errors.email.empty||errors.email.invalidEmail}                                                            
                         />
                         <Form.Control.Feedback type="invalid">
-                            
+                            {errors.email.empty && "Required Field"}
+                            {errors.email.invalidEmail && "Invalid Email"}
                         </Form.Control.Feedback>                                                                                  
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -174,7 +177,8 @@ export default function Signup(props){
                             isInvalid={errors.password.empty||errors.password.minlength}                                                       
                         />
                         <Form.Control.Feedback type="invalid">
-                            
+                            {errors.password.empty && "Required Field"}
+                            {errors.password.minlength && "Password must be at least 8 characters"}
                         </Form.Control.Feedback>                                                                            
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -191,7 +195,8 @@ export default function Signup(props){
                             isInvalid={errors.passwordConfirmed.empty||errors.passwordConfirmed.minlength}                                                         
                         />
                         <Form.Control.Feedback type="invalid">
-                            
+                            {errors.password.empty && "Required Field"}
+                            {errors.password.minlength && "Password must be at least 8 characters"}
                         </Form.Control.Feedback>                                                          
                     </Form.Group>
                 </Form>
