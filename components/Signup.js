@@ -14,7 +14,7 @@ export default function Signup(props){
         passwordConfirmed: ""
     };
 
-    var errors = {
+    const defaultErrors = {
         username: {
             empty: false,
             maxlength: false,
@@ -34,44 +34,90 @@ export default function Signup(props){
         }
     };
 
+    /* this.state = {
+        food: {
+          sandwich: {
+            capsicum: true,
+            crackers: true,
+            mayonnaise: true
+          },
+          pizza: {
+            jalapeno: true,
+            extraCheese: false
+          }
+        }
+      } */
+
+
+    /* this.setState(prevState => ({
+        food: {
+          ...prevState.food,           // copy all other key-value pairs of food object
+          pizza: {                     // specific object of food object
+            ...prevState.food.pizza,   // copy all pizza key-value pairs
+            extraCheese: true          // update value of specific key
+          }
+        }
+    })) */
+
+    //setForm(current=>({ ...current, passwordConfirmed: e.target.value }))
     function formValidator(currentForm){
         Object.entries(currentForm).forEach(([key,val])=>{
             switch(key){
                 case 'username':
                     if(val.length){
-                        errors.username.empty = false;
+                        setErrors(current=>({
+                            ...current,
+                            username: {
+                                ...current.username,
+                                empty: false
+                            }
+                        }));
+                        //errors.username.empty = false;
                         if(val.length>15)
+                        //
                             errors.username.maxlength = true;
                         else
+                        //
                             errors.username.maxlength = false;
 
                         if(!/^[a-zA-Z0-9]+$/.test(val))
+                        //
                             errors.username.notAlphanumeric = true;
                         else
+                        //
                             errors.username.notAlphanumeric = false;
                     } else {
+                        //
                         errors.username.empty = true;
                     }   
                     break;
                 case 'email':
                     if(val.length){
+                        //
                         errors.email.empty = false;
                         if(!email.validate(val))
+                        //
                             errors.email.invalidEmail = true;
                         else
+                        //
                             errors.email.invalidEmail = false;
                     } else {
+                        //
                         errors.email.empty = true;
                     } 
                     break;
                 case 'password':
                     if(val.length){
+                        //
                         errors.password.empty = false;
                         if(val.length<8)
+                        //
                             errors.password.minlength=true;
                         else
+                        //
                             errors.password.minlength=false;
                     } else {
+                        //
                         errors.password.empty = true;
                     }
                     break;
@@ -98,6 +144,7 @@ export default function Signup(props){
     const [form, setForm] = useState(defaultForm);
     const [dirty, setDirty] = useState(false);
     const [valid, setValid] = useState(false);
+    const [errors, setErrors] = useState(defaultErrors);
 
     useEffect(()=>{
         if(dirty)
@@ -126,7 +173,7 @@ export default function Signup(props){
                 <Modal.Title>Sign Up</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={e=>submitForm(e)}>
+                <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>User Name</Form.Label>                                                                                     
                         <Form.Control 
@@ -138,13 +185,11 @@ export default function Signup(props){
                                 username: e.target.value
                             }))}} 
                             value={form.username}
-                            isInvalid={errors.username.empty||errors.username.maxlength||errors.username.alphanumeric}                 
+                            isInvalid={true}        
                         />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.username.empty && "Required Field"}
-                            {errors.username.maxlength && "Maximum 15 characters"}
-                            {errors.username.alphanumeric && "Username must be alphanumeric"}
-                        </Form.Control.Feedback>
+                        <Form.Text>
+                            {true && "Testing Something Too"}
+                        </Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Email</Form.Label>                                                                                                             
@@ -156,13 +201,8 @@ export default function Signup(props){
                                 ...current,
                                 email: e.target.value
                             }))}} 
-                            value={form.email}
-                            isInvalid={errors.email.empty||errors.email.invalidEmail}                                                            
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.email.empty && "Required Field"}
-                            {errors.email.invalidEmail && "Invalid Email"}
-                        </Form.Control.Feedback>                                                                                  
+                            value={form.email}                                                           
+                        />                                                                                
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>                                                                                    
@@ -174,13 +214,8 @@ export default function Signup(props){
                                 ...current,
                                 password: e.target.value
                             }))}} 
-                            value={form.password} 
-                            isInvalid={errors.password.empty||errors.password.minlength}                                                       
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.password.empty && "Required Field"}
-                            {errors.password.minlength && "Password must be at least 8 characters"}
-                        </Form.Control.Feedback>                                                                            
+                            value={form.password}                                                     
+                        />                                                                          
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Confirm Password</Form.Label>                                                                                   
@@ -192,13 +227,8 @@ export default function Signup(props){
                                 ...current,
                                 passwordConfirmed: e.target.value
                             }))}} 
-                            value={form.passwordConfirmed}
-                            isInvalid={errors.passwordConfirmed.empty||errors.passwordConfirmed.minlength}                                                         
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.password.empty && "Required Field"}
-                            {errors.password.minlength && "Password must be at least 8 characters"}
-                        </Form.Control.Feedback>                                                          
+                            value={form.passwordConfirmed}                                                       
+                        />                                                       
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -210,9 +240,3 @@ export default function Signup(props){
         </Modal>
     )
 }
-
-//isInvalid={!(parseInt(bidAmount) > 0) && (bidAmount.length || formSubmitted)}
-
-{/* <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback> */}
