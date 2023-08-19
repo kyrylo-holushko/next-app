@@ -1,5 +1,5 @@
 import { Button, Modal, Form } from "react-bootstrap";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { SetShowSignupContext } from "./Navigation";
 
 export default function Signup(props){
@@ -13,15 +13,22 @@ export default function Signup(props){
         passwordConfirmed: ""
     };
 
+    const [form, setForm] = useState(defaultForm);
+    const [dirty, setDirty] = useState(false);
+
+    /* useEffect(()=>{
+        //validate form
+    }, [form]); */
+
     const handleClose = () => {
         setForm(defaultForm);
+        setDirty(false);
         setShow(false);
     }
 
-    const [form, setForm] = useState(defaultForm);
-
     async function submitForm(e) {
         console.log("The form's data", form);
+        console.log("Dirty State", dirty);
     }
 
     return (
@@ -35,10 +42,12 @@ export default function Signup(props){
                         <Form.Label>User Name</Form.Label>                                                                                     
                         <Form.Control 
                             type="text"
-                            onChange={e=>setForm(current=>({ 
+                            onChange={e=>{
+                                if(!dirty) setDirty(true);                         
+                                setForm(current=>({ 
                                 ...current,
                                 username: e.target.value
-                            }))} 
+                            }))}} 
                             value={form.username}                 
                         />
                     </Form.Group>
@@ -46,10 +55,12 @@ export default function Signup(props){
                         <Form.Label>Email</Form.Label>                                                                                                             
                         <Form.Control 
                             type="email" 
-                            onChange={e=>setForm(current=>({ 
+                            onChange={e=>{
+                                if(!dirty) setDirty(true);
+                                setForm(current=>({ 
                                 ...current,
                                 email: e.target.value
-                            }))} 
+                            }))}} 
                             value={form.email}                                                            
                         />                                                                                  
                     </Form.Group>
@@ -57,10 +68,12 @@ export default function Signup(props){
                         <Form.Label>Password</Form.Label>                                                                                    
                         <Form.Control 
                             type="password"                                                                 
-                            onChange={e=>setForm(current=>({ 
+                            onChange={e=>{
+                                if(!dirty) setDirty(true);
+                                setForm(current=>({ 
                                 ...current,
                                 password: e.target.value
-                            }))} 
+                            }))}} 
                             value={form.password}                                                        
                         />                                                                            
                     </Form.Group>
@@ -68,10 +81,12 @@ export default function Signup(props){
                         <Form.Label>Confirm Password</Form.Label>                                                                                   
                         <Form.Control 
                             type="password"                                                                   
-                            onChange={e=>setForm(current=>({ 
+                            onChange={e=>{
+                                if(!dirty) setDirty(true);
+                                setForm(current=>({ 
                                 ...current,
                                 passwordConfirmed: e.target.value
-                            }))} 
+                            }))}} 
                             value={form.passwordConfirmed}                                                        
                         />                                                          
                     </Form.Group>
