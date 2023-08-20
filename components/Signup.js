@@ -13,12 +13,15 @@ export default function Signup(props){
     const [valid, setValid] = useState(false);
 
     useEffect(()=>{
-        if(Object.values(dirty).some(k=>k===true)) {//if(dirty)
+        if(Object.values(dirty).some(k=>k===true)) {
             signupForm.formErrorSetter(form, setErrors);
-            signupForm.formValidator(errors, setValid);
         }
         console.log(errors);
     }, [form]);
+
+    useEffect(()=>{
+        signupForm.formValidator(errors, setValid);
+    }, [errors]);
 
     const handleClose = () => {
         setForm(signupForm.defaultFormInput);
@@ -34,8 +37,7 @@ export default function Signup(props){
         console.log("The Valid state", valid);
         if(valid){
             console.log("VALID FORM");
-        }
-       
+        }      
     }
 
     return (
