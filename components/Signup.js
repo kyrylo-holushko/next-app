@@ -1,13 +1,13 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
 import { SetShowSignupContext } from "./Navigation";
-import { defaultSignupErrors, formSignupValidator } from "../lib/formvalidators";
-
+import { signupForm } from "../lib/formvalidators";
+//defaultSignupErrors, formSignupValidator
 export default function Signup(props){
 
     const setShow = useContext(SetShowSignupContext);
 
-    const defaultFormInput = {
+    /* const defaultFormInput = {
         username: "",
         email: "",
         password: "",
@@ -19,33 +19,34 @@ export default function Signup(props){
         email: false,
         password: false,
         passwordConfirmed: false
-    };
+    }; */
 
-    const [form, setForm] = useState(defaultFormInput);
-    const [dirty, setDirty] = useState(defaultFormDirty);
+    const [form, setForm] = useState(signupForm.defaultFormInput);
+    const [dirty, setDirty] = useState(signupForm.defaultFormDirty);
+    const [errors, setErrors] = useState(signupForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
-    const [errors, setErrors] = useState(defaultSignupErrors);
 
     useEffect(()=>{
         if(dirty)
-            formSignupValidator(form, errors, setErrors, setValid);
+            signupForm.formSignupValidator(form, errors, setErrors, setValid);
         console.log(errors);
     }, [form]);
 
     const handleClose = () => {
-        setForm(defaultFormInput);
-        setErrors(defaultSignupErrors);
-        setDirty(defaultFormDirty);
+        setForm(signupForm.defaultFormInput);
+        setErrors(signupForm.defaultSignupErrors);
+        setDirty(signupForm.defaultFormDirty);
         setShow(false);
     }
 
     async function submitForm(e) {
         console.log("The form's data", form);
         console.log("Dirty State", dirty);
+        console.log("The Valid state", valid);
         if(valid){
             console.log("VALID FORM");
         }
-        
+       
     }
 
     return (
