@@ -73,63 +73,175 @@ export default function Signup(props){
                             }
                         }));
                         //errors.username.empty = false;
-                        if(val.length>15)
-                        //
-                            errors.username.maxlength = true;
-                        else
-                        //
-                            errors.username.maxlength = false;
+                        if(val.length>15){
+                            setErrors(current=>({
+                                ...current,
+                                username: {
+                                    ...current.username,
+                                    maxlength: true
+                                }
+                            }));
+                            //errors.username.maxlength = true;
+                        } else {
+                            setErrors(current=>({
+                                ...current,
+                                username: {
+                                    ...current.username,
+                                    maxlength: false
+                                }
+                            }));
+                            //errors.username.maxlength = false;
+                        }
+                        
 
-                        if(!/^[a-zA-Z0-9]+$/.test(val))
-                        //
-                            errors.username.notAlphanumeric = true;
-                        else
-                        //
-                            errors.username.notAlphanumeric = false;
+                        if(!/^[a-zA-Z0-9]+$/.test(val)){
+                            setErrors(current=>({
+                                ...current,
+                                username: {
+                                    ...current.username,
+                                    notAlphanumeric: true
+                                }
+                            }));
+                            //errors.username.notAlphanumeric = true;
+                        } else {
+                            setErrors(current=>({
+                                ...current,
+                                username: {
+                                    ...current.username,
+                                    notAlphanumeric: false
+                                }
+                            }));
+                            //errors.username.notAlphanumeric = false;
+                        }
                     } else {
-                        //
-                        errors.username.empty = true;
+                        setErrors(current=>({
+                            ...current,
+                            username: {
+                                ...current.username,
+                                empty: true
+                            }
+                        }));
+                        //errors.username.empty = true;
                     }   
                     break;
                 case 'email':
                     if(val.length){
-                        //
-                        errors.email.empty = false;
-                        if(!email.validate(val))
-                        //
-                            errors.email.invalidEmail = true;
-                        else
-                        //
-                            errors.email.invalidEmail = false;
+                        setErrors(current=>({
+                            ...current,
+                            email: {
+                                ...current.email,
+                                empty: false
+                            }
+                        }));
+                        //errors.email.empty = false;
+                        if(!email.validate(val)){
+                            setErrors(current=>({
+                                ...current,
+                                email: {
+                                    ...current.email,
+                                    invalidEmail: true
+                                }
+                            }));
+                            //errors.email.invalidEmail = true;
+                        } else {
+                            setErrors(current=>({
+                                ...current,
+                                email: {
+                                    ...current.email,
+                                    invalidEmail: false
+                                }
+                            }));
+                            //errors.email.invalidEmail = false;
+                        }
                     } else {
-                        //
-                        errors.email.empty = true;
+                        setErrors(current=>({
+                            ...current,
+                            email: {
+                                ...current.email,
+                                empty: true
+                            }
+                        }));
+                        //errors.email.empty = true;
                     } 
                     break;
                 case 'password':
                     if(val.length){
-                        //
-                        errors.password.empty = false;
-                        if(val.length<8)
-                        //
-                            errors.password.minlength=true;
-                        else
-                        //
-                            errors.password.minlength=false;
+                        setErrors(current=>({
+                            ...current,
+                            password: {
+                                ...current.password,
+                                empty: false
+                            }
+                        }));
+                        //errors.password.empty = false;
+                        if(val.length<8) {
+                            setErrors(current=>({
+                                ...current,
+                                password: {
+                                    ...current.password,
+                                    minlength: true
+                                }
+                            }));
+                            //errors.password.minlength=true;
+                        } else {
+                            setErrors(current=>({
+                                ...current,
+                                password: {
+                                    ...current.password,
+                                    minlength: false
+                                }
+                            }));
+                            //errors.password.minlength=false;
+                        }   
                     } else {
-                        //
-                        errors.password.empty = true;
+                        setErrors(current=>({
+                            ...current,
+                            password: {
+                                ...current.password,
+                                empty: true
+                            }
+                        }));
+                        //errors.password.empty = true;
                     }
                     break;
                 case 'passwordConfirmed':
                     if(val.length){
-                        errors.passwordConfirmed.empty = false;
-                        if(val.length<8)
-                            errors.passwordConfirmed.minlength=true;
-                        else
-                            errors.passwordConfirmed.minlength=false;
+                        setErrors(current=>({
+                            ...current,
+                            passwordConfirmed: {
+                                ...current.passwordConfirmed,
+                                empty: false
+                            }
+                        }));
+                        //errors.passwordConfirmed.empty = false;
+                        if(val.length<8){
+                            setErrors(current=>({
+                                ...current,
+                                passwordConfirmed: {
+                                    ...current.passwordConfirmed,
+                                    minlength: true
+                                }
+                            }));
+                            //errors.passwordConfirmed.minlength=true;
+                        } else {
+                            setErrors(current=>({
+                                ...current,
+                                passwordConfirmed: {
+                                    ...current.passwordConfirmed,
+                                    minlength: false
+                                }
+                            }));
+                            //errors.passwordConfirmed.minlength=false;
+                        } 
                     } else {
-                        errors.passwordConfirmed.empty = true;
+                        setErrors(current=>({
+                            ...current,
+                            passwordConfirmed: {
+                                ...current.passwordConfirmed,
+                                empty: true
+                            }
+                        }));
+                        //errors.passwordConfirmed.empty = true;
                     }
                     break;
             }
@@ -185,10 +297,10 @@ export default function Signup(props){
                                 username: e.target.value
                             }))}} 
                             value={form.username}
-                            isInvalid={true}        
+                            isInvalid={errors.username.notAlphanumeric}        
                         />
                         <Form.Text>
-                            {true && "Testing Something Too"}
+                            {errors.username.notAlphanumeric && "Testing Something Too"}
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3">
