@@ -2,24 +2,10 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
 import { SetShowSignupContext } from "./Navigation";
 import { signupForm } from "../lib/formvalidators";
-//defaultSignupErrors, formSignupValidator
+
 export default function Signup(props){
 
     const setShow = useContext(SetShowSignupContext);
-
-    /* const defaultFormInput = {
-        username: "",
-        email: "",
-        password: "",
-        passwordConfirmed: ""
-    };
-
-    const defaultFormDirty = {
-        username: false,
-        email: false,
-        password: false,
-        passwordConfirmed: false
-    }; */
 
     const [form, setForm] = useState(signupForm.defaultFormInput);
     const [dirty, setDirty] = useState(signupForm.defaultFormDirty);
@@ -27,8 +13,10 @@ export default function Signup(props){
     const [valid, setValid] = useState(false);
 
     useEffect(()=>{
-        if(dirty)
-            signupForm.formSignupValidator(form, errors, setErrors, setValid);
+        if(Object.values(dirty).some(k=>k===true)) {//if(dirty)
+            signupForm.formErrorSetter(form, setErrors);
+            signupForm.formValidator(errors, setValid);
+        }
         console.log(errors);
     }, [form]);
 
@@ -42,6 +30,7 @@ export default function Signup(props){
     async function submitForm(e) {
         console.log("The form's data", form);
         console.log("Dirty State", dirty);
+        console.log("The Error state", errors);
         console.log("The Valid state", valid);
         if(valid){
             console.log("VALID FORM");
@@ -160,5 +149,3 @@ export default function Signup(props){
         </Modal>
     )
 }
-
-//if(!dirty) setDirty(true);
