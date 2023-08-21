@@ -27,16 +27,17 @@ export default function Signup(props){
     }, [errors]);
 
     useEffect(()=>{
-        setResMsg(apiResMsg);
-    }, [responded]);
+        if(resMsg.length)
+            setResponded(true);
+    }, [resMsg]);
 
     const handleClose = () => {
+        setShow(false);
         setForm(signupForm.defaultFormInput);
         setErrors(signupForm.defaultSignupErrors);
         setDirty(signupForm.defaultFormDirty);
         setResponded(false);
         setResMsg("");
-        setShow(false);
     }
 
     async function submitForm(e) {
@@ -46,14 +47,12 @@ export default function Signup(props){
         console.log("The Valid state", valid);
         if(valid){
             console.log("VALID FORM");
-            try {
-                apiRes = await registerUser(form);
-                apiResMsg = `${apiRes.message}: ${apiRes.data.username}`;
-                setResponded(true);
-            } catch(err) {
-                apiResMsg = err.message;
-                setResponded(true);
-            }
+            //try {
+            registerUser(form).then(res=>{
+                apiResMsg = `${res.message}: ${res.data.username}`;
+                console.log(apiResMsg);
+                setResMsg(apiResMsg);
+            }).catch(e=>{setResMsg(e.message)});
         }      
     }
 
