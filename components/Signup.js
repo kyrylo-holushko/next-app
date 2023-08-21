@@ -19,7 +19,6 @@ export default function Signup(props){
         if(Object.values(dirty).some(k=>k===true)) {
             signupForm.formErrorSetter(form, setErrors);
         }
-        console.log(errors);
     }, [form]);
 
     useEffect(()=>{
@@ -41,16 +40,9 @@ export default function Signup(props){
     }
 
     async function submitForm(e) {
-        console.log("The form's data", form);
-        console.log("Dirty State", dirty);
-        console.log("The Error state", errors);
-        console.log("The Valid state", valid);
         if(valid){
-            console.log("VALID FORM");
-            //try {
             registerUser(form).then(res=>{
                 apiResMsg = `${res.message}: ${res.data.username}`;
-                console.log(apiResMsg);
                 setResMsg(apiResMsg);
             }).catch(e=>{setResMsg(e.message)});
         }      
