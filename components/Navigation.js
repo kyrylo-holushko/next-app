@@ -1,37 +1,48 @@
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import { useAtom } from "jotai";
-import { tempAtom } from "../store";
-import { useState, createContext } from 'react';
+import { userAtom } from "../store";
+import { useState, createContext, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
+import { isAuthenticated, removeToken } from "../lib/authenticate"; // use remove for logout
+import { UserContext } from "./RouteGuard";
 
 export const SetShowSignupContext = createContext();
 export const SetShowLoginContext = createContext();
 
 export default function MainNav() {
 
-    const [token, setToken] = useAtom(tempAtom);
+    const token = isAuthenticated();
+
+    const user = useContext(UserContext);
 
     const [showSignup, setShowSignup] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);      //set to false when loggout
 
     const handleShowSignup = () => setShowSignup(true);
     const handleShowLogin = () => setShowLogin(true);
+
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(()=>{
+        if((user.username!==undefined) && token)
+            setLoggedIn(true);
+    }, [user]);
 
     return (
         <>
             <Navbar expand="lg" bg="secondary" data-bs-theme="dark">
                 <Container className="px-4">
-                    {token && <Navbar.Brand href="#">USERNAME</Navbar.Brand>}
+                    {loggedIn && <Navbar.Brand href="#">USERNAME</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            {token && <Nav.Link href="#bags">Bags</Nav.Link>}
+                            {loggedIn && <Nav.Link href="#bags">Bags</Nav.Link>}
                         </Nav>
                         <Nav className="ml-auto">
-                            {token && <Nav.Link href="#settings">Settings</Nav.Link>}
-                            {!token && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
-                            {!token && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
+                            {loggedIn && <Nav.Link href="#settings">Settings</Nav.Link>}
+                            {!loggedIn && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
+                            {!loggedIn && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
@@ -46,5 +57,3 @@ export default function MainNav() {
         </>
     )
 }
-
-//className="justify-content-between"

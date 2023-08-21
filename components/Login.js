@@ -3,10 +3,13 @@ import { useContext, useState, useEffect } from 'react';
 import { SetShowLoginContext } from "./Navigation";
 import { loginForm } from "../lib/formvalidators";
 import { authenticateUser } from "../lib/ajax/user";
+import { readToken } from "../lib/authenticate";
+import { SetUserContext } from "./RouteGuard";
 
 export default function Signup(props){
 
     const setShow = useContext(SetShowLoginContext);
+    const setUser = useContext(SetUserContext);
     var apiResMsg = "";
     const [form, setForm] = useState(loginForm.defaultFormInput);
     const [dirty, setDirty] = useState(loginForm.defaultFormDirty);
@@ -45,12 +48,12 @@ export default function Signup(props){
         console.log("Dirty State", dirty);
         console.log("The Error state", errors);
         console.log("The Valid state", valid);
-        if(valid){                                  //edit later
+        if(valid){  
             console.log("VALID FORM");
             authenticateUser(form).then(res=>{
-                apiResMsg = `${res.message}: ${res.data.username}`;
-                console.log(apiResMsg);
-                setResMsg(apiResMsg);
+                handleClose();
+                setUser(readToken()); 
+                //redirect to bags page
             }).catch(e=>{setResMsg(e.message)});
         }      
     }

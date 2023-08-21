@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from "react";
 import { Container } from 'react-bootstrap';
+import RouteGuard from '../components/RouteGuard';
 
 export default function App({ Component, pageProps }) {
     useEffect(()=>{
@@ -10,12 +11,14 @@ export default function App({ Component, pageProps }) {
     },[])
   
     return (<>
-        <Layout>
-            <div className="bg-light">
-                <Container>
-                    <Component {...pageProps} />
-                </Container>
-            </div>
-        </Layout>
+        <RouteGuard>
+            <Layout>
+                <div className="bg-light">
+                    <Container>
+                        <Component {...pageProps} />
+                    </Container>
+                </div>
+            </Layout>
+        </RouteGuard>
     </>)
 }
