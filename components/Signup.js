@@ -7,12 +7,13 @@ import { registerUser } from "../lib/ajax/user";
 export default function Signup(props){
 
     const setShow = useContext(SetShowSignupContext);
-
+    var apiResMsg = "";
     const [form, setForm] = useState(signupForm.defaultFormInput);
     const [dirty, setDirty] = useState(signupForm.defaultFormDirty);
     const [errors, setErrors] = useState(signupForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
-    const [responded, setResponded] = useState("");
+    const [responded, setResponded] = useState(false);
+    const [resMsg, setResMsg] = useState("");
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -25,11 +26,16 @@ export default function Signup(props){
         signupForm.formValidator(errors, setValid);
     }, [errors]);
 
+    useEffect(()=>{
+        setResMsg(apiResMsg);
+    }, [responded]);
+
     const handleClose = () => {
         setForm(signupForm.defaultFormInput);
         setErrors(signupForm.defaultSignupErrors);
         setDirty(signupForm.defaultFormDirty);
-        setResponded("");
+        setResponded(false);
+        setResMsg("");
         setShow(false);
     }
 
@@ -41,11 +47,12 @@ export default function Signup(props){
         if(valid){
             console.log("VALID FORM");
             try {
-                const status = await registerUser(form);
-                setResponded(`${status.message}: ${status.data.username}`);
-                //router.push("/login");
+                apiRes = await registerUser(form);
+                apiResMsg = `${apiRes.message}: ${apiRes.data.username}`;
+                setResponded(true);
             } catch(err) {
-                setResponded(err.message);
+                apiResMsg = err.message;
+                setResponded(true);
             }
         }      
     }
@@ -154,7 +161,7 @@ export default function Signup(props){
                         </Form.Text>                                                       
                     </Form.Group>
                 </Form>}
-                {responded}
+                {responded && resMsg}
             </Modal.Body>
             {!responded && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
