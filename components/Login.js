@@ -1,14 +1,15 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
-import { SetShowLoginContext } from "./Navigation";
 import { loginForm } from "../lib/formvalidators";
 import { authenticateUser } from "../lib/ajax/user";
 import { readToken } from "../lib/authenticate";
 import { SetUserContext } from "./RouteGuard";
+import { useRouter } from "next/router";
 
 export default function Signup(props){
 
-    const setShow = useContext(SetShowLoginContext);
+    const router = useRouter();
+    const setShow = props.setShow;
     const setUser = useContext(SetUserContext);
     var apiResMsg = "";
     const [form, setForm] = useState(loginForm.defaultFormInput);
@@ -20,13 +21,13 @@ export default function Signup(props){
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
-            signupForm.formErrorSetter(form, setErrors);
+            loginForm.formErrorSetter(form, setErrors);
         }
         console.log(errors);
     }, [form]);
 
     useEffect(()=>{
-        signupForm.formValidator(errors, setValid);
+        loginForm.formValidator(errors, setValid);
     }, [errors]);
 
     useEffect(()=>{
@@ -53,7 +54,7 @@ export default function Signup(props){
             authenticateUser(form).then(res=>{
                 handleClose();
                 setUser(readToken()); 
-                //redirect to bags page
+                router.push("/bags");
             }).catch(e=>{setResMsg(e.message)});
         }      
     }

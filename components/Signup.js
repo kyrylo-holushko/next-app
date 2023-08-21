@@ -1,12 +1,11 @@
 import { Button, Modal, Form } from "react-bootstrap";
-import { useContext, useState, useEffect } from 'react';
-import { SetShowSignupContext } from "./Navigation";
+import { useState, useEffect } from 'react';
 import { signupForm } from "../lib/formvalidators";
 import { registerUser } from "../lib/ajax/user";
 
 export default function Signup(props){
 
-    const setShow = useContext(SetShowSignupContext);
+    const setShow = props.setShow;
     var apiResMsg = "";
     const [form, setForm] = useState(signupForm.defaultFormInput);
     const [dirty, setDirty] = useState(signupForm.defaultFormDirty);

@@ -1,6 +1,6 @@
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
-import { useAtom } from "jotai";
-import { userAtom } from "../store";
+/* import { useAtom } from "jotai";
+import { userAtom } from "../store"; */
 import { useState, createContext, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
@@ -33,7 +33,7 @@ export default function MainNav() {
         <>
             <Navbar expand="lg" bg="secondary" data-bs-theme="dark">
                 <Container className="px-4">
-                    {loggedIn && <Navbar.Brand href="#">USERNAME</Navbar.Brand>}
+                    {loggedIn && <Navbar.Brand href="#">{user.username}</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -46,14 +46,9 @@ export default function MainNav() {
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>
-
-            <SetShowSignupContext.Provider value={setShowSignup}>
-                <Signup show={showSignup}/>
-            </SetShowSignupContext.Provider>
-            <SetShowLoginContext.Provider value={setShowLogin}>
-                <Login show={showLogin}/>
-            </SetShowLoginContext.Provider>
+            </Navbar>      
+            <Login show={showLogin} setShow={setShowLogin}/>
+            <Signup show={showSignup} setShow={setShowSignup}/>
         </>
     )
 }
