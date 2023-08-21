@@ -13,11 +13,9 @@ export default function App({ Component, pageProps }) {
     return (<>
         <RouteGuard>
             <Layout>
-                <div className="bg-light">
-                    <Container>
-                        <Component {...pageProps} />
-                    </Container>
-                </div>
+                <Container>
+                    <Component {...pageProps} />
+                </Container>
             </Layout>
         </RouteGuard>
     </>)

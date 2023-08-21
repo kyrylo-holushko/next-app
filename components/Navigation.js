@@ -33,7 +33,7 @@ export default function MainNav() {
         <>
             <Navbar expand="lg" bg="secondary" data-bs-theme="dark">
                 <Container className="px-4">
-                    {loggedIn && <Navbar.Brand href="#">{user.username}</Navbar.Brand>}
+                    {loggedIn && <Navbar.Brand href="#">{user.username.toUpperCase()}</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
