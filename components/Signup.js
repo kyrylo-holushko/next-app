@@ -134,11 +134,13 @@ export default function Signup(props){
                                 passwordConfirmed: e.target.value
                             }))}} 
                             value={form.passwordConfirmed} 
-                            isInvalid={dirty.passwordConfirmed && (errors.passwordConfirmed.empty || errors.passwordConfirmed.minlength)}                                                      
+                            isInvalid={dirty.passwordConfirmed && (errors.passwordConfirmed.empty || errors.passwordConfirmed.minlength || errors.passwordConfirmed.notMatching)}                                                      
                         />
                         <Form.Text className="error">
                             {dirty.passwordConfirmed && errors.passwordConfirmed.empty && "Required Field"}
                             {dirty.passwordConfirmed && errors.passwordConfirmed.minlength && "Minimum 8 characters"}
+                            {dirty.passwordConfirmed && errors.passwordConfirmed.minlength && errors.passwordConfirmed.notMatching && <br/>}
+                            {dirty.passwordConfirmed && errors.passwordConfirmed.notMatching && "Passwords entered do not match"}
                         </Form.Text>                                                       
                     </Form.Group>
                 </Form>
