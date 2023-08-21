@@ -2,6 +2,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
 import { SetShowSignupContext } from "./Navigation";
 import { signupForm } from "../lib/formvalidators";
+import { registerUser } from "../lib/ajax/user";
 
 export default function Signup(props){
 
@@ -11,6 +12,7 @@ export default function Signup(props){
     const [dirty, setDirty] = useState(signupForm.defaultFormDirty);
     const [errors, setErrors] = useState(signupForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
+    const [responded, setResponded] = useState("");
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -27,6 +29,7 @@ export default function Signup(props){
         setForm(signupForm.defaultFormInput);
         setErrors(signupForm.defaultSignupErrors);
         setDirty(signupForm.defaultFormDirty);
+        setResponded("");
         setShow(false);
     }
 
@@ -37,16 +40,23 @@ export default function Signup(props){
         console.log("The Valid state", valid);
         if(valid){
             console.log("VALID FORM");
+            try {
+                const status = await registerUser(form);
+                setResponded(`${status.message}: ${status.data.username}`);
+                //router.push("/login");
+            } catch(err) {
+                setResponded(err.message);
+            }
         }      
     }
 
     return (
-        <Modal show={props.show} onHide={handleClose}>
+        <Modal show={props.show} onHide={handleClose} size={responded && "sm"}>
             <Modal.Header closeButton className="bg-light">
                 <Modal.Title>Sign Up</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                {!responded && <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>User Name</Form.Label>                                                                                     
                         <Form.Control 
@@ -143,13 +153,14 @@ export default function Signup(props){
                             {dirty.passwordConfirmed && errors.passwordConfirmed.notMatching && "Passwords entered do not match"}
                         </Form.Text>                                                       
                     </Form.Group>
-                </Form>
+                </Form>}
+                {responded}
             </Modal.Body>
-            <Modal.Footer>
+            {!responded && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
                 Sign Up
             </Button>
-            </Modal.Footer>
+            </Modal.Footer>}
         </Modal>
     )
 }
