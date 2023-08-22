@@ -1,17 +1,20 @@
 import { Card, Button, Nav } from "react-bootstrap";
 
-
 export default function BagCard(props){
 
+    const { bid, bname } = props.bag;
+
     const handleSelect = (eventKey) => {
-        switch(eventKey){
-            case "edit":
-                props.setShowBagEdit(true);
-                break;
-            case "delete":
-                props.setShowBagDelete(true);
-                break;
-        }
+        props.setBag(bid).then(()=>{
+            switch(eventKey){
+                case "edit":    
+                    props.setShowBagEdit(true);
+                    break;
+                case "delete":
+                    props.setShowBagDelete(true);
+                    break;
+            }
+        }); 
     };
 
     return (
@@ -28,12 +31,11 @@ export default function BagCard(props){
                     </Nav>
                 </Card.Header>
                 <Card.Body>
-                    <Card.Title>Special title treatment</Card.Title>
-                    <Card.Text>
-                    With supporting text below as a natural lead-in to additional content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Card.Title>{bname ? bname : null}</Card.Title>         
                 </Card.Body>
+                <Card.Footer className="text-center">
+                    <Button variant="primary">OPEN</Button>
+                </Card.Footer>
             </Card>
         </>
     )
