@@ -9,6 +9,8 @@ import BagCreate from "../components/bag/BagCreate";
 
 export default function Bags(){
 
+    const [bagData, setBagData]= useState(false);
+    const [errMsg, setErrMsg] = useState(false);
     const [showBagCreate, setShowBagCreate] = useState(false);
     const [showBagEdit, setShowBagEdit] = useState(false);
     const [showBagDelete, setShowBagDelete] = useState(false);
@@ -17,11 +19,6 @@ export default function Bags(){
     /* const
     const handleShowBagEdit = () => setShowBagEdit(true);
     const handleShowBagDelete = () => setShowBagDelete(true); */
-
-
-
-    const[bagData, setBagData]= useState(false);
-    const[errMsg, setErrMsg] = useState(false);
 
     useEffect(()=>{
         getBags().then(bags=>{
@@ -50,7 +47,6 @@ export default function Bags(){
             <BagCreate show={showBagCreate} setShow={setShowBagCreate}></BagCreate>
             <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId}></BagEdit>
             <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId}></BagDelete>
-            
         </>
     )
 }

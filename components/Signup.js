@@ -1,6 +1,6 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from 'react';
-import { signupForm } from "../lib/formvalidators";
+import { signupForm } from "../lib/form/uservalidators";
 import { registerUser } from "../lib/ajax/user";
 
 export default function Signup(props){

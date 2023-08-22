@@ -1,6 +1,6 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
-import { loginForm } from "../lib/formvalidators";
+import { loginForm } from "../lib/form/uservalidators";
 import { authenticateUser } from "../lib/ajax/user";
 import { readToken } from "../lib/authenticate";
 import { SetUserContext } from "./RouteGuard";
