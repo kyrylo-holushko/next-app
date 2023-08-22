@@ -1,18 +1,21 @@
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
-import { useState, createContext, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
 import { isAuthenticated, removeToken } from "../lib/authenticate"; // use remove for logout
 import { UserContext } from "./RouteGuard";
 import Link from "next/link";
 
-export const SetShowSignupContext = createContext();
-export const SetShowLoginContext = createContext();
+/* export const SetShowSignupContext = createContext();
+export const SetShowLoginContext = createContext(); */
 
 export default function MainNav() {
 
     const token = isAuthenticated();
     const user = useContext(UserContext);
+
+    const [showSignup, setShowSignup] = useState(false); //Was missing 
+    const [showLogin, setShowLogin] = useState(false);    //was missing
 
     const handleShowSignup = () => setShowSignup(true);
     const handleShowLogin = () => setShowLogin(true);
