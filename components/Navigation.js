@@ -4,6 +4,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import { isAuthenticated, removeToken } from "../lib/authenticate"; // use remove for logout
 import { UserContext } from "./RouteGuard";
+import Link from "next/link";
 
 export const SetShowSignupContext = createContext();
 export const SetShowLoginContext = createContext();
@@ -31,7 +32,7 @@ export default function MainNav() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            {loggedIn && <Nav.Link href="#bags">Bags</Nav.Link>}
+                            {loggedIn && <Link href="/bags" legacyBehavior passHref><Nav.Link href="#bags">Bags</Nav.Link></Link>}
                         </Nav>
                         <Nav className="ml-auto">
                             {loggedIn && <Nav.Link href="#settings">Settings</Nav.Link>}
