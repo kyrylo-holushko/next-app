@@ -14,26 +14,9 @@ export default function App({ Component, pageProps }) {
     return (<>
         <RouteGuard>
             <Layout>
-                <SWRConfig 
-                    value={{fetcher: async url => {
-                    const res = await fetch(url, {method: "GET",
-                    headers: {
-                        "authorization": `JWT ${getToken()}`,
-                        "content-type": "application/json"
-                    }});
-                    if (!res.ok) {
-                        const error = new Error('An error occurred while fetching the data.')
-                        error.info = await res.json()
-                        error.status = res.status
-                        throw error
-                    }
-                    return res.json()
-                    }
-                    }}>
-                    <Container>
-                        <Component {...pageProps} />
-                    </Container>
-                </SWRConfig>
+                <Container>
+                    <Component {...pageProps} />
+                </Container>
             </Layout>
         </RouteGuard>
     </>)
