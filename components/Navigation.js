@@ -1,6 +1,4 @@
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
-/* import { useAtom } from "jotai";
-import { userAtom } from "../store"; */
 import { useState, createContext, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
@@ -13,11 +11,7 @@ export const SetShowLoginContext = createContext();
 export default function MainNav() {
 
     const token = isAuthenticated();
-
     const user = useContext(UserContext);
-
-    const [showSignup, setShowSignup] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);      //set to false when loggout
 
     const handleShowSignup = () => setShowSignup(true);
     const handleShowLogin = () => setShowLogin(true);
