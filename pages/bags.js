@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { getBags } from "../lib/ajax/bag"
-import { Row } from "react-bootstrap";
-import { Button } from "bootstrap";
+import { Row, Button } from "react-bootstrap";
 import BagCard from "../components/bag/BagCard";
 import BagEdit from "../components/bag/BagEdit";
 import BagDelete from "../components/bag/BagDelete";
