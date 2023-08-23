@@ -11,7 +11,7 @@ export default function Signup(props){
     const router = useRouter();
     const setShow = props.setShow;
     const setUser = useContext(SetUserContext);
-    var apiResMsg = "";
+
     const [form, setForm] = useState(loginForm.defaultFormInput);
     const [dirty, setDirty] = useState(loginForm.defaultFormDirty);
     const [errors, setErrors] = useState(loginForm.defaultSignupErrors);

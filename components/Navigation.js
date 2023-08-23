@@ -1,21 +1,20 @@
-import { Container, Navbar, Nav, Button } from "react-bootstrap";
+import { Container, Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
-import { isAuthenticated, removeToken } from "../lib/authenticate"; // use remove for logout
+import { isAuthenticated, removeToken } from "../lib/authenticate";
 import { UserContext } from "./RouteGuard";
 import Link from "next/link";
-
-/* export const SetShowSignupContext = createContext();
-export const SetShowLoginContext = createContext(); */
+import { useRouter } from "next/router";
 
 export default function MainNav() {
 
+    const router = useRouter();
     const token = isAuthenticated();
     const user = useContext(UserContext);
 
-    const [showSignup, setShowSignup] = useState(false); //Was missing 
-    const [showLogin, setShowLogin] = useState(false);    //was missing
+    const [showSignup, setShowSignup] = useState(false); 
+    const [showLogin, setShowLogin] = useState(false);   
 
     const handleShowSignup = () => setShowSignup(true);
     const handleShowLogin = () => setShowLogin(true);
@@ -26,6 +25,12 @@ export default function MainNav() {
         if((user.username!==undefined) && token)
             setLoggedIn(true);
     }, [user]);
+
+    function logout() {
+        setLoggedIn(false);
+        removeToken();
+        router.push("/login");
+    };
 
     return (
         <>
@@ -38,7 +43,9 @@ export default function MainNav() {
                             {loggedIn && <Link href="/bags" legacyBehavior passHref><Nav.Link href="#bags">Bags</Nav.Link></Link>}
                         </Nav>
                         <Nav className="ms-auto">
-                            {loggedIn && <Nav.Link href="#settings">Settings</Nav.Link>}
+                            {loggedIn && <NavDropdown title="Settings" id="basic-nav-dropdown">
+                                <NavDropdown.Item onClick={(e)=>{logout()}}>Logout</NavDropdown.Item>
+                            </NavDropdown>}
                             {!loggedIn && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
                             {!loggedIn && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
                         </Nav>
@@ -49,4 +56,4 @@ export default function MainNav() {
             <Signup show={showSignup} setShow={setShowSignup}/>
         </>
     )
-}
+}        

@@ -8,8 +8,6 @@ export default function BagCreate(props){
     const setShow = props.setShow;
     const setWrite = props.setWrite;
 
-    var apiResMsg = "";
-
     const [form, setForm] = useState(bagForm.defaultFormInput);
     const [dirty, setDirty] = useState(bagForm.defaultFormDirty);
     const [errors, setErrors] = useState(bagForm.defaultSignupErrors);
@@ -44,8 +42,7 @@ export default function BagCreate(props){
     async function submitForm(e) {
         if(valid){
             createBag(form).then(res=>{
-                apiResMsg = `${res.message}: ${res.data.bname}`;
-                setResMsg(apiResMsg);
+                setResMsg(`${res.message}: ${res.data.bname}`);
                 setWrite(true);
             }).catch(e=>{setResMsg(e.message)});
         }      

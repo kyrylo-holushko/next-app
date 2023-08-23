@@ -6,7 +6,7 @@ import { registerUser } from "../lib/ajax/user";
 export default function Signup(props){
 
     const setShow = props.setShow;
-    var apiResMsg = "";
+
     const [form, setForm] = useState(signupForm.defaultFormInput);
     const [dirty, setDirty] = useState(signupForm.defaultFormDirty);
     const [errors, setErrors] = useState(signupForm.defaultSignupErrors);
@@ -41,8 +41,7 @@ export default function Signup(props){
     async function submitForm(e) {
         if(valid){
             registerUser(form).then(res=>{
-                apiResMsg = `${res.message}: ${res.data.username}`;
-                setResMsg(apiResMsg);
+                setResMsg(`${res.message}: ${res.data.username}`);
             }).catch(e=>{setResMsg(e.message)});
         }      
     }
