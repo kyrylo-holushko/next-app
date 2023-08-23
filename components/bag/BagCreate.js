@@ -1,6 +1,6 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from 'react';
-import { bagForm } from "../lib/form/bagvalidators";
+import { bagForm } from "../../lib/form/bagvalidators";
 import { createBag } from "../lib/ajax/bag";
 
 export default function BagCreate(props){
@@ -9,7 +9,7 @@ export default function BagCreate(props){
     const setWrite = props.setWrite;
 
     var apiResMsg = "";
-    
+
     const [form, setForm] = useState(bagForm.defaultFormInput);
     const [dirty, setDirty] = useState(bagForm.defaultFormDirty);
     const [errors, setErrors] = useState(bagForm.defaultSignupErrors);
