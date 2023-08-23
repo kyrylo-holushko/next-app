@@ -15,6 +15,7 @@ export default function Bags(){
     const [showBagEdit, setShowBagEdit] = useState(false);
     const [showBagDelete, setShowBagDelete] = useState(false);
     const [bagId, setBagId] = useState(false);
+    const [writeReq, setWriteReq] = useState(false);
 
     /* const
     const handleShowBagEdit = () => setShowBagEdit(true);
@@ -24,7 +25,8 @@ export default function Bags(){
         getBags().then(bags=>{
             setBagData(bags);
         }).catch(e=>{setErrMsg(e.message)});
-    },[]);
+        if(writeReq) setWriteReq(false);
+    },[writeReq]);
 
     return (
         <>
@@ -44,9 +46,9 @@ export default function Bags(){
                 <Button size="lg" onClick={setShowBagCreate(true)}>Create Bag +</Button>
                 {errMsg && <h4>{errMsg}</h4>}
             </Row>
-            <BagCreate show={showBagCreate} setShow={setShowBagCreate}></BagCreate>
-            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId}></BagEdit>
-            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId}></BagDelete>
+            <BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
+            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId} setWrite={setWriteReq}></BagEdit>
+            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId} setWrite={setWriteReq}></BagDelete>
         </>
     )
 }
