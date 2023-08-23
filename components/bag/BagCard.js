@@ -3,18 +3,18 @@ import { Card, Button, Nav } from "react-bootstrap";
 export default function BagCard(props){
 
     const { bid, bname } = props.bag;
+    const setBag = props.setBag;
 
     const handleSelect = (eventKey) => {
-        props.setBag(bid).then(()=>{
-            switch(eventKey){
-                case "edit":
-                    props.setShowBagEdit(true);
-                    break;
-                case "delete":
-                    props.setShowBagDelete(true);
-                    break;
-            }
-        }); 
+        setBag(bid);
+        switch(eventKey){
+            case "edit":
+                props.setShowBagEdit(true);
+                break;
+            case "delete":
+                props.setShowBagDelete(true);
+                break;
+        }
     };
 
     return (

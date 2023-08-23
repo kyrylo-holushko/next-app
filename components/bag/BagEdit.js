@@ -53,7 +53,7 @@ export default function BagCreate(props){
     }
 
     return (
-        <Modal show={props.show} onHide={handleClose} size={responded && "sm"}>
+        <Modal show={props.show} onHide={handleClose} size="sm" centered>
             <Modal.Header closeButton className="bg-light">
                 <Modal.Title>Edit Bag</Modal.Title>
             </Modal.Header>

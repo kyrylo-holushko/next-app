@@ -48,7 +48,7 @@ export default function Signup(props){
     }
 
     return (
-        <Modal show={props.show} onHide={handleClose} size={responded && "sm"}>
+        <Modal show={props.show} onHide={handleClose} size={responded && "sm"} centered>
             <Modal.Header closeButton className="bg-light">
                 <Modal.Title>Sign Up</Modal.Title>
             </Modal.Header>
