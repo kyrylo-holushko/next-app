@@ -37,7 +37,7 @@ export default function MainNav() {
                         <Nav className="me-auto">
                             {loggedIn && <Link href="/bags" legacyBehavior passHref><Nav.Link href="#bags">Bags</Nav.Link></Link>}
                         </Nav>
-                        <Nav className="ml-auto">
+                        <Nav className="ms-auto">
                             {loggedIn && <Nav.Link href="#settings">Settings</Nav.Link>}
                             {!loggedIn && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
                             {!loggedIn && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}

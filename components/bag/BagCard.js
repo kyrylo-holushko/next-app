@@ -21,12 +21,12 @@ export default function BagCard(props){
         <>
             <Card>
                 <Card.Header>
-                    <Nav onSelect={handleSelect} className="ml-auto">
+                    <Nav onSelect={handleSelect} className="justify-content-end">
                         <Nav.Item>
-                            <Nav.Link eventKey="edit">Edit</Nav.Link>
+                            <Nav.Link eventKey="edit"><u>Edit</u></Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="delete">Delete</Nav.Link>
+                            <Nav.Link eventKey="delete"><u>Delete</u></Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Card.Header>
