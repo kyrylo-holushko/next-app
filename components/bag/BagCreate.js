@@ -1,7 +1,7 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import { bagForm } from "../../lib/form/bagvalidators";
-import { createBag } from "../lib/ajax/bag";
+import { createBag } from "../../lib/ajax/bag";
 
 export default function BagCreate(props){
 
