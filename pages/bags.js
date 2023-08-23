@@ -9,6 +9,8 @@ import BagCreate from "../components/bag/BagCreate";
 
 export default function Bags(){
 
+    //let bagData;
+
     const [bagData, setBagData]= useState(false);
     const [errMsg, setErrMsg] = useState(false);
     const [showBagCreate, setShowBagCreate] = useState(false);
@@ -17,16 +19,16 @@ export default function Bags(){
     const [bagId, setBagId] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
 
-    /* const
+    const handleShowBagCreate = () => setShowBagCreate(true);
     const handleShowBagEdit = () => setShowBagEdit(true);
-    const handleShowBagDelete = () => setShowBagDelete(true); */
+    const handleShowBagDelete = () => setShowBagDelete(true);
 
     useEffect(()=>{
         getBags().then(bags=>{
             setBagData(bags);
+            //bagData = bags;
         }).catch(e=>{setErrMsg(e.message)});
-        if(writeReq) setWriteReq(false);
-    },[writeReq]);
+    },[]);
 
     return (
         <>
@@ -43,12 +45,24 @@ export default function Bags(){
                     </Col>
                     </>)
                 })}
-                <Button size="lg" onClick={setShowBagCreate(true)}>Create Bag +</Button>
+                <Button size="lg" onClick={handleShowBagCreate}>Create Bag +</Button>
                 {errMsg && <h4>{errMsg}</h4>}
             </Row>
             <BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
             <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId} setWrite={setWriteReq}></BagEdit>
-            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId} setWrite={setWriteReq}></BagDelete>
+            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId} setWrite={setWriteReq}></BagDelete>       
         </>
     )
 }
+
+{/* 
+
+
+
+
+
+
+
+<BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
+            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId} setWrite={setWriteReq}></BagEdit>
+            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId} setWrite={setWriteReq}></BagDelete> */}
