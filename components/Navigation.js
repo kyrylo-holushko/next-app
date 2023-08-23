@@ -29,7 +29,7 @@ export default function MainNav() {
     function logout() {
         setLoggedIn(false);
         removeToken();
-        router.push("/login");
+        router.push("/");
     };
 
     return (
@@ -43,7 +43,7 @@ export default function MainNav() {
                             {loggedIn && <Link href="/bags" legacyBehavior passHref><Nav.Link href="#bags">Bags</Nav.Link></Link>}
                         </Nav>
                         <Nav className="ms-auto">
-                            {loggedIn && <NavDropdown title="Settings" id="basic-nav-dropdown">
+                            {loggedIn && <NavDropdown title="Settings " id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={(e)=>{logout()}}>Logout</NavDropdown.Item>
                             </NavDropdown>}
                             {!loggedIn && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
