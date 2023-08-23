@@ -7,7 +7,7 @@ export default function BagCard(props){
     const handleSelect = (eventKey) => {
         props.setBag(bid).then(()=>{
             switch(eventKey){
-                case "edit":    
+                case "edit":
                     props.setShowBagEdit(true);
                     break;
                 case "delete":
