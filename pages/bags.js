@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getBags } from "../lib/ajax/bag"
-import { Row, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import BagCard from "../components/bag/BagCard";
 import BagEdit from "../components/bag/BagEdit";
 import BagDelete from "../components/bag/BagDelete";
@@ -44,8 +44,10 @@ export default function Bags(){
                     </Col>
                     </>)
                 })}
-                <Button size="lg" onClick={handleShowBagCreate}>Create Bag +</Button>
-                {errMsg && <h4>{errMsg}</h4>}
+                <Col className="text-center">
+                    {errMsg && <h4 className="p-5">{errMsg}</h4>}
+                    <Button size="lg" onClick={handleShowBagCreate}>Create Bag +</Button>
+                </Col>
             </Row>
             <BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
             <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId} setWrite={setWriteReq}></BagEdit>
