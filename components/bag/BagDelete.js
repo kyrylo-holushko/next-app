@@ -1,12 +1,12 @@
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { deleteBag } from "../../lib/ajax/bag";
 import { useState } from "react";
 
 export default function BagDelete(props){
 
     const setShow = props.setShow;
-    const setWrite = props.setWrite;
-    const bid = props.bid;
+    //const setWrite = props.setWrite;
+    const bid = props.bag.bid;
 
     const [resMsg, setResMsg] = useState(false);
 
