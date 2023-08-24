@@ -51,9 +51,9 @@ export default function Bags(){
                     </Col>
                 </Row>
             </Container>
-            <BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
-            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bag={bag} setWrite={setWriteReq}></BagEdit>
-            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bag={bag} setWrite={setWriteReq}></BagDelete>       
+            <BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}/>
+            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bag={bag} setWrite={setWriteReq}/>
+            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bag={bag} setWrite={setWriteReq}/>       
         </>
     )
 }

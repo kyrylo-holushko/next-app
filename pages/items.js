@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { getItems } from "../lib/ajax/item";
 import { Container, Button, Table, Nav } from "react-bootstrap";
 import ItemRow from "../components/item/ItemRow";
+import ItemCreate from "../components/item/itemCreate";
 
 export default function Items(){
 
@@ -55,6 +56,7 @@ export default function Items(){
                     </tbody>
                 </Table>}
             </Container>
+            <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq}/>
         </>
     )
 }

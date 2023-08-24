@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function BagDelete(props){
 
     const setShow = props.setShow;
-    //const setWrite = props.setWrite;
+    const setWrite = props.setWrite;
     const bid = props.bag.bid;
 
     const [resMsg, setResMsg] = useState(false);
@@ -18,7 +18,7 @@ export default function BagDelete(props){
     async function submitForm(e) {
         deleteBag(bid).then(()=>{
             handleClose();
-            props.setWrite(true);
+            setWrite(true);
         }).catch(e=>{setResMsg(e.message)});  
     }
 
