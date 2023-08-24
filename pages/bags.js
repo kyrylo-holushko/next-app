@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { getBags } from "../lib/ajax/bag"
 import { Row, Col, Button, Container } from "react-bootstrap";
 import BagCard from "../components/bag/BagCard";
 import BagEdit from "../components/bag/BagEdit";
 import BagDelete from "../components/bag/BagDelete";
 import BagCreate from "../components/bag/BagCreate";
+import { BagContext } from "./_app";
 
 export default function Bags(){
 
@@ -13,8 +14,8 @@ export default function Bags(){
     const [showBagCreate, setShowBagCreate] = useState(false);
     const [showBagEdit, setShowBagEdit] = useState(false);
     const [showBagDelete, setShowBagDelete] = useState(false);
-    const [bagId, setBagId] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
+    const {bagId, setBagId} = useContext(BagContext);
 
     const handleShowBagCreate = () => setShowBagCreate(true);
     const handleShowBagEdit = () => setShowBagEdit(true);

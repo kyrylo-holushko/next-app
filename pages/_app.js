@@ -1,11 +1,15 @@
 import Layout from '../components/Layout'
 import '@/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect } from "react";
+import { useEffect, useState, createContext } from "react";
 import { Container } from 'react-bootstrap';
 import RouteGuard from '../components/RouteGuard';
 
+export const BagContext = createContext();
+
 export default function App({ Component, pageProps }) {
+
+    const [bagId, setBagId] = useState(false);
 
     useEffect(()=>{
       import("bootstrap/dist/js/bootstrap");
@@ -15,7 +19,9 @@ export default function App({ Component, pageProps }) {
         <RouteGuard>
             <Layout>
                 <Container>
-                    <Component {...pageProps} />
+                    <BagContext.Provider value={{bagId, setBagId}}>
+                        <Component {...pageProps} />
+                    </BagContext.Provider>
                 </Container>
             </Layout>
         </RouteGuard>

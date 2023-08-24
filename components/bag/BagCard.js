@@ -1,6 +1,9 @@
 import { Card, Button, Nav } from "react-bootstrap";
+import { useRouter } from "next/router";
 
 export default function BagCard(props){
+
+    const router = useRouter();
 
     const { bid, bname } = props.bag;
     const setBag = props.setBag;
@@ -15,6 +18,11 @@ export default function BagCard(props){
                 props.setShowBagDelete(true);
                 break;
         }
+    };
+
+    const openBag = () => {
+        setBag(bid);
+        router.push("/items");
     };
 
     return (
@@ -34,7 +42,7 @@ export default function BagCard(props){
                     <Card.Title>{bname ? bname : null}</Card.Title>         
                 </Card.Body>
                 <Card.Footer className="text-center">
-                    <Button variant="primary">OPEN</Button>
+                    <Button variant="primary" onClick={openBag}>OPEN</Button>
                 </Card.Footer>
             </Card>
         </>
