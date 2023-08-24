@@ -2,16 +2,16 @@ import { Container, Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
-import { isAuthenticated, removeToken } from "../lib/authenticate";
-import { UserContext } from "./RouteGuard";
+import { isAuthenticated, removeToken, readToken } from "../lib/authenticate";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { NavContext } from "./Layout";
 
 export default function MainNav() {
 
     const router = useRouter();
     const token = isAuthenticated();
-    const user = useContext(UserContext);
+    const { navUpdate, setNavUpdate } = useContext(NavContext);
 
     const [showSignup, setShowSignup] = useState(false); 
     const [showLogin, setShowLogin] = useState(false);   
@@ -22,13 +22,13 @@ export default function MainNav() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(()=>{
-        if((user.username!==undefined) && token)
-            setLoggedIn(true);
-    }, [user]);
+        setNavUpdate(false);
+    }, [navUpdate]);
 
     function logout() {
-        setLoggedIn(false);
         removeToken();
+        setNavUpdate(true);
+        setLoggedIn(false);
         router.push("/");
     };
 
@@ -36,18 +36,18 @@ export default function MainNav() {
         <>
             <Navbar expand="lg" bg="secondary" data-bs-theme="dark">
                 <Container className="px-4">
-                    {loggedIn && <Navbar.Brand href="#">{user.username.toUpperCase()}</Navbar.Brand>}
+                    {token && <Navbar.Brand href="#">{readToken().username.toUpperCase()}</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            {loggedIn && <Link href="/bags" legacyBehavior passHref><Nav.Link href="#bags">Bags</Nav.Link></Link>}
+                            {token && <Link href="/bags" legacyBehavior passHref><Nav.Link href="#bags">Bags</Nav.Link></Link>}
                         </Nav>
                         <Nav className="ms-auto">
-                            {loggedIn && <NavDropdown title="Settings " id="basic-nav-dropdown">
+                            {token && <NavDropdown title="Settings " id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={(e)=>{logout()}}>Logout</NavDropdown.Item>
                             </NavDropdown>}
-                            {!loggedIn && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
-                            {!loggedIn && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
+                            {!token && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
+                            {!token && <Button variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -2,15 +2,14 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useContext, useState, useEffect } from 'react';
 import { loginForm } from "../lib/form/uservalidators";
 import { authenticateUser } from "../lib/ajax/user";
-import { readToken } from "../lib/authenticate";
-import { SetUserContext } from "./RouteGuard";
 import { useRouter } from "next/router";
+import { NavContext } from "./Layout";
 
 export default function Signup(props){
 
     const router = useRouter();
     const setShow = props.setShow;
-    const setUser = useContext(SetUserContext);
+    const { setNavUpdate } = useContext(NavContext);
 
     const [form, setForm] = useState(loginForm.defaultFormInput);
     const [dirty, setDirty] = useState(loginForm.defaultFormDirty);
@@ -53,7 +52,7 @@ export default function Signup(props){
             console.log("VALID FORM");
             authenticateUser(form).then(res=>{
                 handleClose();
-                setUser(readToken()); 
+                setNavUpdate(true); 
                 router.push("/bags");
             }).catch(e=>{setResMsg(e.message)});
         }      

@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from "react";
 import { Container } from 'react-bootstrap';
 import RouteGuard from '../components/RouteGuard';
-import { getToken } from '../lib/authenticate';
 
 export default function App({ Component, pageProps }) {
+
     useEffect(()=>{
       import("bootstrap/dist/js/bootstrap");
     },[])

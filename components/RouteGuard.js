@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { isAuthenticated } from '../lib/authenticate';
-import { createContext } from 'react';
-
-export const UserContext = createContext();
-export const SetUserContext = createContext();
 
 const PUBLIC_PATHS = ['/', '/_error'];
 
@@ -12,7 +8,6 @@ export default function RouteGuard(props) {
 
     const router = useRouter();
 
-    const [user, setUser] = useState({});
     const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
@@ -36,11 +31,7 @@ export default function RouteGuard(props) {
 
     return (
         <>
-            <SetUserContext.Provider value={setUser}>
-                <UserContext.Provider value={user}>
-                    {authorized && props.children}
-                </UserContext.Provider>
-            </SetUserContext.Provider>
+            {authorized && props.children}
         </>
     )
 }
