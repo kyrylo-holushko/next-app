@@ -13,8 +13,8 @@ export default function BagCreate(props){
     const [dirty, setDirty] = useState(bagForm.defaultFormDirty);
     const [errors, setErrors] = useState(bagForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
-    const [responded, setResponded] = useState(false);
-    const [resMsg, setResMsg] = useState("");
+    //const [responded, setResponded] = useState(false);
+    const [resMsg, setResMsg] = useState(false);
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -26,24 +26,23 @@ export default function BagCreate(props){
         bagForm.formValidator(errors, setValid);
     }, [errors]);
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         if(resMsg.length)
             setResponded(true);
-    }, [resMsg]);
+    }, [resMsg]); */
 
     const handleClose = () => {
         setShow(false);
         setForm(bagForm.defaultFormInput);
         setErrors(bagForm.defaultSignupErrors);
         setDirty(bagForm.defaultFormDirty);
-        setResponded(false);
-        setResMsg("");
+        if(resMsg) setResMsg(false);
     }
 
     async function submitForm(e) {
         if(valid){
             editBag(form, bid).then(res=>{
-                setResMsg(`${res.message}: ${res.data.bname}`);
+                //setResMsg(`${res.message}: ${res.data.bname}`);
                 setWrite(true);
             }).catch(e=>{setResMsg(e.message)});
         }      
@@ -55,7 +54,7 @@ export default function BagCreate(props){
                 <Modal.Title>Edit Bag</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!responded && <Form>
+                {!resMsg ? <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>New Bag Name</Form.Label>                                                                                    
                         <Form.Control 
@@ -79,10 +78,9 @@ export default function BagCreate(props){
                             {dirty.bname && errors.bname.maxlength && "Maximum 20 characters"}
                         </Form.Text>                                                                         
                     </Form.Group>
-                </Form>}
-                {responded && resMsg}
+                </Form> : resMsg}
             </Modal.Body>
-            {!responded && <Modal.Footer>
+            {!resMsg && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
                 Update Bag
             </Button>

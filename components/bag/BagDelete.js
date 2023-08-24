@@ -12,6 +12,7 @@ export default function BagDelete(props){
 
     const handleClose = () => {
         setShow(false);
+        if(resMsg) setResMsg(false);
     }
 
     async function submitForm(e) {
@@ -27,13 +28,13 @@ export default function BagDelete(props){
                 <Modal.Title>Delete Bag</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {resMsg ? resMsg : <h5>Are you sure you want to delete this bag?</h5>}
+                {!resMsg ? <h5>Are you sure you want to delete this bag?</h5> : resMsg}
             </Modal.Body>
-            <Modal.Footer>
+            {!resMsg && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
                 Confirm
             </Button>
-            </Modal.Footer>
+            </Modal.Footer>}
         </Modal>
     )
 }
