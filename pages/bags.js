@@ -15,7 +15,7 @@ export default function Bags(){
     const [showBagEdit, setShowBagEdit] = useState(false);
     const [showBagDelete, setShowBagDelete] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
-    const {bagId, setBagId} = useContext(BagContext);
+    const { bag, setBag } = useContext(BagContext);
 
     const handleShowBagCreate = () => setShowBagCreate(true);
     const handleShowBagEdit = () => setShowBagEdit(true);
@@ -40,7 +40,7 @@ export default function Bags(){
                                 bag={bag} 
                                 setShowBagEdit={setShowBagEdit} 
                                 setShowBagDelete={setShowBagDelete}
-                                setBag={setBagId}
+                                setBag={setBag}
                             />
                         </Col>
                         </>)
@@ -52,8 +52,8 @@ export default function Bags(){
                 </Row>
             </Container>
             <BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
-            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId} setWrite={setWriteReq}></BagEdit>
-            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId} setWrite={setWriteReq}></BagDelete>       
+            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bag={bag} setWrite={setWriteReq}></BagEdit>
+            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bag={bag} setWrite={setWriteReq}></BagDelete>       
         </>
     )
 }

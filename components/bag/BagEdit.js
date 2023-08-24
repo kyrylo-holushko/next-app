@@ -7,7 +7,7 @@ export default function BagCreate(props){
 
     const setShow = props.setShow;
     const setWrite = props.setWrite;
-    const bid = props.bid;
+    const bid = props.bag.bid;
 
     const [form, setForm] = useState(bagForm.defaultFormInput);
     const [dirty, setDirty] = useState(bagForm.defaultFormDirty);

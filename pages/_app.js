@@ -9,7 +9,7 @@ export const BagContext = createContext();
 
 export default function App({ Component, pageProps }) {
 
-    const [bagId, setBagId] = useState(false);
+    const [bag, setBag] = useState(false);
 
     useEffect(()=>{
       import("bootstrap/dist/js/bootstrap");
@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
         <RouteGuard>
             <Layout>
                 <Container>
-                    <BagContext.Provider value={{bagId, setBagId}}>
+                    <BagContext.Provider value={{bag, setBag}}>
                         <Component {...pageProps} />
                     </BagContext.Provider>
                 </Container>

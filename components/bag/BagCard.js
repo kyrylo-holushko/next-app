@@ -9,7 +9,7 @@ export default function BagCard(props){
     const setBag = props.setBag;
 
     const handleSelect = (eventKey) => {
-        setBag(bid);
+        setBag({ bid, bname });
         switch(eventKey){
             case "edit":
                 props.setShowBagEdit(true);
@@ -21,7 +21,7 @@ export default function BagCard(props){
     };
 
     const openBag = () => {
-        setBag(bid);
+        setBag({ bid, bname });
         router.push("/items");
     };
 
