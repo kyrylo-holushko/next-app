@@ -2,6 +2,7 @@ import { BagContext } from "./_app";
 import { useContext, useEffect, useState } from "react";
 import { getItems } from "../lib/ajax/item";
 import { Container, Button, Table, Nav } from "react-bootstrap";
+import ItemRow from "../components/item/ItemRow";
 
 export default function Items(){
 
@@ -12,6 +13,7 @@ export default function Items(){
     const [errMsg, setErrMsg] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
     const [item, setItem] = useState(false);
+    const [showItemCreate, setShowItemCreate] = useState(false);
 
     useEffect(()=>{
         getItems(bagId).then(items=>{
@@ -25,27 +27,17 @@ export default function Items(){
         //show item modal
     }; */
 
-    function showItemDetails() {
-        //Show modal here with item details
+    const handleShowItemDetails = () => { 
+        //Show modal here with item details 
     };
 
-    const handleSelect = (eventKey) => {
-        setItem({ bid, bname });
-        switch(eventKey){
-            case "edit":
-                props.setShowBagEdit(true);
-                break;
-            case "delete":
-                props.setShowBagDelete(true);
-                break;
-        }
-    };
+    const handleShowItemCreate = () => setShowItemCreate(true);
 
     return (
         <>
             <Container className="p-5">
                 <h1>{bagName}</h1>
-                <Button>Add Item +</Button>
+                <Button variant="outline-secondary" onClick={handleShowItemCreate}>Add Item +</Button>
                 {errMsg && <h4 className="p-5">{errMsg}</h4>}
                 {itemData && <Table>
                     <thead>
@@ -58,21 +50,7 @@ export default function Items(){
                     </thead>
                     <tbody>
                         {itemData.map((item, i) => (
-                            <tr key={i} onClick={e=>{showItemDetails}}>
-                                <td>{item.iname}</td>
-                                <td>{item.idesc}</td>
-                                <td>{item.priority}</td>
-                                <td>
-                                    <Nav onSelect={handleSelect}>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="edit"><u>Edit</u></Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="delete"><u>Delete</u></Nav.Link>
-                                        </Nav.Item>
-                                    </Nav>
-                                </td>
-                            </tr> 
+                            <ItemRow key={i} /*onClick={showItemDetails}*/ item={item}/>  
                         ))}
                     </tbody>
                 </Table>}
