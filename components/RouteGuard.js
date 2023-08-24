@@ -16,7 +16,6 @@ export default function RouteGuard(props) {
     const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
-    //if(isAuthenticated()) updateAtoms(); //pulling upon authetication
         authCheck(router.pathname);
         router.events.on('routeChangeComplete', authCheck)
 

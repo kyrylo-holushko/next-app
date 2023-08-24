@@ -1,6 +1,6 @@
 import { Button, Modal, Form } from "react-bootstrap";
-import { useState, useEffect } from 'react';
 import { deleteBag } from "../../lib/ajax/bag";
+import { useState } from "react";
 
 export default function BagDelete(props){
 
@@ -8,24 +8,16 @@ export default function BagDelete(props){
     const setWrite = props.setWrite;
     const bid = props.bid;
 
-    const [responded, setResponded] = useState(false);
-    const [resMsg, setResMsg] = useState("");
-
-    useEffect(()=>{
-        if(resMsg.length)
-            setResponded(true);
-    }, [resMsg]);
+    const [resMsg, setResMsg] = useState(false);
 
     const handleClose = () => {
         setShow(false);
-        setResponded(false);
-        setResMsg("");
     }
 
     async function submitForm(e) {
-        deleteBag(bid).then(res=>{
-            setResMsg(`${res.message}: ${res.data.bname}`);
-            setWrite(true);
+        deleteBag(bid).then(()=>{
+            handleClose();
+            props.setWrite(true);
         }).catch(e=>{setResMsg(e.message)});  
     }
 
@@ -35,14 +27,13 @@ export default function BagDelete(props){
                 <Modal.Title>Delete Bag</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!responded && <h5>Are you sure you want to delete this bag?</h5>}
-                {responded && resMsg}
+                {resMsg ? resMsg : <h5>Are you sure you want to delete this bag?</h5>}
             </Modal.Body>
-            {!responded && <Modal.Footer>
+            <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
                 Confirm
             </Button>
-            </Modal.Footer>}
+            </Modal.Footer>
         </Modal>
     )
 }

@@ -23,7 +23,9 @@ export default function Bags(){
     useEffect(()=>{
         getBags().then(bags=>{
             setBagData(bags);
-        }).catch(e=>{setErrMsg(e.message)});
+            setErrMsg(false);
+        }).catch(e=>{setBagData(false);setErrMsg(e.message)});           
+        setWriteReq(false);
     },[writeReq]);
 
     return (
