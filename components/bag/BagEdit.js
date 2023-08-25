@@ -13,7 +13,6 @@ export default function BagCreate(props){
     const [dirty, setDirty] = useState(bagForm.defaultFormDirty);
     const [errors, setErrors] = useState(bagForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
-    //const [responded, setResponded] = useState(false);
     const [resMsg, setResMsg] = useState(false);
 
     useEffect(()=>{
@@ -26,11 +25,6 @@ export default function BagCreate(props){
         bagForm.formValidator(errors, setValid);
     }, [errors]);
 
-    /* useEffect(()=>{
-        if(resMsg.length)
-            setResponded(true);
-    }, [resMsg]); */
-
     const handleClose = () => {
         setShow(false);
         setForm(bagForm.defaultFormInput);
@@ -42,7 +36,7 @@ export default function BagCreate(props){
     async function submitForm(e) {
         if(valid){
             editBag(form, bid).then(res=>{
-                //setResMsg(`${res.message}: ${res.data.bname}`);
+                handleClose();
                 setWrite(true);
             }).catch(e=>{setResMsg(e.message)});
         }      

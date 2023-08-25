@@ -12,7 +12,6 @@ export default function BagCreate(props){
     const [dirty, setDirty] = useState(bagForm.defaultFormDirty);
     const [errors, setErrors] = useState(bagForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
-    //const [responded, setResponded] = useState(false);
     const [resMsg, setResMsg] = useState(false);
 
     useEffect(()=>{
@@ -24,11 +23,6 @@ export default function BagCreate(props){
     useEffect(()=>{
         bagForm.formValidator(errors, setValid);
     }, [errors]);
-
-    /* useEffect(()=>{
-        if(resMsg.length)
-            setResponded(true);
-    }, [resMsg]); */
 
     const handleClose = () => {
         setShow(false);
