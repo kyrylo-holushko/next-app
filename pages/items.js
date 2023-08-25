@@ -8,7 +8,7 @@ import ItemCreate from "../components/item/itemCreate";
 export default function Items(){
 
     const { bag } = useContext(BagContext);
-    const bid = bag.bid;
+    const bagId = bag.bid;
     const bagName = bag.bname;
     const [itemData, setItemData] = useState(false);
     const [errMsg, setErrMsg] = useState(false);
@@ -20,7 +20,7 @@ export default function Items(){
         getItems(bagId).then(items=>{
             setItemData(items);
             setErrMsg(false);
-        }).catch(e=>{setBagData(false);setErrMsg(e.message)});           
+        }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
     },[writeReq]);
 
