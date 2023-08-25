@@ -103,7 +103,9 @@ export default function ItemCreate(props){
                     <Form.Group className="mb-3">
                         <Form.Label>Priority</Form.Label>                                                                                    
                         <Form.Control 
-                            type="number"                                                              
+                            type="number" 
+                            min="1"
+                            max="10"                                                             
                             onChange={e=>{
                                 if(!dirty.password){
                                     setDirty(current=>({
