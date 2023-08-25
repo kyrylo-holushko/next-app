@@ -7,12 +7,12 @@ export default function ItemCreate(props){
 
     const setShow = props.setShow;
     const setWrite = props.setWrite;
+    const bagId = props.bid;
 
     const [form, setForm] = useState(itemForm.defaultFormInput);
     const [dirty, setDirty] = useState(itemForm.defaultFormDirty);
     const [errors, setErrors] = useState(itemForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
-    //const [responded, setResponded] = useState(false);
     const [resMsg, setResMsg] = useState(false);
 
     useEffect(()=>{
@@ -25,10 +25,12 @@ export default function ItemCreate(props){
         itemForm.formValidator(errors, setValid);
     }, [errors]);
 
-    /* useEffect(()=>{
-        if(resMsg.length)
-            setResponded(true);
-    }, [resMsg]); */
+    useEffect(()=>{
+        setForm(current=>({
+            ...current,
+            bid: bagId
+        }));
+    }, []);
 
     const handleClose = () => {
         setShow(false);

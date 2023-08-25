@@ -58,7 +58,7 @@ export default function Items(){
                     </tbody>
                 </Table>}
             </Container>
-            <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq}/>
+            <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
         </>
     )
 }
