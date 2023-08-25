@@ -55,7 +55,7 @@ export default function ItemCreate(props){
             <Modal.Body>
                 {!resMsg ? <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label>Item Name</Form.Label>                                                                                    
+                        <Form.Label>Name</Form.Label>                                                                                    
                         <Form.Control 
                             type="text"                                                                 
                             onChange={e=>{
@@ -78,7 +78,7 @@ export default function ItemCreate(props){
                         </Form.Text>                                                                         
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Item Description</Form.Label>                                                                                    
+                        <Form.Label>Description</Form.Label>                                                                                    
                         <Form.Control 
                             as="textarea" 
                             rows={5}                                                                 
@@ -101,7 +101,7 @@ export default function ItemCreate(props){
                         </Form.Text>                                                                         
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Item Priority</Form.Label>                                                                                    
+                        <Form.Label>Priority</Form.Label>                                                                                    
                         <Form.Control 
                             type="number"                                                              
                             onChange={e=>{
@@ -115,7 +115,7 @@ export default function ItemCreate(props){
                                 ...current,
                                 priority: e.target.value
                             }))}} 
-                            value={form.idesc}
+                            value={form.priority}
                             isInvalid={dirty.priority && (errors.priority.notNumericAndWhole||errors.priority.minMax)}                                                     
                         /> 
                         <Form.Text className="error">
