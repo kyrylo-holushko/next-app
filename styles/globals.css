@@ -3,5 +3,15 @@
 }
 
 body {
-    background-color: #eee !important
+    background-color: #eee !important;
+}
+
+.idesc, .iname {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.tablefixed {
+    table-layout: fixed !important;
 }

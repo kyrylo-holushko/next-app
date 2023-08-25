@@ -36,13 +36,21 @@ export default function Items(){
 
     return (
         <>
+            <style jsx>{`
+				.idesclocal {
+                    white-space: nowrap !important;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                }
+			`}</style>
             <Container className="px-5">
                 <Row>
-                    <Col sm md lg className="my-auto pt-4"><h2 className="d-inline">{bagName.toUpperCase()}</h2></Col>
-                    <Col md lg className="pt-4"><Button className="border-2" variant="outline-secondary" onClick={handleShowItemCreate} size="lg">Add Item +</Button></Col>
+                    <Col sm md lg className="my-auto pt-4"><h2 className="d-inline">{bagName?.toUpperCase()}</h2></Col>
+                    <Col md lg className="pt-4"><Button className="border-2 float-end" variant="outline-secondary" onClick={handleShowItemCreate} size="lg">Add Item +</Button></Col>
                 </Row>
                 {errMsg && <h4 className="pt-4">{errMsg}</h4>}
-                {itemData && <Table>
+                {itemData && <Row className="pt-4"> 
+                <Table className="tablefixed" striped bordered hover>
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -56,7 +64,8 @@ export default function Items(){
                             <ItemRow key={i} /*onClick={showItemDetails}*/ item={item}/>  
                         ))}
                     </tbody>
-                </Table>}
+                </Table>
+                </Row>}
             </Container>
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
         </>
