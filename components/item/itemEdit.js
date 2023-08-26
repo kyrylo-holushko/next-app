@@ -7,7 +7,7 @@ export default function ItemEdit(props){
 
     const setShow = props.setShow;
     const setWrite = props.setWrite;
-    //const bagId = props.bid; get iid instead
+    const itemId = props.iid;
 
     const [form, setForm] = useState(itemForm.defaultFormInput);
     const [dirty, setDirty] = useState(itemForm.defaultFormDirty);
@@ -25,13 +25,6 @@ export default function ItemEdit(props){
         itemForm.formValidator(errors, setValid);
     }, [errors]);
 
-    /* useEffect(()=>{     //unneccessary because when the bag was first created it set the bid
-        setForm(current=>({
-            ...current,
-            bid: bagId
-        }));
-    }, []);
- */
     const handleClose = () => {
         setShow(false);
         setForm(itemForm.defaultFormInput);
@@ -42,7 +35,7 @@ export default function ItemEdit(props){
 
     async function submitForm(e) {
         if(valid){
-            editItem(form,).then(res=>{
+            editItem(form, itemId).then(res=>{
                 handleClose();
                 setWrite(true);
             }).catch(e=>{setResMsg(e.message)});

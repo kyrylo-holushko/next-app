@@ -3,9 +3,10 @@ import { Nav, Row } from "react-bootstrap"
 export default function ItemRow(props) {
 
     const { iid, iname, idesc, priority } = props.item;
+    const setItemId = props.setItemId;
 
     const handleSelect = (eventKey) => {
-        setItem(iid);
+        setItemId(iid);
         switch(eventKey){
             case "edit":
                 //props.setShowBagEdit(true);

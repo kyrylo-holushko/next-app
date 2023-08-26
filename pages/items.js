@@ -4,6 +4,7 @@ import { getItems } from "../lib/ajax/item";
 import { Container, Button, Table, Row, Col } from "react-bootstrap";
 import ItemRow from "../components/item/ItemRow";
 import ItemCreate from "../components/item/itemCreate";
+import ItemEdit from "../components/item/itemEdit";
 
 export default function Items(){
 
@@ -13,8 +14,9 @@ export default function Items(){
     const [itemData, setItemData] = useState(false);
     const [errMsg, setErrMsg] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
-    const [item, setItem] = useState(false);
+    const [itemId, setItemId] = useState(false);
     const [showItemCreate, setShowItemCreate] = useState(false);
+    const [showItemEdit, setShowItemEdit] = useState(false);
 
     useEffect(()=>{
         getItems(bagId).then(items=>{
@@ -33,6 +35,7 @@ export default function Items(){
     };
 
     const handleShowItemCreate = () => setShowItemCreate(true);
+    const handleShowItemEdit = () => setShowItemEdit(true);
 
     return (
         <>
@@ -61,13 +64,14 @@ export default function Items(){
                     </thead>
                     <tbody>
                         {itemData.map((item, i) => (
-                            <ItemRow key={i} /*onClick={showItemDetails}*/ item={item}/>  
+                            <ItemRow key={i} /*onClick={showItemDetails}*/ item={item} setItemId={setItemId}/>  
                         ))}
                     </tbody>
                 </Table>
                 </Row>}
             </Container>
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
+            <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} iid={itemId}/>
         </>
     )
 }
