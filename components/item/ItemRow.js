@@ -18,16 +18,6 @@ export default function ItemRow(props) {
 
     return (
         <>
-            <style jsx>{`
-				.idesclocal {
-                    white-space: nowrap !important;
-                    overflow: hidden !important;
-                    text-overflow: ellipsis !important;
-                }
-                .wdesc {
-                    width: 1px;
-                }
-			`}</style>
             <tr key={props.key} onClick={e=>{showItemDetails}}>
                 <td className="iname">{iname}</td>
                 <td className="idesc">{idesc}</td>
