@@ -12,7 +12,7 @@ export default function ItemRow(props) {
                 props.setShowItemEdit(true);
                 break;
             case "delete":
-                props.setShowBagDelete(true);
+                props.setShowItemDelete(true);
                 break;
         }
     };
