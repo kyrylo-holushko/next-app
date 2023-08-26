@@ -9,10 +9,10 @@ export default function ItemRow(props) {
         setItemId(iid);
         switch(eventKey){
             case "edit":
-                //props.setShowBagEdit(true);
+                props.setShowItemEdit(true);
                 break;
             case "delete":
-                //props.setShowBagDelete(true);
+                props.setShowBagDelete(true);
                 break;
         }
     };
