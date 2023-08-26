@@ -19,7 +19,7 @@ export default function ItemRow(props) {
 
     return (
         <>
-            <tr key={props.key} onClick={e=>{showItemDetails}}>
+            <tr key={props.key}>
                 <td className="iname">{iname}</td>
                 <td className="idesc">{idesc}</td>
                 <td>{priority}</td>
