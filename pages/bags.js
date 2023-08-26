@@ -57,15 +57,3 @@ export default function Bags(){
         </>
     )
 }
-
-{/* 
-
-
-
-
-
-
-
-<BagCreate show={showBagCreate} setShow={setShowBagCreate} setWrite={setWriteReq}></BagCreate>
-            <BagEdit show={showBagEdit} setShow={setShowBagEdit} bid={bagId} setWrite={setWriteReq}></BagEdit>
-            <BagDelete show={showBagDelete} setShow={setShowBagDelete} bid={bagId} setWrite={setWriteReq}></BagDelete> */}
