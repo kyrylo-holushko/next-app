@@ -1,8 +1,9 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import { deleteBag } from "../../lib/ajax/bag";
 import { useEffect, useState } from "react";
 import { getItems } from "../../lib/ajax/item";
 import { moveAllItems } from "../../lib/ajax/move";
+import { getBags } from "../../lib/ajax/bag";
 
 export default function BagDelete(props){
 
@@ -21,9 +22,9 @@ export default function BagDelete(props){
             if(items) {
                 setHasItems(true);
             }
-            setErrMsg(false);
-        }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
-        setWriteReq(false);
+            setResMsg(false);
+        }).catch(e=>{setHasItems(false)});         
+        setWrite(false);
     },[props.show]);
 
     useEffect(()=>{
@@ -79,6 +80,7 @@ export default function BagDelete(props){
                             }}
                         />
                         {transfer && <Form.Group className="mb-3">
+                            <br/>
                             <Form.Label>Select bag to transfer to:</Form.Label>
                             <Form.Control
                                 as="select"
