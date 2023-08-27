@@ -9,7 +9,7 @@ export default function ItemRow(props) {
         setItemId(iid);
         switch(eventKey){
             case "move":
-                //props.setShowItemMove(true);
+                props.setShowItemMove(true);
                 break;
             case "edit":
                 props.setShowItemEdit(true);

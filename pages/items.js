@@ -68,7 +68,12 @@ export default function Items(){
                     </thead>
                     <tbody>
                         {itemData.map((item, i) => (
-                            <ItemRow key={i} /*onClick={showItemDetails}*/ item={item} setItemId={setItemId} setShowItemEdit={setShowItemEdit} setShowItemDelete={setShowItemDelete}/>  
+                            <ItemRow key={i} /*onClick={showItemDetails}*/ 
+                            item={item} 
+                            setItemId={setItemId} 
+                            setShowItemEdit={setShowItemEdit} 
+                            setShowItemDelete={setShowItemDelete} 
+                            setShowItemMove={setShowItemMove}/>  
                         ))}
                     </tbody>
                 </Table>
