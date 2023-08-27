@@ -6,6 +6,7 @@ import ItemRow from "../components/item/ItemRow";
 import ItemCreate from "../components/item/itemCreate";
 import ItemEdit from "../components/item/itemEdit";
 import ItemDelete from "../components/item/itemDelete";
+import ItemMove from "../components/item/itemMove";
 
 export default function Items(){
 
@@ -19,6 +20,7 @@ export default function Items(){
     const [showItemCreate, setShowItemCreate] = useState(false);
     const [showItemEdit, setShowItemEdit] = useState(false);
     const [showItemDelete, setShowItemDelete] = useState(false);
+    const [showItemMove, setShowItemMove] = useState(false);
 
     useEffect(()=>{
         getItems(bagId).then(items=>{
@@ -75,6 +77,7 @@ export default function Items(){
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
             <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} iid={itemId}/>
             <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemId}/>
+            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemId}/>
         </>
     )
 }

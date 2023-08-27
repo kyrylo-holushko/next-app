@@ -8,6 +8,9 @@ export default function ItemRow(props) {
     const handleSelect = (eventKey) => {
         setItemId(iid);
         switch(eventKey){
+            case "move":
+                //props.setShowItemMove(true);
+                break;
             case "edit":
                 props.setShowItemEdit(true);
                 break;
@@ -25,6 +28,9 @@ export default function ItemRow(props) {
                 <td>{priority}</td>
                 <td>
                     <Nav onSelect={handleSelect}>
+                        <Nav.Item>
+                                <Nav.Link eventKey="move"><u>Move</u></Nav.Link>
+                        </Nav.Item>
                         <Nav.Item>
                                 <Nav.Link eventKey="edit"><u>Edit</u></Nav.Link>
                         </Nav.Item>
