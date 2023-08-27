@@ -65,8 +65,9 @@ export default function BagDelete(props){
             </Modal.Header>
             <Modal.Body>
                 {!resMsg ? <>
-                    {(hasItems&&(bagData.length>1)) && 
+                    {hasItems && 
                     <>
+                        {(bagData.length>1) ? <>
                         <h5>This bag is not empty. Would you like to transfer items before deletion?</h5>
                         <Form>
                         <Form.Check // prettier-ignore
@@ -93,13 +94,10 @@ export default function BagDelete(props){
                             </Form.Control>
                         </Form.Group>}
                         </Form>
+                        </> : <h5>This bag is not empty. Are you sure you want to delete this bag?</h5>}
                     </>
                     }
-                    {(hasItems&&(bagData.length===1)) && 
-                    <>
-                        <h5>{hasItems && "This bag is not empty." }Are you sure you want to delete this bag?</h5>
-                    </>
-                    }
+                    {!hasItems && <h5>Are you sure you want to delete this bag?</h5>}
                 </>   
             : resMsg}
             </Modal.Body>
