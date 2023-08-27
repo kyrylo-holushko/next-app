@@ -7,6 +7,7 @@ import ItemCreate from "../components/item/itemCreate";
 import ItemEdit from "../components/item/itemEdit";
 import ItemDelete from "../components/item/itemDelete";
 import ItemMove from "../components/item/itemMove";
+import ItemMoveAll from "../components/item/itemMoveAll";
 
 export default function Items(){
 
@@ -21,6 +22,7 @@ export default function Items(){
     const [showItemEdit, setShowItemEdit] = useState(false);
     const [showItemDelete, setShowItemDelete] = useState(false);
     const [showItemMove, setShowItemMove] = useState(false);
+    const [showItemMoveAll, setShowItemMoveAll] = useState(false);
 
     useEffect(()=>{
         getItems(bagId).then(items=>{
@@ -53,7 +55,13 @@ export default function Items(){
             <Container className="px-5">
                 <Row>
                     <Col sm md lg className="my-auto pt-4"><h2 className="d-inline">{bagName?.toUpperCase()}</h2></Col>
-                    <Col md lg className="pt-4"><Button className="border-2 float-end" variant="outline-secondary" onClick={handleShowItemCreate} size="lg">Add Item +</Button></Col>
+                    <Col md lg className="pt-4">
+                        <div className="float-end">
+                            {!errMsg && <Button className="border-2" variant="outline-secondary" size="lg">Move All</Button>}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <Button className="border-2" variant="outline-secondary" onClick={handleShowItemCreate} size="lg">Add Item +</Button>
+                        </div>
+                    </Col>
                 </Row>
                 {errMsg && <h4 className="pt-4">{errMsg}</h4>}
                 {itemData && <Row className="pt-4"> 
@@ -83,6 +91,7 @@ export default function Items(){
             <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} iid={itemId}/>
             <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemId}/>
             <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemId}/>
+            <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bagId}/>
         </>
     )
 }
