@@ -41,7 +41,7 @@ export default function Items(){
     };
 
     const handleShowItemCreate = () => setShowItemCreate(true);
-    const handleShowItemEdit = () => setShowItemEdit(true);
+    const handleShowItemMoveAll = () => setShowItemMoveAll(true);
 
     return (
         <>
@@ -57,7 +57,7 @@ export default function Items(){
                     <Col sm md lg className="my-auto pt-4"><h2 className="d-inline">{bagName?.toUpperCase()}</h2></Col>
                     <Col md lg className="pt-4">
                         <div className="float-end">
-                            {!errMsg && <Button className="border-2" variant="outline-secondary" size="lg">Move All</Button>}
+                            {!errMsg && <Button className="border-2" variant="outline-secondary" onClick={handleShowItemMoveAll} size="lg">Move All</Button>}
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <Button className="border-2" variant="outline-secondary" onClick={handleShowItemCreate} size="lg">Add Item +</Button>
                         </div>

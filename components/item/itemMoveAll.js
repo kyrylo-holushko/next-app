@@ -8,7 +8,6 @@ export default function ItemMoveAll(props){
     const setShow = props.setShow;
     const setWrite = props.setWrite;
     const oldBag = props.obid;
-    let defaultBag;
 
     const [bagData, setBagData]= useState(false);
     const [resMsg, setResMsg] = useState(false);
@@ -16,6 +15,7 @@ export default function ItemMoveAll(props){
 
     useEffect(()=>{
         getBags().then(bags=>{
+            setBagOption(bags[0].bid);
             setBagData(bags);
             setResMsg(false);
         }).catch(e=>{setBagData(false);setResMsg(e.message)});           
@@ -51,12 +51,9 @@ export default function ItemMoveAll(props){
                             onChange={e=>{
                                 setBagOption(e.target.value);
                             }}
-                            defaultValue={defaultBag}
+                            defaultValue={bagOption}
                         >
                         {bagData.map((bag, i) => {
-                            if(i===0){
-                                defaultBag=bag.bid;
-                            }
                             return <option value={bag.bid} key={i}>{bag.bname}</option>;
                         })}
                         </Form.Control>
