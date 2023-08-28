@@ -1,4 +1,4 @@
-import { Container, Form } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { readToken } from "../lib/authenticate";
 //import associated ajax
@@ -110,6 +110,9 @@ export default function User(){
                     }                                                                                
                     </Form.Group>
                 </Form>
+                {formEnable && <Button variant="primary" type="button" onClick={submitForm}>
+                    Update
+                </Button>}
             </Container>
         </>
     )
