@@ -45,13 +45,6 @@ export default function Items(){
 
     return (
         <>
-            <style jsx>{`
-				.idesclocal {
-                    white-space: nowrap !important;
-                    overflow: hidden !important;
-                    text-overflow: ellipsis !important;
-                }
-			`}</style>
             <Container className="px-5">
                 <Row>
                     <Col sm md lg className="my-auto pt-4"><h2 className="d-inline">{bagName?.toUpperCase()}</h2></Col>

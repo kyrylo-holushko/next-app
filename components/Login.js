@@ -44,12 +44,7 @@ export default function Signup(props){
     }
 
     async function submitForm(e) {
-        console.log("The form's data", form);
-        console.log("Dirty State", dirty);
-        console.log("The Error state", errors);
-        console.log("The Valid state", valid);
         if(valid){  
-            console.log("VALID FORM");
             authenticateUser(form).then(res=>{
                 handleClose();
                 setNavUpdate(true); 
