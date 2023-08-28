@@ -44,6 +44,7 @@ export default function MainNav() {
                         </Nav>
                         <Nav className="ms-auto">
                             {token && <NavDropdown title="Settings " id="basic-nav-dropdown">
+                                <NavDropdown.Item onClick={(e)=>{router.push("/user")}}>Profile</NavDropdown.Item>
                                 <NavDropdown.Item onClick={(e)=>{logout()}}>Logout</NavDropdown.Item>
                             </NavDropdown>}
                             {!token && <Button variant="outline-light" onClick={handleShowLogin}>Login</Button>}
