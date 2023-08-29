@@ -1,23 +1,20 @@
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { readToken } from "../lib/authenticate";
 import { updateUser } from "../lib/ajax/user";
 import { updateForm } from "../lib/form/uservalidators";
+import { NavContext } from "../components/Layout";
 
 export default function User(){
 
-    const [formEnable, setFormEnable] = useState(false);
-
-    useEffect(()=>{
-
-    }, [formEnable]);
-
-    const [form, setForm] = useState(updateForm.defaultFormInput);
+    const defaultFormInput = {username: readToken().username, email: readToken().email};
+    const [form, setForm] = useState(defaultFormInput);
     const [dirty, setDirty] = useState(updateForm.defaultFormDirty);
     const [errors, setErrors] = useState(updateForm.defaultUpdateErrors);
     const [valid, setValid] = useState(false);
-    //const [responded, setResponded] = useState(false);
-    //const [resMsg, setResMsg] = useState("");
+    const [formEnable, setFormEnable] = useState(false);
+    const { navUpdate, setNavUpdate } = useContext(NavContext);
+    const [resMsg, setResMsg] = useState(false);
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -29,19 +26,14 @@ export default function User(){
         updateForm.formValidator(errors, setValid);
     }, [errors]);
 
-    /* useEffect(()=>{
-        if(resMsg.length)
-            setResponded(true);
-    }, [resMsg]); */
-
     async function submitForm(e) {
         if(valid){
             updateUser(form).then(res=>{
-                setResponded(true);
-                setForm(signupForm.defaultFormInput);
-                setErrors(signupForm.defaultSignupErrors);
-                setDirty(signupForm.defaultFormDirty);
-                setResponded(false);
+                setNavUpdate(true);
+                setFormEnable(false);
+                setForm(defaultFormInput);
+                setErrors(updateForm.defaultUpdateErrors);
+                setDirty(updateForm.defaultFormDirty);             
             }).catch(e=>{setResMsg(e.message)});
         }      
     }
@@ -51,13 +43,16 @@ export default function User(){
             <Container className="px-5">
                 <div className="py-4 d-flex align-items-center">
                     <h2 className="pe-5 d-inline-block">My Profile</h2>
-                    {!formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(true)}} size="sm">
+                    {!formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(true);setResMsg(false);}} size="sm">
                         Edit
+                    </Button>}
+                    {formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(false)}} size="sm">
+                        Revert
                     </Button>}
                 </div>
                 <Form>
                     <Form.Group className="mb-3" as={Row}>
-                    <Form.Label column sm="2">User Name:</Form.Label>
+                    <Form.Label column sm="2"><b>User Name:</b></Form.Label>
                     {formEnable ? <Col column sm="10">                                                                                
                         <Form.Control 
                             type="text"
@@ -67,12 +62,11 @@ export default function User(){
                                     ...current,
                                     username: true
                                     }));
-                                    console.log("Username, dirtied up", dirty.username);
                                 }                         
                                 setForm(current=>({ 
                                 ...current,
                                 username: e.target.value
-                            }));console.log("Username, FORM", form.username);}} 
+                            }))}} 
                             value={dirty.username ? form.username : readToken().username}
                             isInvalid={dirty.username && (errors.username.empty || errors.username.notAlphanumeric || errors.username.maxlength)}        
                         />
@@ -87,7 +81,7 @@ export default function User(){
                     }
                     </Form.Group>
                     <Form.Group className="mb-3" as={Row}>
-                    <Form.Label column sm="2">Email:</Form.Label>
+                    <Form.Label column sm="2"><b>Email:</b></Form.Label>
                     {formEnable ? <Col column sm="10">                                                                                                            
                         <Form.Control 
                             type="email" 
@@ -97,12 +91,11 @@ export default function User(){
                                     ...current,
                                     email: true
                                     }));
-                                    console.log("Email, dirtied up", dirty.email);
                                 } 
                                 setForm(current=>({ 
                                 ...current,
                                 email: e.target.value
-                            }));console.log("Email, FORM", form.email);}} 
+                            }))}} 
                             value={dirty.email ? form.email : readToken().email}
                             isInvalid={dirty.email && (errors.email.empty || errors.email.invalidEmail)}                                                          
                         />
@@ -115,6 +108,7 @@ export default function User(){
                     }                                                                                
                     </Form.Group>
                 </Form>
+                {resMsg && <h6 className="error">{resMsg}</h6>}
                 {formEnable && <><br/><Button variant="primary" type="button" onClick={submitForm}>
                     Update
                 </Button></>}
