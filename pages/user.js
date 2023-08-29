@@ -7,7 +7,7 @@ import { NavContext } from "../components/Layout";
 
 export default function User(){
 
-    const defaultFormInput = {username: readToken().username, email: readToken().email};
+    const defaultFormInput = {username: readToken()?.username, email: readToken()?.email};
     const [form, setForm] = useState(defaultFormInput);
     const [dirty, setDirty] = useState(updateForm.defaultFormDirty);
     const [errors, setErrors] = useState(updateForm.defaultUpdateErrors);
@@ -67,7 +67,7 @@ export default function User(){
                                 ...current,
                                 username: e.target.value
                             }))}} 
-                            value={dirty.username ? form.username : readToken().username}
+                            value={dirty.username ? form.username : readToken()?.username}
                             isInvalid={dirty.username && (errors.username.empty || errors.username.notAlphanumeric || errors.username.maxlength)}        
                         />
                         <Form.Text className="error">
@@ -77,7 +77,7 @@ export default function User(){
                             {dirty.username && errors.username.maxlength && "Maximum 15 characters"}
                         </Form.Text></Col> 
                         : 
-                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken().username}/></Col>
+                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken()?.username}/></Col>
                     }
                     </Form.Group>
                     <Form.Group className="mb-3" as={Row}>
@@ -96,7 +96,7 @@ export default function User(){
                                 ...current,
                                 email: e.target.value
                             }))}} 
-                            value={dirty.email ? form.email : readToken().email}
+                            value={dirty.email ? form.email : readToken()?.email}
                             isInvalid={dirty.email && (errors.email.empty || errors.email.invalidEmail)}                                                          
                         />
                         <Form.Text className="error">
@@ -104,7 +104,7 @@ export default function User(){
                             {dirty.email && errors.email.invalidEmail && "Invalid email format"}
                         </Form.Text></Col> 
                         : 
-                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken().email}/></Col>
+                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken()?.email}/></Col>
                     }                                                                                
                     </Form.Group>
                 </Form>
