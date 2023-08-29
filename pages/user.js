@@ -1,4 +1,4 @@
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { readToken } from "../lib/authenticate";
 import { updateUser } from "../lib/ajax/user";
@@ -14,19 +14,19 @@ export default function User(){
 
     const [form, setForm] = useState(updateForm.defaultFormInput);
     const [dirty, setDirty] = useState(updateForm.defaultFormDirty);
-    const [errors, setErrors] = useState(updateForm.defaultSignupErrors);
+    const [errors, setErrors] = useState(updateForm.defaultUpdateErrors);
     const [valid, setValid] = useState(false);
     //const [responded, setResponded] = useState(false);
     //const [resMsg, setResMsg] = useState("");
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
-            signupForm.formErrorSetter(form, setErrors);
+            updateForm.formErrorSetter(form, setErrors);
         }
     }, [form]);
 
     useEffect(()=>{
-        signupForm.formValidator(errors, setValid);
+        updateForm.formValidator(errors, setValid);
     }, [errors]);
 
     /* useEffect(()=>{
@@ -49,11 +49,16 @@ export default function User(){
     return (
         <>
             <Container className="px-5">
-                <h2 className="pt-4">My Profile</h2>
+                <div className="py-4 d-flex align-items-center">
+                    <h2 className="pe-5 d-inline-block">My Profile</h2>
+                    {!formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(true)}} size="sm">
+                        Edit
+                    </Button>}
+                </div>
                 <Form>
-                    <Form.Group className="mb-3">
-                    <Form.Label>User Name</Form.Label>
-                    {formEnable ? <>                                                                                
+                    <Form.Group className="mb-3" as={Row}>
+                    <Form.Label column sm="2">User Name:</Form.Label>
+                    {formEnable ? <Col column sm="10">                                                                                
                         <Form.Control 
                             type="text"
                             onChange={e=>{
@@ -62,13 +67,13 @@ export default function User(){
                                     ...current,
                                     username: true
                                     }));
+                                    console.log("Username, dirtied up", dirty.username);
                                 }                         
                                 setForm(current=>({ 
                                 ...current,
                                 username: e.target.value
-                            }))}} 
-                            value={form.username}
-                            defaultValue={readToken().username}
+                            }));console.log("Username, FORM", form.username);}} 
+                            value={dirty.username ? form.username : readToken().username}
                             isInvalid={dirty.username && (errors.username.empty || errors.username.notAlphanumeric || errors.username.maxlength)}        
                         />
                         <Form.Text className="error">
@@ -76,14 +81,14 @@ export default function User(){
                             {dirty.username && errors.username.notAlphanumeric && "Username must be alphanumeric"}
                             {dirty.username && errors.username.notAlphanumeric && errors.username.maxlength && <br/>}
                             {dirty.username && errors.username.maxlength && "Maximum 15 characters"}
-                        </Form.Text></> 
+                        </Form.Text></Col> 
                         : 
-                        <Form.Control plaintext readOnly defaultValue={readToken().username} />
+                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken().username}/></Col>
                     }
                     </Form.Group>
-                    <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    {formEnable ? <>                                                                                                            
+                    <Form.Group className="mb-3" as={Row}>
+                    <Form.Label column sm="2">Email:</Form.Label>
+                    {formEnable ? <Col column sm="10">                                                                                                            
                         <Form.Control 
                             type="email" 
                             onChange={e=>{
@@ -92,30 +97,27 @@ export default function User(){
                                     ...current,
                                     email: true
                                     }));
+                                    console.log("Email, dirtied up", dirty.email);
                                 } 
                                 setForm(current=>({ 
                                 ...current,
                                 email: e.target.value
-                            }))}} 
-                            value={form.email}
-                            defaultValue={readToken().email}
+                            }));console.log("Email, FORM", form.email);}} 
+                            value={dirty.email ? form.email : readToken().email}
                             isInvalid={dirty.email && (errors.email.empty || errors.email.invalidEmail)}                                                          
                         />
                         <Form.Text className="error">
                             {dirty.email && errors.email.empty && "Required field"}
                             {dirty.email && errors.email.invalidEmail && "Invalid email format"}
-                        </Form.Text></> 
+                        </Form.Text></Col> 
                         : 
-                        <Form.Control plaintext readOnly defaultValue={readToken().email} />
+                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken().email}/></Col>
                     }                                                                                
                     </Form.Group>
                 </Form>
-                {!formEnable && <Button variant="primary" type="button" onClick={e=>{setFormEnable(true)}}>
-                    Edit
-                </Button>}
-                {formEnable && <Button variant="primary" type="button" onClick={submitForm}>
+                {formEnable && <><br/><Button variant="primary" type="button" onClick={submitForm}>
                     Update
-                </Button>}
+                </Button></>}
             </Container>
         </>
     )
