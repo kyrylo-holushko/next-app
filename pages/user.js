@@ -1,8 +1,8 @@
 import { Container, Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { readToken } from "../lib/authenticate";
-//import associated ajax
-//import form
+import { updateUser } from "../lib/ajax/user";
+import { updateForm } from "../lib/form/uservalidators";
 
 export default function User(){
 
@@ -36,7 +36,7 @@ export default function User(){
 
     async function submitForm(e) {
         if(valid){
-            registerUser(form).then(res=>{
+            updateUser(form).then(res=>{
                 setResponded(true);
                 setForm(signupForm.defaultFormInput);
                 setErrors(signupForm.defaultSignupErrors);
@@ -110,6 +110,9 @@ export default function User(){
                     }                                                                                
                     </Form.Group>
                 </Form>
+                {!formEnable && <Button variant="primary" type="button" onClick={e=>{setFormEnable(true)}}>
+                    Edit
+                </Button>}
                 {formEnable && <Button variant="primary" type="button" onClick={submitForm}>
                     Update
                 </Button>}
