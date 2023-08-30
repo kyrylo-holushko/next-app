@@ -30,6 +30,7 @@ export default function User(){
 
     useEffect(()=>{
         setValid(false);
+        setFormEnable(false);
     }, []);
 
     async function submitForm(e) {
