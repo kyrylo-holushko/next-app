@@ -19,8 +19,6 @@ export default function MainNav() {
     const handleShowSignup = () => setShowSignup(true);
     const handleShowLogin = () => setShowLogin(true);
 
-    const [loggedIn, setLoggedIn] = useState(false);
-
     useEffect(()=>{
         setNavUpdate(false);
     }, [navUpdate]);
@@ -28,7 +26,6 @@ export default function MainNav() {
     function logout() {
         removeToken();
         setNavUpdate(true);
-        setLoggedIn(false);
         router.push("/");
     };
 

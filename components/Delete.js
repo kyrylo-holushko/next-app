@@ -30,7 +30,6 @@ export default function Delete(props){
     function logout() {
         removeToken();
         setNavUpdate(true);
-        setLoggedIn(false);
         router.push("/");
     };
 
