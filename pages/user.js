@@ -67,6 +67,7 @@ export default function User(){
                     <Button variant="outline-danger" type="button" onClick={handleShowUserDelete} size="sm">
                         Delete
                     </Button>
+                    &nbsp;&nbsp;
                     <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(true);setResMsg(false);}} size="sm">
                         Edit
                     </Button>

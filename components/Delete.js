@@ -39,8 +39,8 @@ export default function Delete(props){
                 <Modal.Title>Delete User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!resMsg ? <h5>Are you sure you want to delete this account?<br/>
-                <em><mark>This is a permanent deletion.</mark></em>
+                {!resMsg ? <h5>Are you sure you want to delete this account?<br/><br/>
+                <em className="error">This is a permanent deletion!</em>
                 </h5> : resMsg}
             </Modal.Body>
             {!resMsg && <Modal.Footer>
