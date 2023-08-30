@@ -1,6 +1,6 @@
 import { Nav, Row } from "react-bootstrap"
 import { useState } from "react";
-//import itemDetails from "./itemDetails";
+import ItemDetails from "./ItemDetails";
 
 export default function ItemRow(props) {
 
@@ -8,6 +8,8 @@ export default function ItemRow(props) {
     const setItemId = props.setItemId;
 
     const [showItemDetails, setShowItemDetails] = useState(false);
+
+    const handleShowDetails = () => setShowItemDetails(true);
 
     const handleSelect = (eventKey) => {
         setItemId(iid);
@@ -26,7 +28,7 @@ export default function ItemRow(props) {
 
     return (
         <>
-            <tr key={props.key}>
+            <tr key={props.key} onClick={handleShowDetails}>
                 <td className="iname">{iname}</td>
                 <td className="idesc">{idesc}</td>
                 <td>{priority}</td>
@@ -44,8 +46,7 @@ export default function ItemRow(props) {
                     </Nav>
                 </td>
             </tr>
-            <ItemDetails show={showItemDetails} setShow={setShowItemDetails}/>
+            <ItemDetails show={showItemDetails} setShow={setShowItemDetails} item={props.item}/>
         </>
     )
-
 };
