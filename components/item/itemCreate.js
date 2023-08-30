@@ -32,9 +32,12 @@ export default function ItemCreate(props){
         }));
     }, [props.show]);
 
+    useEffect(()=>{
+        setValid(false);
+    },[props.show]);
+
     const handleClose = () => {
         setShow(false);
-        setValid(false);
         setForm(itemForm.defaultFormInput);
         setErrors(itemForm.defaultSignupErrors);
         setDirty(itemForm.defaultFormDirty);
@@ -131,7 +134,7 @@ export default function ItemCreate(props){
                 </Form> : resMsg}
             </Modal.Body>
             {!resMsg && <Modal.Footer>
-            <Button variant="primary" type="button" onClick={submitForm}>
+            <Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                 Create Item
             </Button>
             </Modal.Footer>}

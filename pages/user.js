@@ -28,6 +28,10 @@ export default function User(){
         updateForm.formValidator(errors, setValid);
     }, [errors]);
 
+    useEffect(()=>{
+        setValid(false);
+    }, []);
+
     async function submitForm(e) {
         if(valid){
             updateUser(form).then(res=>{
@@ -120,7 +124,7 @@ export default function User(){
                     </Form.Group>
                 </Form>
                 {resMsg && <h6 className="error">{resMsg}</h6>}
-                {formEnable && <><br/><Button variant="primary" type="button" onClick={submitForm}>
+                {formEnable && <><br/><Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                     Update
                 </Button></>}
             </Container>

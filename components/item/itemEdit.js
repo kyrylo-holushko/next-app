@@ -25,9 +25,12 @@ export default function ItemEdit(props){
         itemForm.formValidator(errors, setValid);
     }, [errors]);
 
+    useEffect(()=>{
+        setValid(false);
+    },[props.show]);
+
     const handleClose = () => {
         setShow(false);
-        setValid(false);
         setForm(itemForm.defaultFormInput);
         setErrors(itemForm.defaultSignupErrors);
         setDirty(itemForm.defaultFormDirty);
@@ -124,7 +127,7 @@ export default function ItemEdit(props){
                 </Form> : resMsg}
             </Modal.Body>
             {!resMsg && <Modal.Footer>
-            <Button variant="primary" type="button" onClick={submitForm}>
+            <Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                 Update Item
             </Button>
             </Modal.Footer>}

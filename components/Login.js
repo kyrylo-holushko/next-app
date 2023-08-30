@@ -34,9 +34,12 @@ export default function Signup(props){
             setResponded(true);
     }, [resMsg]);
 
+    useEffect(()=>{
+        setValid(false);
+    },[props.show]);
+
     const handleClose = () => {
         setShow(false);
-        setValid(false);
         setForm(loginForm.defaultFormInput);
         setErrors(loginForm.defaultSignupErrors);
         setDirty(loginForm.defaultFormDirty);
@@ -109,7 +112,7 @@ export default function Signup(props){
                 {responded && resMsg}
             </Modal.Body>
             {!responded && <Modal.Footer>
-            <Button variant="primary" type="button" onClick={submitForm}>
+            <Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                 Log In
             </Button>
             </Modal.Footer>}

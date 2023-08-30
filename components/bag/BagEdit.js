@@ -25,9 +25,12 @@ export default function BagCreate(props){
         bagForm.formValidator(errors, setValid);
     }, [errors]);
 
+    useEffect(()=>{
+        setValid(false);
+    },[props.show]);
+
     const handleClose = () => {
         setShow(false);
-        setValid(false);
         setForm(bagForm.defaultFormInput);
         setErrors(bagForm.defaultSignupErrors);
         setDirty(bagForm.defaultFormDirty);
@@ -76,7 +79,7 @@ export default function BagCreate(props){
                 </Form> : resMsg}
             </Modal.Body>
             {!resMsg && <Modal.Footer>
-            <Button variant="primary" type="button" onClick={submitForm}>
+            <Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                 Update Bag
             </Button>
             </Modal.Footer>}
