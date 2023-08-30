@@ -4,6 +4,7 @@ import { readToken } from "../lib/authenticate";
 import { updateUser } from "../lib/ajax/user";
 import { updateForm } from "../lib/form/uservalidators";
 import { NavContext } from "../components/Layout";
+import Delete from "../components/Delete";
 
 export default function User(){
 
@@ -15,6 +16,7 @@ export default function User(){
     const [formEnable, setFormEnable] = useState(false);
     const { navUpdate, setNavUpdate } = useContext(NavContext);
     const [resMsg, setResMsg] = useState(false);
+    const [showUserDelete, setShowUserDelete] = useState(false);
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -38,14 +40,37 @@ export default function User(){
         }      
     }
 
+    //async function deleteUser(e) {
+        /* deleteUser().then(()=>{
+
+            
+        }).catch(e=>{setResMsg(e.message)}); */
+
+
+
+
+
+        /* deleteItem(itemId).then(()=>{
+            handleClose();
+            setWrite(true);
+        }).catch(e=>{setResMsg(e.message)});  */ 
+    //
+
+    const handleShowUserDelete = () => setShowUserDelete(true);
+
     return (
         <>
             <Container className="px-5">
                 <div className="py-4 d-flex align-items-center">
                     <h2 className="pe-5 d-inline-block">My Profile</h2>
-                    {!formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(true);setResMsg(false);}} size="sm">
+                    {!formEnable && <>
+                    <Button variant="outline-danger" type="button" onClick={handleShowUserDelete} size="sm">
+                        Delete
+                    </Button>
+                    <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(true);setResMsg(false);}} size="sm">
                         Edit
-                    </Button>}
+                    </Button>
+                    </>}
                     {formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(false)}} size="sm">
                         Revert
                     </Button>}
@@ -113,6 +138,7 @@ export default function User(){
                     Update
                 </Button></>}
             </Container>
+            <Delete show={showUserDelete} setShow={setShowUserDelete}/>
         </>
     )
 };
