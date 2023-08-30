@@ -36,10 +36,12 @@ export default function Delete(props){
     return (
         <Modal show={props.show} onHide={handleClose} size="sm" centered>
             <Modal.Header closeButton className="bg-light">
-                <Modal.Title>Delete Item</Modal.Title>
+                <Modal.Title>Delete User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!resMsg ? <h5>Are you sure you want to delete this item?</h5> : resMsg}
+                {!resMsg ? <h5>Are you sure you want to delete this account?<br/>
+                <em><mark>This is a permanent deletion.</mark></em>
+                </h5> : resMsg}
             </Modal.Body>
             {!resMsg && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
