@@ -11,7 +11,8 @@ export default function ItemRow(props) {
 
     const handleShowDetails = () => setShowItemDetails(true);
 
-    const handleSelect = (eventKey) => {
+    const handleSelect = (eventKey, event) => {
+        event.stopPropagation();
         setItemId(iid);
         switch(eventKey){
             case "move":
