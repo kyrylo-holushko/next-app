@@ -1,9 +1,13 @@
 import { Nav, Row } from "react-bootstrap"
+import { useState } from "react";
+//import itemDetails from "./itemDetails";
 
 export default function ItemRow(props) {
 
     const { iid, iname, idesc, priority } = props.item;
     const setItemId = props.setItemId;
+
+    const [showItemDetails, setShowItemDetails] = useState(false);
 
     const handleSelect = (eventKey) => {
         setItemId(iid);
@@ -40,6 +44,7 @@ export default function ItemRow(props) {
                     </Nav>
                 </td>
             </tr>
+            <ItemDetails show={showItemDetails} setShow={setShowItemDetails}/>
         </>
     )
 
