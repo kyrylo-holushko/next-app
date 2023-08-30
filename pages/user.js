@@ -34,27 +34,12 @@ export default function User(){
                 setNavUpdate(true);
                 setFormEnable(false);
                 setForm(defaultFormInput);
+                setValid(false);
                 setErrors(updateForm.defaultUpdateErrors);
                 setDirty(updateForm.defaultFormDirty);             
             }).catch(e=>{setResMsg(e.message)});
         }      
     }
-
-    //async function deleteUser(e) {
-        /* deleteUser().then(()=>{
-
-            
-        }).catch(e=>{setResMsg(e.message)}); */
-
-
-
-
-
-        /* deleteItem(itemId).then(()=>{
-            handleClose();
-            setWrite(true);
-        }).catch(e=>{setResMsg(e.message)});  */ 
-    //
 
     const handleShowUserDelete = () => setShowUserDelete(true);
 

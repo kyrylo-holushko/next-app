@@ -8,7 +8,6 @@ export default function ItemMove(props){
     const setShow = props.setShow;
     const setWrite = props.setWrite;
     const itemId = props.iid;
-    let defaultBag;
 
     const [bagData, setBagData]= useState(false);
     const [resMsg, setResMsg] = useState(false);

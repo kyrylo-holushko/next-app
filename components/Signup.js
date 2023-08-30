@@ -31,6 +31,7 @@ export default function Signup(props){
 
     const handleClose = () => {
         setShow(false);
+        setValid(false);
         setForm(signupForm.defaultFormInput);
         setErrors(signupForm.defaultSignupErrors);
         setDirty(signupForm.defaultFormDirty);

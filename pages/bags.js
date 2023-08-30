@@ -18,8 +18,6 @@ export default function Bags(){
     const { bag, setBag } = useContext(BagContext);
 
     const handleShowBagCreate = () => setShowBagCreate(true);
-    const handleShowBagEdit = () => setShowBagEdit(true);
-    const handleShowBagDelete = () => setShowBagDelete(true);
 
     useEffect(()=>{
         getBags().then(bags=>{

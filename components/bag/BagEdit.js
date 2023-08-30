@@ -27,6 +27,7 @@ export default function BagCreate(props){
 
     const handleClose = () => {
         setShow(false);
+        setValid(false);
         setForm(bagForm.defaultFormInput);
         setErrors(bagForm.defaultSignupErrors);
         setDirty(bagForm.defaultFormDirty);

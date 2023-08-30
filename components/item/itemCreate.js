@@ -34,6 +34,7 @@ export default function ItemCreate(props){
 
     const handleClose = () => {
         setShow(false);
+        setValid(false);
         setForm(itemForm.defaultFormInput);
         setErrors(itemForm.defaultSignupErrors);
         setDirty(itemForm.defaultFormDirty);
