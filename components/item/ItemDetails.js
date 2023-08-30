@@ -16,14 +16,14 @@ export default function ItemDetails(props) {
                     <Modal.Title>{props.item?.iname}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Card>
+                    <Card className="bg-light">
                         <Card.Body>
                             {props.item?.idesc}
                         </Card.Body>
                     </Card>
                 </Modal.Body>
-                <Modal.Footer>
-                    <h4>Priority: {props.item?.priority}</h4>
+                <Modal.Footer className="justify-content-start">
+                    <h5 className="d-block">Priority: {props.item?.priority}</h5>
                 </Modal.Footer>
             </Modal>
         </>
