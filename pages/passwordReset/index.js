@@ -2,12 +2,17 @@ import { useRouter } from "next/router"
 import { Form } from "react-bootstrap";
 import { passwordForm } from "../../lib/form/uservalidators";
 import { resetPassword } from "../../lib/ajax/user";
+import { removeToken } from "../../lib/authenticate";
+import { useContext } from "react";
+import { NavContext } from "../../components/Layout";
+
 
 export default function PasswordReset() {
 
     const router = useRouter();
     const { token } = router.query;
-    //const { id } = router.query;
+
+    const { navUpdate, setNavUpdate } = useContext(NavContext);
 
     const [form, setForm] = useState(passwordForm.defaultFormInput);
     const [dirty, setDirty] = useState(passwordForm.defaultFormDirty);
@@ -49,10 +54,18 @@ export default function PasswordReset() {
     async function submitForm(e) {
         if(valid){
             resetPassword(form, token).then(res=>{
-                setResMsg(`${res.message}: ${res.data.username}`);
+                logout();
+
+                //setResMsg(`${res.message}: ${res.data.username}`);
             }).catch(e=>{setResMsg(e.message)});
         }      
     }
+
+    function logout() {
+        removeToken();
+        setNavUpdate(true); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        router.push("/");
+    };
 
     if (token && id) {
         return (
