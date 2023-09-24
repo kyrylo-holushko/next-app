@@ -1,10 +1,11 @@
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Container, Form, Button, Row, Col, Nav } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { readToken } from "../lib/authenticate";
 import { updateUser } from "../lib/ajax/user";
 import { updateForm } from "../lib/form/uservalidators";
 import { NavContext } from "../components/Layout";
 import Delete from "../components/Delete";
+import * as email from 'email-validator';
 
 export default function User(){
 
@@ -17,6 +18,11 @@ export default function User(){
     const { navUpdate, setNavUpdate } = useContext(NavContext);
     const [resMsg, setResMsg] = useState(false);
     const [showUserDelete, setShowUserDelete] = useState(false);
+
+    const [showRecoveryEmailForm, setShowRecoveryEmailForm] = useState(false);
+    const [recoveryEmailFormInput, setRecoveryEmailFormInput] = useState(false);
+    const [dirtyEmail, setDirtyEmail] = useState(false);
+
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -31,6 +37,8 @@ export default function User(){
     useEffect(()=>{
         setValid(false);
         setFormEnable(false);
+        setShowRecoveryEmailForm(false);
+        recoveryEmailFormInput(false);
     }, []);
 
     async function submitForm(e) {
@@ -47,6 +55,13 @@ export default function User(){
     }
 
     const handleShowUserDelete = () => setShowUserDelete(true);
+
+    async function resetPassword(e) {
+
+
+
+
+    }
 
     return (
         <>
@@ -128,6 +143,29 @@ export default function User(){
                 {formEnable && <><br/><Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                     Update
                 </Button></>}
+                <br/><br/>
+                <Nav.Link onClick={e=>{setShowRecoveryEmailForm(true)}}>
+                    Reset Password
+                </Nav.Link>
+                {showRecoveryEmailForm && 
+                <Form>
+                    <Form.Group className="mb-3" as={Row}>
+                    <Col column sm="10">                                                                                                            
+                        <Form.Control 
+                            type="email" 
+                            onChange={e=>{
+                                setRecoveryEmailFormInput(e.target.value);
+                            }}
+                            value={recoveryEmailFormInput ? recoveryEmailFormInput : readToken()?.email}
+                            isInvalid={dirtyEmail && (!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}                                                          
+                        />
+                        <Form.Text className="error">
+                            {dirtyEmail && !recoveryEmailFormInput.length && "Required field"}
+                            {dirtyEmail && !email.validate(recoveryEmailFormInput) && "Invalid email format"}
+                        </Form.Text>
+                    </Col>                                                    
+                    </Form.Group>
+                </Form>}
             </Container>
             <Delete show={showUserDelete} setShow={setShowUserDelete}/>
         </>
