@@ -39,7 +39,7 @@ export default function User(){
         setValid(false);
         setFormEnable(false);
         setShowRecoveryEmailForm(false);
-        recoveryEmailFormInput(false);
+        setRecoveryEmailFormInput(false);
         setDirtyEmail(false);
     }, []);
 
@@ -80,7 +80,7 @@ export default function User(){
                         Edit
                     </Button>
                     </>}
-                    {formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(false)}} size="sm">
+                    {formEnable && <Button variant="outline-secondary" type="button" onClick={e=>{setFormEnable(false);setDirty(updateForm.defaultFormDirty);}} size="sm">
                         Revert
                     </Button>}
                 </div>
@@ -111,7 +111,7 @@ export default function User(){
                             {dirty.username && errors.username.maxlength && "Maximum 15 characters"}
                         </Form.Text></Col> 
                         : 
-                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken()?.username}/></Col>
+                        <Col column sm="10"><Form.Control plaintext readOnly value={readToken()?.username}/></Col>
                     }
                     </Form.Group>
                     <Form.Group className="mb-3" as={Row}>
@@ -138,7 +138,7 @@ export default function User(){
                             {dirty.email && errors.email.invalidEmail && "Invalid email format"}
                         </Form.Text></Col> 
                         : 
-                        <Col column sm="10"><Form.Control plaintext readOnly defaultValue={readToken()?.email}/></Col>
+                        <Col column sm="10"><Form.Control plaintext readOnly value={readToken()?.email}/></Col>
                     }                                                                                
                     </Form.Group>
                 </Form>
@@ -146,10 +146,12 @@ export default function User(){
                 {formEnable && <><br/><Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
                     Update
                 </Button></>}
-                <br/><br/>
-                <Nav.Link onClick={e=>{setShowRecoveryEmailForm(true)}}>
-                    Reset Password
+                <br/>
+                <br/>
+                <Nav.Link href="#" onClick={e=>{setShowRecoveryEmailForm(true)}}>
+                    <u>Reset Password</u>
                 </Nav.Link>
+                <br/>
                 {showRecoveryEmailForm &&
                 <>
                 <Form>
@@ -165,13 +167,15 @@ export default function User(){
                             isInvalid={dirtyEmail && (!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}                                                          
                         />
                         <Form.Text className="error">
-                            {dirtyEmail && !recoveryEmailFormInput.length && "Required field"}
-                            {dirtyEmail && !email.validate(recoveryEmailFormInput) && "Invalid email format"}
+                            {dirtyEmail && 
+                            (((!email.validate(recoveryEmailFormInput) && recoveryEmailFormInput.length) && "Invalid email format")
+                            ||
+                            ((!recoveryEmailFormInput.length) && "Required field"))
+                            }                        
                         </Form.Text>
                     </Col>                                                    
                     </Form.Group>
                 </Form>
-                <br/><br/>
                 {emailResMsg ? <h3>{emailResMsg}</h3> : <Button variant="primary" type="button" onClick={resetPassword} disabled={(!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}>
                     Send Reset Link
                 </Button>}
