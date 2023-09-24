@@ -1,7 +1,7 @@
 import { Container, Form, Button, Row, Col, Nav } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { readToken } from "../lib/authenticate";
-import { updateUser } from "../lib/ajax/user";
+import { updateUser, generateResetLink } from "../lib/ajax/user";
 import { updateForm } from "../lib/form/uservalidators";
 import { NavContext } from "../components/Layout";
 import Delete from "../components/Delete";
@@ -22,6 +22,7 @@ export default function User(){
     const [showRecoveryEmailForm, setShowRecoveryEmailForm] = useState(false);
     const [recoveryEmailFormInput, setRecoveryEmailFormInput] = useState(false);
     const [dirtyEmail, setDirtyEmail] = useState(false);
+    const [emailResMsg, setEmailResMsg] = useState(false);
 
 
     useEffect(()=>{
@@ -39,6 +40,7 @@ export default function User(){
         setFormEnable(false);
         setShowRecoveryEmailForm(false);
         recoveryEmailFormInput(false);
+        setDirtyEmail(false);
     }, []);
 
     async function submitForm(e) {
@@ -57,10 +59,11 @@ export default function User(){
     const handleShowUserDelete = () => setShowUserDelete(true);
 
     async function resetPassword(e) {
-
-
-
-
+        if(recoveryEmailFormInput.length && email.validate(recoveryEmailFormInput)){
+            generateResetLink(recoveryEmailFormInput).then((msg)=>{
+                setEmailResMsg(msg);
+            }).catch(e=>{setResMsg(e.message)});
+        }
     }
 
     return (
@@ -147,16 +150,18 @@ export default function User(){
                 <Nav.Link onClick={e=>{setShowRecoveryEmailForm(true)}}>
                     Reset Password
                 </Nav.Link>
-                {showRecoveryEmailForm && 
+                {showRecoveryEmailForm &&
+                <>
                 <Form>
                     <Form.Group className="mb-3" as={Row}>
                     <Col column sm="10">                                                                                                            
                         <Form.Control 
                             type="email" 
                             onChange={e=>{
+                                setDirtyEmail(true);
                                 setRecoveryEmailFormInput(e.target.value);
                             }}
-                            value={recoveryEmailFormInput ? recoveryEmailFormInput : readToken()?.email}
+                            value={recoveryEmailFormInput ? recoveryEmailFormInput : ""}
                             isInvalid={dirtyEmail && (!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}                                                          
                         />
                         <Form.Text className="error">
@@ -165,7 +170,13 @@ export default function User(){
                         </Form.Text>
                     </Col>                                                    
                     </Form.Group>
-                </Form>}
+                </Form>
+                <br/><br/>
+                {emailResMsg ? <h3>{emailResMsg}</h3> : <Button variant="primary" type="button" onClick={resetPassword} disabled={(!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}>
+                    Send Reset Link
+                </Button>}
+                </> 
+                }
             </Container>
             <Delete show={showUserDelete} setShow={setShowUserDelete}/>
         </>
