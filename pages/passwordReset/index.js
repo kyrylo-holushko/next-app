@@ -1,9 +1,9 @@
 import { useRouter } from "next/router"
-import { Form } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { passwordForm } from "../../lib/form/uservalidators";
 import { resetPassword } from "../../lib/ajax/user";
 import { removeToken } from "../../lib/authenticate";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { NavContext } from "../../components/Layout";
 
 
@@ -42,87 +42,80 @@ export default function PasswordReset() {
         setValid(false);
     },[]);
 
-    /* const handleClose = () => {
-        setShow(false);
-        setForm(signupForm.defaultFormInput);
-        setErrors(signupForm.defaultSignupErrors);
-        setDirty(signupForm.defaultFormDirty);
-        setResponded(false);
-        setResMsg("");
-    } */
-
     async function submitForm(e) {
         if(valid){
             resetPassword(form, token).then(res=>{
                 logout();
-
-                //setResMsg(`${res.message}: ${res.data.username}`);
             }).catch(e=>{setResMsg(e.message)});
         }      
     }
 
     function logout() {
         removeToken();
-        setNavUpdate(true); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        setNavUpdate(true);
         router.push("/");
     };
 
-    if (token && id) {
+    if (token) {
         return (
             <>
-                <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Password</Form.Label>                                                                                    
-                        <Form.Control 
-                            type="password"                                                                 
-                            onChange={e=>{
-                                if(!dirty.password){
-                                    setDirty(current=>({
+                <Container className="pt-5">
+                    <h5>Enter a new password:</h5>
+                    <br/>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Password</Form.Label>                                                                                    
+                            <Form.Control 
+                                type="password"                                                                 
+                                onChange={e=>{
+                                    if(!dirty.password){
+                                        setDirty(current=>({
+                                        ...current,
+                                        password: true
+                                        }));
+                                    } 
+                                    setForm(current=>({ 
                                     ...current,
-                                    password: true
-                                    }));
-                                } 
-                                setForm(current=>({ 
-                                ...current,
-                                password: e.target.value
-                            }))}} 
-                            value={form.password}
-                            isInvalid={dirty.password && (errors.password.empty || errors.password.minlength)}                                                     
-                        /> 
-                        <Form.Text className="error">
-                            {dirty.password && errors.password.empty && "Required Field"}
-                            {dirty.password && errors.password.minlength && "Minimum 8 characters"}
-                        </Form.Text>                                                                         
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Confirm Password</Form.Label>                                                                                   
-                        <Form.Control 
-                            type="password"                                                                   
-                            onChange={e=>{
-                                if(!dirty.passwordConfirmed){
-                                    setDirty(current=>({
+                                    password: e.target.value
+                                }))}} 
+                                value={form.password}
+                                isInvalid={dirty.password && (errors.password.empty || errors.password.minlength)}                                                     
+                            /> 
+                            <Form.Text className="error">
+                                {dirty.password && errors.password.empty && "Required Field"}
+                                {dirty.password && errors.password.minlength && "Minimum 8 characters"}
+                            </Form.Text>                                                                         
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Confirm Password</Form.Label>                                                                                   
+                            <Form.Control 
+                                type="password"                                                                   
+                                onChange={e=>{
+                                    if(!dirty.passwordConfirmed){
+                                        setDirty(current=>({
+                                        ...current,
+                                        passwordConfirmed: true
+                                        }));
+                                    } 
+                                    setForm(current=>({ 
                                     ...current,
-                                    passwordConfirmed: true
-                                    }));
-                                } 
-                                setForm(current=>({ 
-                                ...current,
-                                passwordConfirmed: e.target.value
-                            }))}} 
-                            value={form.passwordConfirmed} 
-                            isInvalid={dirty.passwordConfirmed && (errors.passwordConfirmed.empty || errors.passwordConfirmed.minlength || errors.passwordConfirmed.notMatching)}                                                      
-                        />
-                        <Form.Text className="error">
-                            {dirty.passwordConfirmed && errors.passwordConfirmed.empty && "Required Field"}
-                            {dirty.passwordConfirmed && errors.passwordConfirmed.minlength && "Minimum 8 characters"}
-                            {dirty.passwordConfirmed && errors.passwordConfirmed.minlength && errors.passwordConfirmed.notMatching && <br/>}
-                            {dirty.passwordConfirmed && errors.passwordConfirmed.notMatching && "Passwords entered do not match"}
-                        </Form.Text>                                                       
-                    </Form.Group>
-                </Form>
-                <Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
-                    Reset Password
-                </Button>
+                                    passwordConfirmed: e.target.value
+                                }))}} 
+                                value={form.passwordConfirmed} 
+                                isInvalid={dirty.passwordConfirmed && (errors.passwordConfirmed.empty || errors.passwordConfirmed.minlength || errors.passwordConfirmed.notMatching)}                                                      
+                            />
+                            <Form.Text className="error">
+                                {dirty.passwordConfirmed && errors.passwordConfirmed.empty && "Required Field"}
+                                {dirty.passwordConfirmed && errors.passwordConfirmed.minlength && "Minimum 8 characters"}
+                                {dirty.passwordConfirmed && errors.passwordConfirmed.minlength && errors.passwordConfirmed.notMatching && <br/>}
+                                {dirty.passwordConfirmed && errors.passwordConfirmed.notMatching && "Passwords entered do not match"}
+                            </Form.Text>                                                       
+                        </Form.Group>
+                    </Form>
+                    <Button variant="primary" type="button" onClick={submitForm} disabled={!valid}>
+                        Reset Password
+                    </Button>
+                </Container>
             </>
         )
     } else {

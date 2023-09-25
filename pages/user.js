@@ -176,7 +176,7 @@ export default function User(){
                     </Col>                                                    
                     </Form.Group>
                 </Form>
-                {emailResMsg ? <h3>{emailResMsg}</h3> : <Button variant="primary" type="button" onClick={resetPassword} disabled={(!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}>
+                {emailResMsg ? <h4>{emailResMsg}</h4> : <Button variant="primary" type="button" onClick={resetPassword} disabled={(!recoveryEmailFormInput.length || !email.validate(recoveryEmailFormInput))}>
                     Send Reset Link
                 </Button>}
                 </> 

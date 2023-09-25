@@ -2,7 +2,7 @@ import { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { isAuthenticated } from '../lib/authenticate';
 
-const PUBLIC_PATHS = ['/', '/_error'];
+const PUBLIC_PATHS = ['/', '/_error', '/passwordReset'];
 
 export default function RouteGuard(props) {
 
