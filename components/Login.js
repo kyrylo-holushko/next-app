@@ -4,6 +4,7 @@ import { loginForm } from "../lib/form/uservalidators";
 import { authenticateUser } from "../lib/ajax/user";
 import { useRouter } from "next/router";
 import { NavContext } from "./Layout";
+import PasswordReset from "./PasswordReset";
 
 export default function Signup(props){
 
@@ -109,6 +110,7 @@ export default function Signup(props){
                         </Form.Text>                                                                         
                     </Form.Group>
                 </Form>}
+                <PasswordReset/>
                 {responded && resMsg}
             </Modal.Body>
             {!responded && <Modal.Footer>

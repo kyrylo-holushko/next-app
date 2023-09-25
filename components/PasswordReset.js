@@ -1,19 +1,10 @@
 import { Form, Button, Row, Col, Nav } from "react-bootstrap";
 import * as email from 'email-validator';
 import { generateResetLink } from "../lib/ajax/user";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
-export default function PasswordReset(/*props*/) {
-
-    /* showRecoveryEmailForm = props.showRecoveryEmailForm;
-    setShowRecoveryEmailForm = props.setShowRecoveryEmailForm;
-
-    dirtyEmail = props.dirtyEmail;
-    setDirtyEmail = props.setDirtyEmail;
-
-    recoveryEmailFormInput = props.recoveryEmailFormInput;
-    setRecoveryEmailFormInput = props.setRecoveryEmailFormInput; */
+export default function PasswordReset() {
 
     const [showRecoveryEmailForm, setShowRecoveryEmailForm] = useState(false);
     const [recoveryEmailFormInput, setRecoveryEmailFormInput] = useState(false);
