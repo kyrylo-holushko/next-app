@@ -24,19 +24,33 @@ export default function Items(){
     const [showItemMove, setShowItemMove] = useState(false);
     const [showItemMoveAll, setShowItemMoveAll] = useState(false);
 
-    const [page, setPage] = useState(1); //page state
-    const [perPage, setPerPage] = useState(3);
+    const [page, setPage] = useState(1); //page number
+    const [perPage, setPerPage] = useState(3); //items per page
+    const [nextItemsCount, setNextItemsCount] = useState(); //count the number of next items on next page
 
     useEffect(()=>{
         getItems(bagId, page, perPage).then(items=>{
-            setItemData(items);
+            setItemData(items.slice(0,items.length/2));
+            setNextItemsCount((items.slice(items.length/2, items.length)).length);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
-    },[writeReq]);
+    },[writeReq, page]);
 
     const handleShowItemCreate = () => setShowItemCreate(true);
     const handleShowItemMoveAll = () => setShowItemMoveAll(true);
+
+    function previousPage() {
+        if(page>1){
+          setPage(page-1);
+        }
+      }
+    
+      function nextPage() {
+        if(nextItemsCount<) {// here
+          setPage(page+1);
+        }
+      }
 
     return (
         <>
