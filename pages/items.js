@@ -1,7 +1,7 @@
 import { BagContext } from "./_app";
 import { useContext, useEffect, useState } from "react";
 import { getItems } from "../lib/ajax/item";
-import { Container, Button, Table, Row, Col } from "react-bootstrap";
+import { Container, Button, Table, Row, Col, Pagination } from "react-bootstrap";
 import ItemRow from "../components/item/ItemRow";
 import ItemCreate from "../components/item/ItemCreate";
 import ItemEdit from "../components/item/ItemEdit";
@@ -30,12 +30,12 @@ export default function Items(){
 
     useEffect(()=>{
         getItems(bagId, page, perPage).then(items=>{
-            setItemData(items.slice(0,items.length/2));
-            setNextItemsCount((items.slice(items.length/2, items.length)).length);
+            setItemData(items.slice(0,perPage));
+            setNextItemsCount(items.slice(perPage, perPage*2).length);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
-    },[writeReq, page]);
+    },[writeReq, page]); //Later add drop down menu for user to opt for items per page using setPerPage.
 
     const handleShowItemCreate = () => setShowItemCreate(true);
     const handleShowItemMoveAll = () => setShowItemMoveAll(true);
@@ -44,13 +44,13 @@ export default function Items(){
         if(page>1){
           setPage(page-1);
         }
-      }
+    }
     
-      function nextPage() {
-        if(nextItemsCount<) {// here
+    function nextPage() {
+        if(nextItemsCount>0) {
           setPage(page+1);
         }
-      }
+    }
 
     return (
         <>
@@ -88,7 +88,13 @@ export default function Items(){
                         ))}
                     </tbody>
                 </Table>
-                </Row>}
+                <Pagination>
+                    <Pagination.Prev onClick={previousPage}/>
+                    <Pagination.Item>{page}</Pagination.Item>
+                    <Pagination.Next onClick={nextPage}/>
+                </Pagination>
+                </Row>
+            }
             </Container>
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
             <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} iid={itemId}/>
