@@ -14,7 +14,7 @@ export default function Items(){
     const { bag } = useContext(BagContext);
     const bagId = bag.bid;
     const bagName = bag.bname;
-    const [itemData, setItemData] = useState(false);
+    const [itemData, setItemData] = useState(false); //page data
     const [errMsg, setErrMsg] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
     const [itemId, setItemId] = useState(false);
@@ -24,8 +24,11 @@ export default function Items(){
     const [showItemMove, setShowItemMove] = useState(false);
     const [showItemMoveAll, setShowItemMoveAll] = useState(false);
 
+    const [page, setPage] = useState(1); //page state
+    const [perPage, setPerPage] = useState(3);
+
     useEffect(()=>{
-        getItems(bagId).then(items=>{
+        getItems(bagId, page, perPage).then(items=>{
             setItemData(items);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
