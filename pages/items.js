@@ -89,9 +89,9 @@ export default function Items(){
                     </tbody>
                 </Table>
                 <Pagination>
-                    <Pagination.Prev onClick={previousPage} disabled={false}/>
+                    <Pagination.Prev onClick={previousPage} disabled={!(page>1)}/>
                     <Pagination.Item>{page}</Pagination.Item>
-                    <Pagination.Next onClick={nextPage} disabled={false}/>
+                    <Pagination.Next onClick={nextPage} disabled={!(nextItemsCount>0)}/>
                 </Pagination>
                 </Row>
             }
