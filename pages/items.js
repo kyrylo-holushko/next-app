@@ -1,7 +1,7 @@
 import { BagContext } from "./_app";
 import { useContext, useEffect, useState } from "react";
 import { getItems } from "../lib/ajax/item";
-import { Container, Button, Table, Row, Col, Pagination } from "react-bootstrap";
+import { Container, Button, Table, Row, Col, Pagination, Form } from "react-bootstrap";
 import ItemRow from "../components/item/ItemRow";
 import ItemCreate from "../components/item/ItemCreate";
 import ItemEdit from "../components/item/ItemEdit";
@@ -35,7 +35,7 @@ export default function Items(){
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
-    },[writeReq, page]); //Later add drop down menu for user to opt for items per page using setPerPage.
+    },[writeReq, page, perPage]);
 
     const handleShowItemCreate = () => setShowItemCreate(true);
     const handleShowItemMoveAll = () => setShowItemMoveAll(true);
@@ -56,7 +56,28 @@ export default function Items(){
         <>
             <Container className="px-5">
                 <Row>
-                    <Col sm md lg className="my-auto pt-4"><h2 className="d-inline">{bagName?.toUpperCase()}</h2></Col>
+                    <Col sm md lg className="my-auto pt-4">
+                        <h2 className="d-inline">{bagName?.toUpperCase()}</h2>
+                        <Form className="d-inline-block ps-5">
+                            <Form.Group as={Row}>
+                                <Form.Label column sm="auto">Results per page:</Form.Label>
+                                <Col>
+                                <Form.Control
+                                    as="select"
+                                    value={perPage}
+                                    onChange={e=>{
+                                        setPerPage(e.target.value);
+                                    }}
+                                    defaultValue={perPage}
+                                    className="form-select"
+                                >
+                                    <option value="3">3</option>
+                                    <option value="5">5</option>
+                                </Form.Control>
+                                </Col>
+                            </Form.Group>
+                        </Form>
+                    </Col>
                     <Col md lg className="pt-4">
                         <div className="float-end">
                             {!errMsg && <Button className="border-2" variant="outline-secondary" onClick={handleShowItemMoveAll} size="lg">Move All</Button>}
@@ -104,3 +125,24 @@ export default function Items(){
         </>
     )
 }
+
+{/* <Form>
+    <Form.Group className="mb-3">
+        <Form.Label>Select bag to transfer to:</Form.Label>
+        <Form.Control
+            as="select"
+            value={bagOption}
+            onChange={e=>{
+                setBagOption(e.target.value);
+            }}
+            defaultValue={defaultBag}
+        >
+        {bagData.map((bag, i) => {
+            if(i===0){
+                defaultBag=bag.bid;
+            }
+            return <option value={bag.bid} key={i}>{bag.bname}</option>;
+        })}
+        </Form.Control>
+    </Form.Group>
+</Form> */}
