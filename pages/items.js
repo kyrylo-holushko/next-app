@@ -31,16 +31,12 @@ export default function Items(){
 
     useEffect(()=>{
         getItems(bagId, page, perPage).then(items=>{
-            setItemData(orderItems(items.slice(0,perPage))); //ordered on every data pull/page change
+            setItemData(orderItems(items.slice(0,perPage),order)); //ordered on every data pull/page change
             setNextItemsCount(items.slice(perPage, perPage*2).length);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
-    },[writeReq, page, perPage]);
-
-    useEffect(()=>{
-        orderItems(itemData, order); //ordered when data is already populated
-    },[order]);
+    },[writeReq, page, perPage, order]);
 
     function orderItems(items, order){
         if(order.order === true) { //ASCENDING
@@ -112,12 +108,16 @@ export default function Items(){
     }
 
     function orderColumn(column){
-        switch(order){
+        console.log("Current Order DIrection", order.order);
+        switch(order.order){
+            case null:
+                setOrder({column: column, order: true});
+                break;
             case true:
                 setOrder({column: column, order: false});
                 break;
             case false:
-                setOrder({column: column, order: true});
+                setOrder({column: column, order: null});
                 break;
         }
     }
@@ -161,9 +161,9 @@ export default function Items(){
                 <Table className="tablefixed" striped bordered hover>
                     <thead>
                     <tr>
-                        <th onClick={e=>{e.stopPropagation();orderColumn("name")}}>Name</th>
-                        <th onClick={e=>{e.stopPropagation();orderColumn("description")}}>Description</th>
-                        <th onClick={e=>{e.stopPropagation();orderColumn("priority")}}>Priority</th>
+                        <th onClick={e=>{orderColumn("name")}}>Name</th>
+                        <th onClick={e=>{orderColumn("description")}}>Description</th>
+                        <th onClick={e=>{orderColumn("priority")}}>Priority</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
