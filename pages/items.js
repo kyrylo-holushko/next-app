@@ -77,12 +77,35 @@ export default function Items(){
                     items.sort((a, b) => a.priority - b.priority);
                     break;
             }
-        } else if(order.order === false) { //DESCENDING
-            
-        } else {
-            setItemData(items.slice(0,perPage));
-            setNextItemsCount(items.slice(perPage, perPage*2).length);
         }
+        if(order.order === false) { //DESCENDING
+            switch(order.column){
+                case "name":
+                    items.sort((a, b) => {
+                        const nameA = a.iname.toUpperCase();
+                        const nameB = b.iname.toUpperCase();
+                        if (nameA > nameB) return -1;
+                        if (nameA < nameB) return 1;
+                        return 0;
+                    });
+                    break;
+                case "description":
+                    items.sort((a, b) => {
+                        const nameA = a.idesc.toUpperCase();
+                        const nameB = b.idesc.toUpperCase();
+                        if (nameA > nameB) return -1;
+                        if (nameA < nameB) return 1;
+                        return 0;
+                    });
+                    break;
+                case "priority":
+                    items.sort((a, b) => a.priority + b.priority);
+                    break;
+            }
+        }
+        setItemData(items.slice(0,perPage));
+        setNextItemsCount(items.slice(perPage, perPage*2).length);
+        
     };
 
     const handleShowItemCreate = () => setShowItemCreate(true);
