@@ -27,15 +27,37 @@ export default function Items(){
     const [page, setPage] = useState(1); //page number
     const [perPage, setPerPage] = useState(3); //items per page
     const [nextItemsCount, setNextItemsCount] = useState(); //count the number of next items on next page
+    const [order, setOrder] = useState({column: null, order: null}); //true Ascending order, false Descending order
 
     useEffect(()=>{
         getItems(bagId, page, perPage).then(items=>{
-            setItemData(items.slice(0,perPage));
-            setNextItemsCount(items.slice(perPage, perPage*2).length);
+            /* if(Order === true) {
+                //sort
+            } else if(Order === false) {
+                //sort
+            } else {
+                setItemData(items.slice(0,perPage));
+                setNextItemsCount(items.slice(perPage, perPage*2).length);
+            } */
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
     },[writeReq, page, perPage]);
+
+    useEffect(()=>{
+        OrderAndSetData(itemData, order);
+    },[order]);
+
+    function OrderAndSetData(data, order){
+        if(order.order === true) { //ASCENDING
+            
+        } else if(order.order === false) { //DESCENDING
+            
+        } else {
+            setItemData(items.slice(0,perPage));
+            setNextItemsCount(items.slice(perPage, perPage*2).length);
+        }
+    };
 
     const handleShowItemCreate = () => setShowItemCreate(true);
     const handleShowItemMoveAll = () => setShowItemMoveAll(true);
