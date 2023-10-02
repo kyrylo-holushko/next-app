@@ -85,7 +85,7 @@ export default function Items(){
                     });
                     break;
                 case "priority":
-                    items.sort((a, b) => a.priority + b.priority);
+                    items.sort((a, b) => b.priority - a.priority);
                     break;
             }
         }

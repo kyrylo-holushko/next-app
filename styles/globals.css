@@ -15,3 +15,7 @@ body {
 .tablefixed {
     table-layout: fixed !important;
 }
+
+th:hover {
+    cursor: pointer;
+}
