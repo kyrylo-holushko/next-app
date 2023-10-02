@@ -195,24 +195,3 @@ export default function Items(){
         </>
     )
 }
-
-{/* <Form>
-    <Form.Group className="mb-3">
-        <Form.Label>Select bag to transfer to:</Form.Label>
-        <Form.Control
-            as="select"
-            value={bagOption}
-            onChange={e=>{
-                setBagOption(e.target.value);
-            }}
-            defaultValue={defaultBag}
-        >
-        {bagData.map((bag, i) => {
-            if(i===0){
-                defaultBag=bag.bid;
-            }
-            return <option value={bag.bid} key={i}>{bag.bname}</option>;
-        })}
-        </Form.Control>
-    </Form.Group>
-</Form> */}
