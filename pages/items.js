@@ -31,7 +31,7 @@ export default function Items(){
 
     useEffect(()=>{
         getItems(bagId, page, perPage).then(items=>{
-            setItemData(orderItems(items.slice(0,perPage)));
+            setItemData(orderItems(items.slice(0,perPage))); //ordered on every data pull/page change
             setNextItemsCount(items.slice(perPage, perPage*2).length);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
@@ -39,7 +39,7 @@ export default function Items(){
     },[writeReq, page, perPage]);
 
     useEffect(()=>{
-        orderItems(itemData, order);
+        orderItems(itemData, order); //ordered when data is already populated
     },[order]);
 
     function orderItems(items, order){
@@ -164,6 +164,8 @@ export default function Items(){
                             setShowItemEdit={setShowItemEdit} 
                             setShowItemDelete={setShowItemDelete} 
                             setShowItemMove={setShowItemMove}
+                            setOrder={setOrder}
+                            order={order}
                             />  
                         ))}
                     </tbody>
