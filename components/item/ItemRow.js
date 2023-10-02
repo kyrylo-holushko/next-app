@@ -1,4 +1,4 @@
-import { Nav, Row } from "react-bootstrap"
+import { Nav } from "react-bootstrap"
 import { useState } from "react";
 import ItemDetails from "./ItemDetails";
 
