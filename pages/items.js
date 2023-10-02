@@ -48,9 +48,35 @@ export default function Items(){
         OrderAndSetData(itemData, order);
     },[order]);
 
-    function OrderAndSetData(data, order){
+    {/* <td className="iname">{iname}</td>
+    <td className="idesc">{idesc}</td>
+    <td>{priority}</td> */}
+
+    function OrderAndSetData(items, order){
         if(order.order === true) { //ASCENDING
-            
+            switch(order.column){
+                case "name":
+                    items.sort((a, b) => {
+                        const nameA = a.iname.toUpperCase();
+                        const nameB = b.iname.toUpperCase();
+                        if (nameA < nameB) return -1;
+                        if (nameA > nameB) return 1;
+                        return 0;
+                    });
+                    break;
+                case "description":
+                    items.sort((a, b) => {
+                        const nameA = a.idesc.toUpperCase();
+                        const nameB = b.idesc.toUpperCase();
+                        if (nameA < nameB) return -1;
+                        if (nameA > nameB) return 1;
+                        return 0;
+                    });
+                    break;
+                case "priority":
+                    items.sort((a, b) => a.priority - b.priority);
+                    break;
+            }
         } else if(order.order === false) { //DESCENDING
             
         } else {
