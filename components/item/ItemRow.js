@@ -6,8 +6,6 @@ export default function ItemRow(props) {
 
     const { iid, iname, idesc, priority } = props.item;
     const setItemId = props.setItemId;
-    const setOrder = props.setOrder;
-    const order = props.order;
 
     const [showItemDetails, setShowItemDetails] = useState(false);
 
@@ -29,23 +27,12 @@ export default function ItemRow(props) {
         }
     };
 
-    function orderColumn(column){
-        switch(order){
-            case true:
-                setOrder({column: column, order: false});
-                break;
-            case false:
-                setOrder({column: column, order: true});
-                break;
-        }
-    }
-
     return (
         <>
             <tr key={props.key} onClick={handleShowDetails}>
-                <td className="iname" onClick={e=>{e.stopPropagation();orderColumn("name")}}>{iname}</td>
-                <td className="idesc" onClick={e=>{e.stopPropagation();orderColumn("description")}}>{idesc}</td>
-                <td onClick={e=>{e.stopPropagation();orderColumn("priority")}}>{priority}</td>
+                <td className="iname">{iname}</td>
+                <td className="idesc">{idesc}</td>
+                <td>{priority}</td>
                 <td>
                     <Nav onSelect={handleSelect}>
                         <Nav.Item>

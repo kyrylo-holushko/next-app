@@ -111,6 +111,17 @@ export default function Items(){
         }
     }
 
+    function orderColumn(column){
+        switch(order){
+            case true:
+                setOrder({column: column, order: false});
+                break;
+            case false:
+                setOrder({column: column, order: true});
+                break;
+        }
+    }
+
     return (
         <>
             <Container className="px-5">
@@ -150,9 +161,9 @@ export default function Items(){
                 <Table className="tablefixed" striped bordered hover>
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Priority</th>
+                        <th onClick={e=>{e.stopPropagation();orderColumn("name")}}>Name</th>
+                        <th onClick={e=>{e.stopPropagation();orderColumn("description")}}>Description</th>
+                        <th onClick={e=>{e.stopPropagation();orderColumn("priority")}}>Priority</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -164,8 +175,6 @@ export default function Items(){
                             setShowItemEdit={setShowItemEdit} 
                             setShowItemDelete={setShowItemDelete} 
                             setShowItemMove={setShowItemMove}
-                            setOrder={setOrder}
-                            order={order}
                             />  
                         ))}
                     </tbody>
