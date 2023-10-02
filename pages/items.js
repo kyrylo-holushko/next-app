@@ -31,28 +31,18 @@ export default function Items(){
 
     useEffect(()=>{
         getItems(bagId, page, perPage).then(items=>{
-            /* if(Order === true) {
-                //sort
-            } else if(Order === false) {
-                //sort
-            } else {
-                setItemData(items.slice(0,perPage));
-                setNextItemsCount(items.slice(perPage, perPage*2).length);
-            } */
+            setItemData(orderItems(items.slice(0,perPage)));
+            setNextItemsCount(items.slice(perPage, perPage*2).length);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
     },[writeReq, page, perPage]);
 
     useEffect(()=>{
-        OrderAndSetData(itemData, order);
+        orderItems(itemData, order);
     },[order]);
 
-    {/* <td className="iname">{iname}</td>
-    <td className="idesc">{idesc}</td>
-    <td>{priority}</td> */}
-
-    function OrderAndSetData(items, order){
+    function orderItems(items, order){
         if(order.order === true) { //ASCENDING
             switch(order.column){
                 case "name":
@@ -103,9 +93,7 @@ export default function Items(){
                     break;
             }
         }
-        setItemData(items.slice(0,perPage));
-        setNextItemsCount(items.slice(perPage, perPage*2).length);
-        
+        return items;
     };
 
     const handleShowItemCreate = () => setShowItemCreate(true);
