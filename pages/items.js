@@ -158,7 +158,14 @@ export default function Items(){
                                     size="sm"
                                 />
                                 <Button variant="primary" type="button" size="sm">Search</Button>
-                                <Form.Label>Priority Filter</Form.Label>                                                                                    
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Priority Filter"
+                                    defaultChecked={false}
+                                    onClick={(e) => {
+                                        console.log(e.target.checked);
+                                    }}
+                                />                                                                          
                                 <Form.Control 
                                     type="number" 
                                     min="1"
@@ -166,8 +173,8 @@ export default function Items(){
                                     onChange={e=>{
                                         setFilterPriority(e.target.value);
                                     }}
-                                    value={filterPriority!==0 ? filterPriority : 'None'}
-                                    defaultValue={'None'}                                                     
+                                    value={filterPriority}
+                                    defaultValue={"1"}                                                     
                                 /> 
                                 <Form.Text className="error">
                                     {/*dirty.priority && errors.priority.notNumericAndWhole && "Must be a round number"*/}
