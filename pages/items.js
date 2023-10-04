@@ -27,10 +27,14 @@ export default function Items(){
     const [page, setPage] = useState(1); //page number
     const [perPage, setPerPage] = useState(3); //items per page
     const [nextItemsCount, setNextItemsCount] = useState(); //count the number of next items on next page
+
     const [order, setOrder] = useState({column: null, order: null}); //true Ascending order, false Descending order
 
+    const [search, setSearch] = useState(false);                    //if search false, means no search query
+    const [filterPriority, setFilterPriority] = useState(false);    //if filters by specific priority number
+
     useEffect(()=>{
-        getItems(bagId, page, perPage).then(items=>{
+        getItems(bagId, page, perPage, search, filterPriority).then(items=>{
             setItemData(orderItems(items.slice(0,perPage),order)); //ordered on every data pull/page change
             setNextItemsCount(items.slice(perPage, perPage*2).length);
             setErrMsg(false);
