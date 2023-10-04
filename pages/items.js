@@ -30,8 +30,8 @@ export default function Items(){
 
     const [order, setOrder] = useState({column: null, order: null}); //true Ascending order, false Descending order
 
-    const [search, setSearch] = useState(false);                    //if search false, means no search query
-    const [filterPriority, setFilterPriority] = useState(false);    //if filters by specific priority number
+    const [search, setSearch] = useState('');                    //if search false, means no search query
+    const [filterPriority, setFilterPriority] = useState(0);    //if filters by specific priority number
 
     useEffect(()=>{
         getItems(bagId, page, perPage, search, filterPriority).then(items=>{
