@@ -148,6 +148,31 @@ export default function Items(){
                                     <option value="3">3</option>
                                     <option value="5">5</option>
                                 </Form.Control>
+                                <Form.Control 
+                                    as="search"
+                                    value={search}
+                                    onChange={e=>{
+                                        setSearch(e.target.value);
+                                    }}
+                                    defaultValue={search}
+                                    size="sm"
+                                />
+                                <Button variant="primary" type="button" onClick={} size="sm">Search</Button>
+                                <Form.Label>Priority Filter</Form.Label>                                                                                    
+                                <Form.Control 
+                                    type="number" 
+                                    min="1"
+                                    max="10"                                                             
+                                    onChange={e=>{
+                                        setFilterPriority(e.target.value);
+                                    }}
+                                    value={filterPriority!==0 ? filterPriority : 'None'}
+                                    defaultValue={'None'}                                                     
+                                /> 
+                                <Form.Text className="error">
+                                    {/*dirty.priority && errors.priority.notNumericAndWhole && "Must be a round number"*/}
+                                    {/*dirty.priority && errors.priority.minMax && "Priority is from 1 to 10"*/}
+                                </Form.Text>
                                 </Col>
                             </Form.Group>
                         </Form>
@@ -199,3 +224,5 @@ export default function Items(){
         </>
     )
 }
+
+/* isInvalid={dirty.priority && (errors.priority.notNumericAndWhole||errors.priority.minMax)}   */
