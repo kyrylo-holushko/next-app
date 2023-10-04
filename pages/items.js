@@ -163,7 +163,11 @@ export default function Items(){
                                     label="Priority Filter"
                                     defaultChecked={false}
                                     onClick={(e) => {
-                                        console.log(e.target.checked);
+                                        if(e.target.checked){
+                                            setFilterPriority(1);
+                                        } else {
+                                            setFilterPriority(0);
+                                        }
                                     }}
                                 />                                                                          
                                 <Form.Control 
@@ -174,7 +178,8 @@ export default function Items(){
                                         setFilterPriority(e.target.value);
                                     }}
                                     value={filterPriority}
-                                    defaultValue={"1"}                                                     
+                                    defaultValue={filterPriority}
+                                    className="form-select"                                                    
                                 /> 
                                 <Form.Text className="error">
                                     {/*dirty.priority && errors.priority.notNumericAndWhole && "Must be a round number"*/}
