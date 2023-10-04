@@ -157,7 +157,7 @@ export default function Items(){
                                     defaultValue={search}
                                     size="sm"
                                 />
-                                <Button variant="primary" type="button" onClick={} size="sm">Search</Button>
+                                <Button variant="primary" type="button" size="sm">Search</Button>
                                 <Form.Label>Priority Filter</Form.Label>                                                                                    
                                 <Form.Control 
                                     type="number" 
@@ -224,5 +224,3 @@ export default function Items(){
         </>
     )
 }
-
-/* isInvalid={dirty.priority && (errors.priority.notNumericAndWhole||errors.priority.minMax)}   */
