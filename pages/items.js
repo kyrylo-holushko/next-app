@@ -32,6 +32,7 @@ export default function Items(){
 
     const [search, setSearch] = useState('');                    //if search false, means no search query
     const [filterPriority, setFilterPriority] = useState(0);    //if filters by specific priority number
+    const [showFilter, setShowFilter] = useState(false);
 
     useEffect(()=>{
         getItems(bagId, page, perPage, search, filterPriority).then(items=>{
@@ -165,12 +166,14 @@ export default function Items(){
                                     onClick={(e) => {
                                         if(e.target.checked){
                                             setFilterPriority(1);
+                                            setShowFilter(true);
                                         } else {
                                             setFilterPriority(0);
+                                            setShowFilter(false);
                                         }
                                     }}
                                 />                                                                          
-                                <Form.Control 
+                                {showFilter && <Form.Control 
                                     type="number" 
                                     min="1"
                                     max="10"                                                             
@@ -179,12 +182,8 @@ export default function Items(){
                                     }}
                                     value={filterPriority}
                                     defaultValue={filterPriority}
-                                    className="form-select"                                                    
-                                /> 
-                                <Form.Text className="error">
-                                    {/*dirty.priority && errors.priority.notNumericAndWhole && "Must be a round number"*/}
-                                    {/*dirty.priority && errors.priority.minMax && "Priority is from 1 to 10"*/}
-                                </Form.Text>
+                                    className="form-select"                                                                                   
+                                />}
                                 </Col>
                             </Form.Group>
                         </Form>
