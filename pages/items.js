@@ -166,9 +166,9 @@ export default function Items(){
                                     type="search"
                                     value={searchString}
                                     onChange={e=>{
-                                        if(!e.target.value)
+                                        /* if(!e.target.value)
                                             setSearchGo(false);
-                                        else
+                                        else */
                                             setSearchString(e.target.value);
                                     }}
                                     defaultValue={searchString}
