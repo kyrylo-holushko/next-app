@@ -30,12 +30,13 @@ export default function Items(){
 
     const [order, setOrder] = useState({column: null, order: null}); //true Ascending order, false Descending order
 
-    const [search, setSearch] = useState('');                    //if search false, means no search query
+    const [searchString, setSearchString] = useState('');                    //if search false, means no search query
     const [filterPriority, setFilterPriority] = useState(0);    //if filters by specific priority number
     const [showFilter, setShowFilter] = useState(false);
+    const [searchGo, setSearchGo] = useState(false);
 
     useEffect(()=>{
-        getItems(bagId, page, perPage, search, filterPriority).then(items=>{
+        getItems(bagId, page, perPage, searchString, filterPriority).then(items=>{
             const itemsA = items.slice(0,perPage);
             const itemsB = items.slice(perPage, perPage*2);
             setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
@@ -43,7 +44,7 @@ export default function Items(){
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
-    },[writeReq, page, perPage, order]);
+    },[writeReq, page, perPage, order, filterPriority, searchGo]);
 
     useEffect(()=>{
         setPage(1);
@@ -136,14 +137,17 @@ export default function Items(){
     return (
         <>
             <Container className="px-5">
-                <Row>
-                    <Col sm md lg className="my-auto pt-4">
+                <Row sm md lg className="my-auto pt-4">
+                    <Col sm="auto"> 
                         <h2 className="d-inline">{bagName?.toUpperCase()}</h2>
+                    </Col>
+                    <Col sm="auto">
                         <Form className="d-inline-block ps-5">
                             <Form.Group as={Row}>
                                 <Form.Label column sm="auto">Results per page:</Form.Label>
-                                <Col>
+                                
                                 <Form.Control
+                                    size="sm"
                                     as="select"
                                     value={perPage}
                                     onChange={e=>{
@@ -151,20 +155,35 @@ export default function Items(){
                                     }}
                                     defaultValue={perPage}
                                     className="form-select"
+                                    
                                 >
                                     <option value="3">3</option>
                                     <option value="5">5</option>
                                 </Form.Control>
+                                
+                                
                                 <Form.Control 
-                                    as="search"
-                                    value={search}
+                                    type="search"
+                                    value={searchString}
                                     onChange={e=>{
-                                        setSearch(e.target.value);
+                                        if(!e.target.value)
+                                            setSearchGo(false);
+                                        else
+                                            setSearchString(e.target.value);
                                     }}
-                                    defaultValue={search}
-                                    size="sm"
+                                    defaultValue={searchString}
+                                    className="d-inline-block"
                                 />
-                                <Button variant="primary" type="button" size="sm">Search</Button>
+                                
+                                
+                                <Button className="d-inline-block" 
+                                    variant="primary" 
+                                    type="button" 
+                                    size="sm"
+                                    onClick={e=>{setSearchGo(true)}}
+                                >Search</Button>
+                                
+                                
                                 <Form.Check
                                     type="checkbox"
                                     label="Priority Filter"
@@ -178,7 +197,10 @@ export default function Items(){
                                             setShowFilter(false);
                                         }
                                     }}
-                                />                                                                          
+                                    className="d-inline-block"
+                                /> 
+                                
+                                                                                                        
                                 {showFilter && <Form.Control 
                                     type="number" 
                                     min="1"
@@ -188,13 +210,14 @@ export default function Items(){
                                     }}
                                     value={filterPriority}
                                     defaultValue={filterPriority}
-                                    className="form-select"                                                                                   
+                                    className="d-inline-block"                                                                                   
                                 />}
-                                </Col>
+                                
                             </Form.Group>
                         </Form>
+                        
                     </Col>
-                    <Col md lg className="pt-4">
+                    <Col sm="auto" md lg className="">
                         <div className="float-end">
                             {!errMsg && <Button className="border-2" variant="outline-secondary" onClick={handleShowItemMoveAll} size="lg">Move All</Button>}
                             &nbsp;&nbsp;&nbsp;&nbsp;
