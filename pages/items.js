@@ -36,12 +36,18 @@ export default function Items(){
 
     useEffect(()=>{
         getItems(bagId, page, perPage, search, filterPriority).then(items=>{
-            setItemData(orderItems(items.slice(0,perPage),order)); //ordered on every data pull/page change
-            setNextItemsCount(items.slice(perPage, perPage*2).length);
+            const itemsA = items.slice(0,perPage);
+            const itemsB = items.slice(perPage, perPage*2);
+            setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
+            setNextItemsCount(itemsB.length);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
     },[writeReq, page, perPage, order]);
+
+    useEffect(()=>{
+        setPage(1);
+    },[perPage]);
 
     function orderItems(items, order){
         if(order.order === true) { //ASCENDING
