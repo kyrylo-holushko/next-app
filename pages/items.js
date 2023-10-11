@@ -164,14 +164,11 @@ export default function Items(){
                                 
                                 <Form.Control 
                                     type="search"
-                                    value={searchString}
                                     onChange={e=>{
-                                        /* if(!e.target.value)
+                                        setSearchString(e.target.value);
+                                        if(!e.target.value)
                                             setSearchGo(false);
-                                        else */
-                                            setSearchString(e.target.value);
                                     }}
-                                    defaultValue={searchString}
                                     className="d-inline-block"
                                 />
                                 
