@@ -137,84 +137,12 @@ export default function Items(){
     return (
         <>
             <Container className="px-5">
-                <Row sm md lg className="my-auto pt-4">
-                    <Col sm="auto"> 
+                <Row sm md lg className="my-auto">
+                    <Col sm="auto" className="pt-4"> 
                         <h2 className="d-inline">{bagName?.toUpperCase()}</h2>
                     </Col>
-                    <Col sm="auto">
-                        <Form className="d-inline-block ps-5">
-                            <Form.Group as={Row}>
-                                <Form.Label column sm="auto">Results per page:</Form.Label>
-                                
-                                <Form.Control
-                                    size="sm"
-                                    as="select"
-                                    value={perPage}
-                                    onChange={e=>{
-                                        setPerPage(e.target.value);
-                                    }}
-                                    defaultValue={perPage}
-                                    className="form-select"
-                                    
-                                >
-                                    <option value="3">3</option>
-                                    <option value="5">5</option>
-                                </Form.Control>
-                                
-                                
-                                <Form.Control 
-                                    type="search"
-                                    onChange={e=>{
-                                        setSearchString(e.target.value);
-                                        if(!e.target.value)
-                                            setSearchGo(false);
-                                    }}
-                                    className="d-inline-block"
-                                />
-                                
-                                
-                                <Button className="d-inline-block" 
-                                    variant="primary" 
-                                    type="button" 
-                                    size="sm"
-                                    onClick={e=>{setSearchGo(true)}}
-                                >Search</Button>
-                                
-                                
-                                <Form.Check
-                                    type="checkbox"
-                                    label="Priority Filter"
-                                    defaultChecked={false}
-                                    onClick={(e) => {
-                                        if(e.target.checked){
-                                            setFilterPriority(1);
-                                            setShowFilter(true);
-                                        } else {
-                                            setFilterPriority(0);
-                                            setShowFilter(false);
-                                        }
-                                    }}
-                                    className="d-inline-block"
-                                /> 
-                                
-                                                                                                        
-                                {showFilter && <Form.Control 
-                                    type="number" 
-                                    min="1"
-                                    max="10"                                                             
-                                    onChange={e=>{
-                                        setFilterPriority(e.target.value);
-                                    }}
-                                    value={filterPriority}
-                                    defaultValue={filterPriority}
-                                    className="d-inline-block"                                                                                   
-                                />}
-                                
-                            </Form.Group>
-                        </Form>
-                        
-                    </Col>
-                    <Col sm="auto" md lg className="">
+                    
+                    <Col sm="auto" md lg className="pt-4">
                         <div className="float-end">
                             {!errMsg && <Button className="border-2" variant="outline-secondary" onClick={handleShowItemMoveAll} size="lg">Move All</Button>}
                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -222,6 +150,77 @@ export default function Items(){
                         </div>
                     </Col>
                 </Row>
+                <Form className="d-inline-block ps-5">
+                    <Form.Group as={Row}>
+                        <Col sm="auto" className="pt-3">
+                            <Form.Label column sm="auto">Results per page:</Form.Label>
+                        </Col>
+                        <Col sm="auto" className="pt-3">
+                            <Form.Control
+                                size="sm"
+                                as="select"
+                                value={perPage}
+                                onChange={e=>{
+                                    setPerPage(e.target.value);
+                                }}
+                                defaultValue={perPage}
+                                className="form-select"
+                                
+                            >
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                            </Form.Control>
+                        </Col>
+                        <Col sm className="pt-3">
+                        <Form.Control 
+                            type="search"
+                            onChange={e=>{
+                                setSearchString(e.target.value);
+                                if(!e.target.value)
+                                    setSearchGo(false);
+                            }}
+                            className="d-inline-block"
+                        />
+                        </Col>
+                        <Col sm="auto" className="pt-3">
+                        <Button className="d-inline-block" 
+                            variant="primary" 
+                            type="button" 
+                            onClick={e=>{setSearchGo(true)}}
+                        >Search</Button>
+                        </Col>
+                        <Col sm className="pt-3">
+                            <Form.Check
+                                type="checkbox"
+                                label="Priority Filter"
+                                defaultChecked={false}
+                                onClick={(e) => {
+                                    if(e.target.checked){
+                                        setFilterPriority(1);
+                                        setShowFilter(true);
+                                    } else {
+                                        setFilterPriority(0);
+                                        setShowFilter(false);
+                                    }
+                                }}
+                                className="d-inline-block"
+                            /> 
+                        </Col>
+                        <Col sm="auto" className="pt-3">                                                                
+                            {showFilter && <Form.Control 
+                                type="number" 
+                                min="1"
+                                max="10"                                                             
+                                onChange={e=>{
+                                    setFilterPriority(e.target.value);
+                                }}
+                                value={filterPriority}
+                                defaultValue={filterPriority}
+                                className="d-inline-block"                                                                                   
+                            />}
+                        </Col> 
+                    </Form.Group>
+                </Form>
                 {errMsg && <h4 className="pt-4">{errMsg}</h4>}
                 {itemData && <Row className="pt-4"> 
                 <Table className="tablefixed" striped bordered hover>
