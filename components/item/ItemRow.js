@@ -4,8 +4,8 @@ import ItemDetails from "./ItemDetails";
 
 export default function ItemRow(props) {
 
-    const { iid, iname, idesc, priority } = props.item;
-    const setItemId = props.setItemId;
+    const { iname, idesc, priority } = props.item;
+    const setItemSelected = props.setItemSelected;
 
     const [showItemDetails, setShowItemDetails] = useState(false);
 
@@ -13,7 +13,7 @@ export default function ItemRow(props) {
 
     const handleSelect = (eventKey, event) => {
         event.stopPropagation();
-        setItemId(iid);
+        setItemSelected(props.item);
         switch(eventKey){
             case "move":
                 props.setShowItemMove(true);

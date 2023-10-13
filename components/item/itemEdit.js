@@ -7,13 +7,23 @@ export default function ItemEdit(props){
 
     const setShow = props.setShow;
     const setWrite = props.setWrite;
-    const itemId = props.iid;
+    const itemId = props.item.iid;
+    const { iname, idesc, priority } = props.item;
 
     const [form, setForm] = useState(itemForm.defaultFormInput);
     const [dirty, setDirty] = useState(itemForm.defaultFormDirty);
     const [errors, setErrors] = useState(itemForm.defaultSignupErrors);
     const [valid, setValid] = useState(false);
     const [resMsg, setResMsg] = useState(false);
+
+    useEffect(()=>{
+        setForm(current=>({ 
+            ...current,
+            iname,
+            idesc,
+            priority
+        }));
+    }, [props.show]);
 
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
@@ -31,7 +41,6 @@ export default function ItemEdit(props){
 
     const handleClose = () => {
         setShow(false);
-        setForm(itemForm.defaultFormInput);
         setErrors(itemForm.defaultSignupErrors);
         setDirty(itemForm.defaultFormDirty);
         if(resMsg) setResMsg(false);
@@ -69,7 +78,7 @@ export default function ItemEdit(props){
                                 iname: e.target.value
                             }))}} 
                             value={form.iname}
-                            isInvalid={dirty.iname && (errors.iname.empty || errors.iname.maxlength)}                                                     
+                            isInvalid={dirty.iname && (errors.iname.empty || errors.iname.maxlength)}                                                    
                         /> 
                         <Form.Text className="error">
                             {dirty.iname && errors.iname.empty && "Required Field"}
@@ -93,7 +102,7 @@ export default function ItemEdit(props){
                                 idesc: e.target.value
                             }))}} 
                             value={form.idesc}
-                            isInvalid={dirty.idesc && errors.idesc.maxlength}                                                     
+                            isInvalid={dirty.idesc && errors.idesc.maxlength}                                                
                         /> 
                         <Form.Text className="error">
                             {dirty.idesc && errors.idesc.maxlength && "Maximum 500 characters"}
@@ -117,7 +126,7 @@ export default function ItemEdit(props){
                                 priority: e.target.value
                             }))}} 
                             value={form.priority}
-                            isInvalid={dirty.priority && (errors.priority.notNumericAndWhole||errors.priority.minMax)}                                                     
+                            isInvalid={dirty.priority && (errors.priority.notNumericAndWhole||errors.priority.minMax)}                                                
                         /> 
                         <Form.Text className="error">
                             {dirty.priority && errors.priority.notNumericAndWhole && "Must be a round number"}

@@ -17,7 +17,7 @@ export default function Items(){
     const [itemData, setItemData] = useState(false); //page data
     const [errMsg, setErrMsg] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
-    const [itemId, setItemId] = useState(false);
+    const [itemSelected, setItemSelected] = useState(false);
     const [showItemCreate, setShowItemCreate] = useState(false);
     const [showItemEdit, setShowItemEdit] = useState(false);
     const [showItemDelete, setShowItemDelete] = useState(false);
@@ -236,7 +236,7 @@ export default function Items(){
                         {itemData.map((item, i) => (
                             <ItemRow key={i}
                             item={item} 
-                            setItemId={setItemId} 
+                            setItemSelected={setItemSelected} 
                             setShowItemEdit={setShowItemEdit} 
                             setShowItemDelete={setShowItemDelete} 
                             setShowItemMove={setShowItemMove}
@@ -253,9 +253,9 @@ export default function Items(){
             }
             </Container>
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
-            <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} iid={itemId}/>
-            <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemId}/>
-            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemId}/>
+            <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} item={itemSelected}/>
+            <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemSelected.iid}/>
+            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemSelected.iid}/>
             <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bagId}/>
         </>
     )
