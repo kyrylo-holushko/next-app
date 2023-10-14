@@ -37,10 +37,11 @@ export default function Items(){
     const [searchClear, setSearchClear] = useState(false);
 
     useEffect(()=>{
-        getItems(bagId, page, perPage, searchString, filterPriority).then(items=>{
+        getItems(bagId, page, perPage, searchString, filterPriority, order).then(items=>{
             const itemsA = items.slice(0,perPage);
             const itemsB = items.slice(perPage, perPage*2);
-            setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
+            //setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
+            setItemData(itemsA);
             setNextItemsCount(itemsB.length);
             setSearchGo(false);
             setSearchClear(false);
@@ -53,7 +54,7 @@ export default function Items(){
         setPage(1);
     },[perPage]);
 
-    function orderItems(items, order){
+    /* function orderItems(items, order){
         if(order.order === true) { //ASCENDING
             switch(order.column){
                 case "name":
@@ -105,7 +106,7 @@ export default function Items(){
             }
         }
         return items;
-    };
+    }; */
 
     const handleShowItemCreate = () => setShowItemCreate(true);
     const handleShowItemMoveAll = () => setShowItemMoveAll(true);
@@ -123,13 +124,13 @@ export default function Items(){
     }
 
     function orderColumn(column){
-        console.log("Current Order DIrection", order.order);
+        console.log("Current Order Direction", order.order);
         switch(order.order){
             case null:
-                setOrder({column: column, order: true});
+                setOrder({column: column, order: "ASC"});
                 break;
             case true:
-                setOrder({column: column, order: false});
+                setOrder({column: column, order: "DESC"});
                 break;
             case false:
                 setOrder({column: column, order: null});
@@ -229,8 +230,8 @@ export default function Items(){
                 <Table className="tablefixed" striped bordered hover>
                     <thead>
                     <tr>
-                        <th onClick={e=>{orderColumn("name")}}>Name</th>
-                        <th onClick={e=>{orderColumn("description")}}>Description</th>
+                        <th onClick={e=>{orderColumn("iname")}}>Name</th>
+                        <th onClick={e=>{orderColumn("idesc")}}>Description</th>
                         <th onClick={e=>{orderColumn("priority")}}>Priority</th>
                         <th>Actions</th>
                     </tr>
