@@ -34,6 +34,7 @@ export default function Items(){
     const [filterPriority, setFilterPriority] = useState(0);    //if filters by specific priority number
     const [showFilter, setShowFilter] = useState(false);
     const [searchGo, setSearchGo] = useState(false);
+    const [searchClear, setSearchClear] = useState(false);
 
     useEffect(()=>{
         getItems(bagId, page, perPage, searchString, filterPriority).then(items=>{
@@ -41,10 +42,12 @@ export default function Items(){
             const itemsB = items.slice(perPage, perPage*2);
             setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
             setNextItemsCount(itemsB.length);
+            setSearchGo(false);
+            setSearchClear(false);
             setErrMsg(false);
         }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
         setWriteReq(false);
-    },[writeReq, page, perPage, order, filterPriority, searchGo]);
+    },[writeReq, page, perPage, order, filterPriority, searchGo, searchClear]);
 
     useEffect(()=>{
         setPage(1);
@@ -177,7 +180,7 @@ export default function Items(){
                             onChange={e=>{
                                 setSearchString(e.target.value);
                                 if(!e.target.value)
-                                    setSearchGo(false);
+                                    setSearchClear(true);
                             }}
                             className="d-inline-block"
                         />
