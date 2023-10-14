@@ -43,7 +43,7 @@ export default function ItemMoveAll(props){
             <Modal.Body>
                 {!resMsg ?  
                 <Form>
-                    {(bagData.length>1) ? <Form.Group className="mb-3">
+                    {(bagData.length>0) ? <Form.Group className="mb-3">
                         <Form.Label>Select bag to transfer to:</Form.Label>
                         <Form.Control
                             as="select"
@@ -60,7 +60,7 @@ export default function ItemMoveAll(props){
                     </Form.Group> : <Form.Text>You only have one bag.</Form.Text>}
                 </Form>: resMsg}
             </Modal.Body>
-            {!resMsg && (bagData.length>1) && <Modal.Footer>
+            {!resMsg && (bagData.length>0) && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
                 Transfer
             </Button>
