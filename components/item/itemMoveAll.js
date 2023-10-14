@@ -11,7 +11,7 @@ export default function ItemMoveAll(props){
 
     const [bagData, setBagData]= useState(false);
     const [resMsg, setResMsg] = useState(false);
-    const [bagOption, setBagOption] = useState();
+    const [bagOption, setBagOption] = useState(null);
 
     useEffect(()=>{
         getBags().then(bags=>{

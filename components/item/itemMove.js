@@ -18,6 +18,7 @@ export default function ItemMove(props){
     useEffect(()=>{
         getBags().then(bags=>{
             let bagsFiltered = bags.filter((bag) => bag.bid !== currentBagId);
+            setBagOption(bagsFiltered[0].bid);
             setBagData(bagsFiltered);
             setResMsg(false);
         }).catch(e=>{setBagData(false);setResMsg(e.message)});           
@@ -52,7 +53,7 @@ export default function ItemMove(props){
                             onChange={e=>{
                                 setBagOption(e.target.value);
                             }}
-                            defaultValue={defaultBag}
+                            defaultValue={bagOption}
                         >
                         {bagData.map((bag, i) => {
                             if(i===0){
