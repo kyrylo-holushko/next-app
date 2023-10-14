@@ -258,8 +258,8 @@ export default function Items(){
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
             <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} item={itemSelected}/>
             <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemSelected.iid}/>
-            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemSelected.iid}/>
-            <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bagId}/>
+            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemSelected.iid} bid={bagId}/>
+            <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bagId} bid={bagId}/>
         </>
     )
 }

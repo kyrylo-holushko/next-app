@@ -15,16 +15,16 @@ export default function ItemMoveAll(props){
 
     useEffect(()=>{
         getBags().then(bags=>{
-            setBagOption(bags[0].bid);
-            setBagData(bags);
+            let bagsFiltered = bags.filter((bag) => bag.bid !== oldBag);
+            setBagOption(bagsFiltered[0].bid);
+            setBagData(bagsFiltered);
             setResMsg(false);
         }).catch(e=>{setBagData(false);setResMsg(e.message)});           
         setWrite(false);
-    },[]);
+    },[props.show]);
 
     const handleClose = () => {
         setShow(false);
-        setBagData(false);
         if(resMsg) setResMsg(false);
     }
 

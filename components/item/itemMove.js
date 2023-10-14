@@ -9,6 +9,7 @@ export default function ItemMove(props){
     const setWrite = props.setWrite;
     const itemId = props.iid;
     let defaultBag = null;
+    const currentBagId = props.bid;
 
     const [bagData, setBagData]= useState(false);
     const [resMsg, setResMsg] = useState(false);
@@ -16,15 +17,15 @@ export default function ItemMove(props){
 
     useEffect(()=>{
         getBags().then(bags=>{
-            setBagData(bags);
+            let bagsFiltered = bags.filter((bag) => bag.bid !== currentBagId);
+            setBagData(bagsFiltered);
             setResMsg(false);
         }).catch(e=>{setBagData(false);setResMsg(e.message)});           
         setWrite(false);
-    },[]);
+    },[props.show]);
 
     const handleClose = () => {
         setShow(false);
-        setBagData(false);
         if(resMsg) setResMsg(false);
     }
 
@@ -43,7 +44,7 @@ export default function ItemMove(props){
             <Modal.Body>
                 {!resMsg ?  
                 <Form>
-                    {(bagData.length>1) ? <Form.Group className="mb-3">
+                    {(bagData.length>0) ? <Form.Group className="mb-3">
                         <Form.Label>Select bag to transfer to:</Form.Label>
                         <Form.Control
                             as="select"
@@ -57,13 +58,13 @@ export default function ItemMove(props){
                             if(i===0){
                                 defaultBag=bag.bid;
                             }
-                            return <option value={bag.bid} key={i}>{bag.bname}</option>;
+                            return <option value={bag?.bid} key={i}>{bag?.bname}</option>;
                         })}
                         </Form.Control>
                     </Form.Group> : <Form.Text>You only have one bag.</Form.Text>}
                 </Form>: resMsg}
             </Modal.Body>
-            {!resMsg && (bagData.length>1) && <Modal.Footer>
+            {!resMsg && (bagData.length>0) && <Modal.Footer>
             <Button variant="primary" type="button" onClick={submitForm}>
                 Transfer
             </Button>
