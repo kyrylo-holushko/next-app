@@ -7,6 +7,7 @@ export default function ItemMove(props){
 
     const setShow = props.setShow;
     const setWrite = props.setWrite;
+    const setPage = props.setPage;
     const itemId = props.iid;
     let defaultBag = null;
     const currentBagId = props.bid;
@@ -32,8 +33,9 @@ export default function ItemMove(props){
 
     async function submitForm(e) {
         moveItem(bagOption, itemId).then(()=>{
-            handleClose();
+            setPage(1);
             setWrite(true);
+            handleClose();
         }).catch(e=>{setResMsg(e.message)});
     }
 

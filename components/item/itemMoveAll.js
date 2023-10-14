@@ -7,6 +7,7 @@ export default function ItemMoveAll(props){
 
     const setShow = props.setShow;
     const setWrite = props.setWrite;
+    const setPage = props.setPage;
     const oldBag = props.obid;
 
     const [bagData, setBagData]= useState(false);
@@ -30,8 +31,9 @@ export default function ItemMoveAll(props){
 
     async function submitForm(e) {
         moveAllItems(oldBag, bagOption).then(()=>{
-            handleClose();
+            setPage(1);
             setWrite(true);
+            handleClose();
         }).catch(e=>{setResMsg(e.message)});
     }
 
