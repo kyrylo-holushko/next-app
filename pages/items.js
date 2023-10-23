@@ -28,7 +28,7 @@ export default function Items(){
     const [perPage, setPerPage] = useState(3); //items per page
     const [nextItemsCount, setNextItemsCount] = useState(); //count the number of next items on next page
 
-    const [order, setOrder] = useState({column: null, order: null}); //true Ascending order, false Descending order
+    const [order, setOrder] = useState({column: null, order: null});
 
     const [searchString, setSearchString] = useState('');                    //if search false, means no search query
     const [filterPriority, setFilterPriority] = useState(0);    //if filters by specific priority number
@@ -40,6 +40,7 @@ export default function Items(){
         getItems(bagId, page, perPage, searchString, filterPriority, order).then(items=>{
             const itemsA = items.slice(0,perPage);
             const itemsB = items.slice(perPage, perPage*2);
+            console.log("Items A", itemsA);
             //setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
             setItemData(itemsA);
             setNextItemsCount(itemsB.length);
@@ -129,10 +130,10 @@ export default function Items(){
             case null:
                 setOrder({column: column, order: "ASC"});
                 break;
-            case true:
+            case "ASC":
                 setOrder({column: column, order: "DESC"});
                 break;
-            case false:
+            case "DESC":
                 setOrder({column: column, order: null});
                 break;
         }
