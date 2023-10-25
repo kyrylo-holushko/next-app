@@ -15,6 +15,8 @@ export default function ItemCreate(props){
     const [valid, setValid] = useState(false);
     const [resMsg, setResMsg] = useState(false);
 
+    const [file, setFile] = useState();
+
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
             itemForm.formErrorSetter(form, setErrors);
@@ -46,6 +48,7 @@ export default function ItemCreate(props){
 
     async function submitForm(e) {
         if(valid){
+            console.log('This is the bag id, After Submit', bagId);
             createItem(form).then(res=>{
                 handleClose();
                 setWrite(true);
@@ -59,13 +62,13 @@ export default function ItemCreate(props){
                 <Modal.Title>Create Item</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {!resMsg ? <Form>
+                {!resMsg ? <Form encType="multipart/form-data">
                     <Form.Group className="mb-3">
                         <Form.Label>Name</Form.Label>                                                                                    
                         <Form.Control 
                             type="text"                                                                 
                             onChange={e=>{
-                                if(!dirty.password){
+                                if(!dirty.iname){
                                     setDirty(current=>({
                                     ...current,
                                     iname: true
@@ -84,12 +87,39 @@ export default function ItemCreate(props){
                         </Form.Text>                                                                         
                     </Form.Group>
                     <Form.Group className="mb-3">
+                        <Form.Label>Image</Form.Label> 
+                        <Form.Control 
+                            type="file" 
+                            accept="image/*"
+                            onChange={(e)=>{
+                                if(!dirty.image){
+                                    setDirty(current=>({
+                                    ...current,
+                                    iname: true
+                                    }));
+                                }
+
+                                if(e.target.files){
+                                    setForm(current=>({
+                                        ...current,
+                                        image: e.target.files[0]
+                                    }));
+                                } else {
+                                    setForm(current=>({
+                                        ...current,
+                                        image: ""
+                                    }));
+                                }
+                            }}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
                         <Form.Label>Description</Form.Label>                                                                                    
                         <Form.Control 
                             as="textarea" 
                             rows={5}                                                                 
                             onChange={e=>{
-                                if(!dirty.password){
+                                if(!dirty.idesc){
                                     setDirty(current=>({
                                     ...current,
                                     idesc: true
@@ -113,7 +143,7 @@ export default function ItemCreate(props){
                             min="1"
                             max="10"                                                             
                             onChange={e=>{
-                                if(!dirty.password){
+                                if(!dirty.priority){
                                     setDirty(current=>({
                                     ...current,
                                     priority: true
