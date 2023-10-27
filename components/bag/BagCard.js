@@ -22,6 +22,8 @@ export default function BagCard(props){
 
     const openBag = () => {
         setBag({ bid, bname });
+        localStorage.setItem('bagId', bid);
+        localStorage.setItem('bagName', bname);
         router.push("/items");
     };
 
@@ -49,17 +51,3 @@ export default function BagCard(props){
     )
 
 };
-
-
-{/* <Card>
-          <Card.Img src={data.primaryImageSmall ? data.primaryImageSmall : "https://via.placeholder.com/375x375.png?text=[+Not+Available+]"} alt="Card image" />
-          <Card.Body>
-            <Card.Title>{data.title ? data.title : "N/A"}</Card.Title>
-            <Card.Text>
-              <strong>Date: </strong>{data.objectDate ? data.objectDate : "N/A"}<br/>
-              <strong>Classification: </strong>{data.classification ? data.classification : "N/A"}<br/>
-              <strong>Medium: </strong>{data.medium ? data.medium : "N/A"}<br/><br/>
-            </Card.Text>
-            <Link href={`/artwork/${encodeURIComponent(props.objectID)}`} passHref><Button variant="outline-dark">ID: {props.objectID}</Button></Link>
-          </Card.Body>     
-        </Card> */}

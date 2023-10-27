@@ -12,8 +12,6 @@ import ItemMoveAll from "../components/item/ItemMoveAll";
 export default function Items(){
 
     const { bag } = useContext(BagContext);
-    const bagId = bag.bid;
-    const bagName = bag.bname;
     const [itemData, setItemData] = useState(false); //page data
     const [errMsg, setErrMsg] = useState(false);
     const [writeReq, setWriteReq] = useState(false);
@@ -37,7 +35,7 @@ export default function Items(){
     const [searchClear, setSearchClear] = useState(false);
 
     useEffect(()=>{
-        getItems(bagId, page, perPage, searchString, filterPriority, order).then(items=>{
+        getItems(bag.bid, page, perPage, searchString, filterPriority, order).then(items=>{
             const itemsA = items.slice(0,perPage);
             const itemsB = items.slice(perPage, perPage*2);
             console.log("Items A", itemsA);
@@ -89,7 +87,7 @@ export default function Items(){
             <Container className="px-5">
                 <Row sm md lg className="my-auto">
                     <Col sm="auto" className="pt-4"> 
-                        <h2 className="d-inline">{bagName?.toUpperCase()}</h2>
+                        <h2 className="d-inline">{bag.bname?.toUpperCase()}</h2>
                     </Col>
                     
                     <Col sm="auto" md lg className="pt-4">
@@ -202,11 +200,11 @@ export default function Items(){
                 </Row>
             }
             </Container>
-            <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bagId}/>
+            <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bag.bid}/>
             <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} item={itemSelected}/>
             <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemSelected.iid}/>
-            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemSelected.iid} bid={bagId} setPage={setPage}/>
-            <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bagId} bid={bagId} setPage={setPage}/>
+            <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemSelected.iid} bid={bag.bid} setPage={setPage}/>
+            <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bag.bid} bid={bag.bid} setPage={setPage}/>
         </>
     )
 }

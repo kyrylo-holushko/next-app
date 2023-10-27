@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState, createContext } from "react";
 import { Container } from 'react-bootstrap';
 import RouteGuard from '../components/RouteGuard';
-//import { removeToken } from '../lib/authenticate';
 
 export const BagContext = createContext();
 
@@ -14,7 +13,9 @@ export default function App({ Component, pageProps }) {
 
     useEffect(()=>{
         import("bootstrap/dist/js/bootstrap");
-        //window.onbeforeunload = function(e){removeToken()};
+        const bid = localStorage.getItem('bagId') || null;
+        const bname = localStorage.getItem('bagName') || null;
+        setBag({ bid, bname });
     },[])
   
     return (<>
