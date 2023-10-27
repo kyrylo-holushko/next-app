@@ -41,7 +41,6 @@ export default function Items(){
             const itemsA = items.slice(0,perPage);
             const itemsB = items.slice(perPage, perPage*2);
             console.log("Items A", itemsA);
-            //setItemData(orderItems(itemsA,order)); //ordered on every data pull/page change
             setItemData(itemsA);
             setNextItemsCount(itemsB.length);
             setSearchGo(false);
@@ -54,60 +53,6 @@ export default function Items(){
     useEffect(()=>{
         setPage(1);
     },[perPage]);
-
-    /* function orderItems(items, order){
-        if(order.order === true) { //ASCENDING
-            switch(order.column){
-                case "name":
-                    items.sort((a, b) => {
-                        const nameA = a.iname.toUpperCase();
-                        const nameB = b.iname.toUpperCase();
-                        if (nameA < nameB) return -1;
-                        if (nameA > nameB) return 1;
-                        return 0;
-                    });
-                    break;
-                case "description":
-                    items.sort((a, b) => {
-                        const nameA = a.idesc.toUpperCase();
-                        const nameB = b.idesc.toUpperCase();
-                        if (nameA < nameB) return -1;
-                        if (nameA > nameB) return 1;
-                        return 0;
-                    });
-                    break;
-                case "priority":
-                    items.sort((a, b) => a.priority - b.priority);
-                    break;
-            }
-        }
-        if(order.order === false) { //DESCENDING
-            switch(order.column){
-                case "name":
-                    items.sort((a, b) => {
-                        const nameA = a.iname.toUpperCase();
-                        const nameB = b.iname.toUpperCase();
-                        if (nameA > nameB) return -1;
-                        if (nameA < nameB) return 1;
-                        return 0;
-                    });
-                    break;
-                case "description":
-                    items.sort((a, b) => {
-                        const nameA = a.idesc.toUpperCase();
-                        const nameB = b.idesc.toUpperCase();
-                        if (nameA > nameB) return -1;
-                        if (nameA < nameB) return 1;
-                        return 0;
-                    });
-                    break;
-                case "priority":
-                    items.sort((a, b) => b.priority - a.priority);
-                    break;
-            }
-        }
-        return items;
-    }; */
 
     const handleShowItemCreate = () => setShowItemCreate(true);
     const handleShowItemMoveAll = () => setShowItemMoveAll(true);
