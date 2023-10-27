@@ -7,6 +7,7 @@ export default function ItemDelete(props){
     const setShow = props.setShow;
     const setWrite = props.setWrite;
     const itemId = props.iid;
+    const setDelete = props.setDelete;
 
     const [resMsg, setResMsg] = useState(false);
 
@@ -18,6 +19,7 @@ export default function ItemDelete(props){
     async function submitForm(e) {
         deleteItem(itemId).then(()=>{
             handleClose();
+            setDelete(true);
             setWrite(true);
         }).catch(e=>{setResMsg(e.message)});  
     }

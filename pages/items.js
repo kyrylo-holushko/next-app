@@ -33,18 +33,31 @@ export default function Items(){
     const [showFilter, setShowFilter] = useState(false);
     const [searchGo, setSearchGo] = useState(false);
     const [searchClear, setSearchClear] = useState(false);
+    const [lastRow, setLastRow] = useState(false);
+    const [itemDel, setItemDel] = useState(false);
 
     useEffect(()=>{
+        if(lastRow && page>1 && itemDel){       
+            setPage(page-1);
+            setLastRow(false);
+        }
+        if(!(lastRow && itemDel)){
         getItems(bag.bid, page, perPage, searchString, filterPriority, order).then(items=>{
             const itemsA = items.slice(0,perPage);
             const itemsB = items.slice(perPage, perPage*2);
             console.log("Items A", itemsA);
             setItemData(itemsA);
+            if(items.length===1){
+                setLastRow(true);
+            } else {
+                setLastRow(false);
+            }
             setNextItemsCount(itemsB.length);
             setSearchGo(false);
             setSearchClear(false);
+            if(itemDel){setItemDel(false)}
             setErrMsg(false);
-        }).catch(e=>{setItemData(false);setErrMsg(e.message)});           
+        }).catch(e=>{setItemData(false);setErrMsg(e.message)});}           
         setWriteReq(false);
     },[writeReq, page, perPage, order, filterPriority, searchGo, searchClear]);
 
@@ -57,13 +70,13 @@ export default function Items(){
 
     function previousPage() {
         if(page>1){
-          setPage(page-1);
+            setPage(page-1);
         }
     }
     
     function nextPage() {
-        if(nextItemsCount>0) {
-          setPage(page+1);
+        if(nextItemsCount>0){
+            setPage(page+1);
         }
     }
 
@@ -202,7 +215,7 @@ export default function Items(){
             </Container>
             <ItemCreate show={showItemCreate} setShow={setShowItemCreate} setWrite={setWriteReq} bid={bag.bid}/>
             <ItemEdit show={showItemEdit} setShow={setShowItemEdit} setWrite={setWriteReq} item={itemSelected}/>
-            <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemSelected.iid}/>
+            <ItemDelete show={showItemDelete} setShow={setShowItemDelete} setWrite={setWriteReq} iid={itemSelected.iid} setDelete={setItemDel}/>
             <ItemMove show={showItemMove} setShow={setShowItemMove} setWrite={setWriteReq} iid={itemSelected.iid} bid={bag.bid} setPage={setPage}/>
             <ItemMoveAll show={showItemMoveAll} setShow={setShowItemMoveAll} setWrite={setWriteReq} obid={bag.bid} bid={bag.bid} setPage={setPage}/>
         </>
