@@ -15,8 +15,6 @@ export default function ItemCreate(props){
     const [valid, setValid] = useState(false);
     const [resMsg, setResMsg] = useState(false);
 
-    const [file, setFile] = useState();
-
     useEffect(()=>{
         if(Object.values(dirty).some(k=>k===true)) {
             itemForm.formErrorSetter(form, setErrors);
