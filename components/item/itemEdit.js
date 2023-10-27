@@ -20,6 +20,7 @@ export default function ItemEdit(props){
         setForm(current=>({ 
             ...current,
             iname,
+            image: "keep",
             idesc,
             priority
         }));
@@ -84,6 +85,33 @@ export default function ItemEdit(props){
                             {dirty.iname && errors.iname.empty && "Required Field"}
                             {dirty.iname && errors.iname.maxlength && "Maximum 50 characters"}
                         </Form.Text>                                                                         
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Image</Form.Label> 
+                        <Form.Control 
+                            type="file" 
+                            accept="image/*"
+                            onChange={(e)=>{
+                                if(!dirty.image){
+                                    setDirty(current=>({
+                                    ...current,
+                                    iname: true
+                                    }));
+                                }
+
+                                if(e.target.files){
+                                    setForm(current=>({
+                                        ...current,
+                                        image: e.target.files[0]
+                                    }));
+                                } else {
+                                    setForm(current=>({
+                                        ...current,
+                                        image: "keep"
+                                    }));
+                                }
+                            }}
+                        />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Description</Form.Label>                                                                                    
