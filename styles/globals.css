@@ -20,3 +20,11 @@ th:hover {
     cursor: pointer;
     text-decoration: underline;
 }
+
+#basic-nav-dropdown {
+    width: fit-content !important;
+}
+
+.dropdown-menu {
+    min-width: auto !important;
+}

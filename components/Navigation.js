@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav, Button, NavDropdown, Col } from "react-bootstrap";
+import { Container, Navbar, Nav, Button, NavDropdown, Col, Row } from "react-bootstrap";
 import { useState, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
@@ -31,9 +31,10 @@ export default function MainNav() {
 
     return (
         <>
-            <Navbar expand="sm" bg="secondary" data-bs-theme="dark">
+            <Navbar inverse expand="sm" bg="secondary" data-bs-theme="dark">
                 <Container className="px-4">
-                    {token && <Navbar.Brand href="#">{readToken().username.toUpperCase()}</Navbar.Brand>}
+                    {token && <Navbar.Brand className="align-self-start" href="#">{readToken().username.toUpperCase()}</Navbar.Brand>} 
+                    <div>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -50,6 +51,7 @@ export default function MainNav() {
                     {!token && <Button block variant="outline-light" onClick={handleShowLogin}>Login</Button>}
                     {!token && <Button block variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
                     </div>
+                    </div>
                 </Container>
             </Navbar>      
             <Login show={showLogin} setShow={setShowLogin}/>
@@ -60,3 +62,5 @@ export default function MainNav() {
 
 /* {!token && <Button block variant="outline-light" onClick={handleShowLogin}>Login</Button>}
                             {!token && <Button block variant="outline-light" className="ms-2"onClick={handleShowSignup}>Sign Up</Button>} */
+
+                            //<Nav className="ms-auto"></Nav>
