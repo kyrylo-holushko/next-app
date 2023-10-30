@@ -1,5 +1,4 @@
 import { Button, Modal } from "react-bootstrap";
-//import { deleteItem } from "../../lib/ajax/item";
 import { deleteUser } from "../lib/ajax/user";
 import { useState, useContext } from "react";
 import { readToken, removeToken } from "../lib/authenticate";

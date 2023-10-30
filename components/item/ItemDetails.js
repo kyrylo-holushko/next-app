@@ -1,11 +1,8 @@
 import { Modal, Card } from "react-bootstrap";
 import { useEffect, useState } from "react";
-//import { detectMimeType } from 'type-files';
-//import {fileTypeFromBuffer} from 'file-type';
 
 export default function ItemDetails(props) {
 
-    //const { iname, image, idesc, priority } = props.item;
     const setShow = props.setShow;
     
     const handleClose = () => {
@@ -15,7 +12,6 @@ export default function ItemDetails(props) {
 
     const [src, setSrc] = useState(null);
 
-
     useEffect(()=>{
         console.log("MIMETYPE", props.item?.mimetype);
         console.log("BASE64 IMAGE", props.item?.image);
@@ -23,12 +19,6 @@ export default function ItemDetails(props) {
             setSrc(`data:${props.item.mimetype};base64,${props.item.image}`);
         }
     },[props.show]);
-
-    /* async function imgSource(image) {
-        //const mimeType = await fileTypeFromBuffer(props.item.image).mime;
-        //const imageBase64 = Buffer.from(props.item.image).toString('base64');
-        return `data:image/jpeg;base64,${imageBase64}`
-    } */
 
     return (
         <>
@@ -50,5 +40,4 @@ export default function ItemDetails(props) {
             </Modal>
         </>
     )
-
 };

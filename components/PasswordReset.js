@@ -3,7 +3,6 @@ import * as email from 'email-validator';
 import { generateResetLink } from "../lib/ajax/user";
 import { useState, useEffect } from "react";
 
-
 export default function PasswordReset() {
 
     const [showRecoveryEmailForm, setShowRecoveryEmailForm] = useState(false);

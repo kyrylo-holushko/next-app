@@ -8,7 +8,7 @@ export default function ItemCreate(props){
     const setShow = props.setShow;
     const setWrite = props.setWrite;
     const bagId = props.bid;
-    console.log('This is the bag id', bagId);
+
     const [form, setForm] = useState(itemForm.defaultFormInput);
     const [dirty, setDirty] = useState(itemForm.defaultFormDirty);
     const [errors, setErrors] = useState(itemForm.defaultSignupErrors);

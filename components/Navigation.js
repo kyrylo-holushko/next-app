@@ -58,9 +58,4 @@ export default function MainNav() {
             <Signup show={showSignup} setShow={setShowSignup}/>
         </>
     )
-}        
-
-/* {!token && <Button block variant="outline-light" onClick={handleShowLogin}>Login</Button>}
-                            {!token && <Button block variant="outline-light" className="ms-2"onClick={handleShowSignup}>Sign Up</Button>} */
-
-                            //<Nav className="ms-auto"></Nav>
+}
