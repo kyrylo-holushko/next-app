@@ -1,4 +1,4 @@
-import { Container, Form, Button, Row, Col, Nav } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { readToken } from "../lib/authenticate";
 import { updateUser } from "../lib/ajax/user";

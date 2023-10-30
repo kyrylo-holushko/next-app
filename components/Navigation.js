@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav, Button, NavDropdown, Col, Row } from "react-bootstrap";
+import { Container, Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import { useState, useEffect, useContext } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
