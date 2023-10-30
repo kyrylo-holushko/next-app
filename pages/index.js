@@ -24,14 +24,14 @@ export default function Home() {
 			<Row>
 				<Col>
 					<p className="p-5">
-						Bag.io is the perfect for people with compulsive-hoarding/compulsive-decluttering disorders, digital nomads, minimalists, migrants, evacuees and frequent property renters. Your bags are a representation of carried, worn or rolled containers.
+						Bag.io is the perfect for people with compulsive-hoarding/compulsive-decluttering disorders, digital nomads, minimalists, migrants, evacuees and frequent property renters. Your bags are a representation of carried, worn or rolled containers. Your items are what you take with you.
 					</p>
 				</Col>
 			</Row>
 			<Row>
 				<Col>
 					<p className="p-5">
-						Managing your most prized belongings has never been easier with Bags.io. Whether climate change, career change, or spring cleaning, bags.io has you covered. Sign up now on a journey of self-discovery. Find out what your things mean to you, today!
+						Managing your most prized belongings has never been easier with Bags.io. Whether you might experience climate change displacement, a job change/re-location, or the need for improving cleaning/organizing, bags.io has you covered. Sign up now on a journey of self-discovery. Find out what your things mean to you, today!
 					</p>
 				</Col>
 			</Row>	
