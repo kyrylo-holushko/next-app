@@ -47,10 +47,10 @@ export default function MainNav() {
                             </NavDropdown>}                          
                         </Nav>
                     </Navbar.Collapse>
+                    </div>
                     <div>
                     {!token && <Button block variant="outline-light" onClick={handleShowLogin}>Login</Button>}
                     {!token && <Button block variant="outline-light" className="ms-2" onClick={handleShowSignup}>Sign Up</Button>}
-                    </div>
                     </div>
                 </Container>
             </Navbar>      
