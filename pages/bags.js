@@ -30,7 +30,7 @@ export default function Bags(){
     return (
         <>
             <Container className="p-5">
-                <Row className="gy-5" sm={1} md={2} lg={3}>
+                <Row className="gy-5" xs={1} sm={2} md={2} lg={3}>
                     {bagData && bagData.map((bag, i)=>{
                         return (<>
                         <Col key={`${i}`} className="text-center">
