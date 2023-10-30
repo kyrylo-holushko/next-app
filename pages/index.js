@@ -15,23 +15,23 @@ export default function Home() {
 			`}</style>		
 			<Row>
 				<Col>
-					<h1 className="display-1 p-5 text-center">Home Page</h1>
-					<p className="p-5">    
-						Adaptability is the ability to adjust and thrive in changing circumstances, and it is essential to navigating the complexities of life. Whether it's adapting to new technologies, social norms, or personal challenges, adaptability allows us to stay resilient and flexible in the face of change.  
-					</p>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<p className="p-5">    
-						Humility is the practice of recognizing our limitations and imperfections, and it is essential to personal growth and development. Whether it's acknowledging our mistakes and shortcomings, seeking feedback from others, or approaching new situations with a sense of openness and curiosity, humility can help us learn and grow in meaningful ways.  
+					<h1 className="display-1 p-5 text-center">Bags.io</h1>
+					<p className="p-5">   
+						Welcome to bags.io. The go-to online tool for managing your most valueable personal belongings. Bags.io was created as a personal inventory managment system for users to honestly re-evalute and prioritize their possesions, whether they are sentimental or functionally neccessary items.  
 					</p>
 				</Col>
 			</Row>
 			<Row>
 				<Col>
 					<p className="p-5">
-						Optimism is the belief that good things can happen, even in the face of challenges and adversity, and it is essential to maintaining a positive outlook and sense of hope. Whether it's focusing on the positive aspects of a situation, reframing challenges as opportunities, or seeking out support and encouragement, optimism can help us stay resilient and hopeful in difficult times.  
+						Bag.io is the perfect for people with compulsive-hoarding/compulsive-decluttering disorders, digital nomads, minimalists, migrants, evacuees and frequent property renters. Your bags are a representation of carried, worn or rolled containers.
+					</p>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<p className="p-5">
+						Managing your most prized belongings has never been easier with Bags.io. Whether climate change, career change, or spring cleaning, bags.io has you covered. Sign up now on a journey of self-discovery. Find out what your things mean to you, today!
 					</p>
 				</Col>
 			</Row>	
