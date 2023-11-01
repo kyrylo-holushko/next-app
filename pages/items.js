@@ -2,12 +2,12 @@ import { BagContext } from "./_app";
 import { useContext, useEffect, useState } from "react";
 import { getItems } from "../lib/ajax/item";
 import { Container, Button, Table, Row, Col, Pagination, Form } from "react-bootstrap";
-import ItemRow from "../components/item/ItemRow";
-import ItemCreate from "../components/item/ItemCreate";
-import ItemEdit from "../components/item/ItemEdit";
-import ItemDelete from "../components/item/ItemDelete";
-import ItemMove from "../components/item/ItemMove";
-import ItemMoveAll from "../components/item/ItemMoveAll";
+import ItemRow from "@/components/item/ItemRow";
+import ItemCreate from "@/components/item/ItemCreate";
+import ItemEdit from "@/components/item/ItemEdit";
+import ItemDelete from "@/components/item/ItemDelete";
+import ItemMove from "@/components/item/ItemMove";
+import ItemMoveAll from "@/components/item/ItemMoveAll";
 
 export default function Items(){
 
