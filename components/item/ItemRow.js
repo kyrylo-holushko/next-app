@@ -1,6 +1,6 @@
 import { Nav } from "react-bootstrap"
 import { useState } from "react";
-import ItemDetails from "./ItemDetails";
+import ItemDetails from "./itemDetails";
 
 export default function ItemRow(props) {
 
