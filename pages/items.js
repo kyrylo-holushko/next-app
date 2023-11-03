@@ -2,7 +2,7 @@ import { BagContext } from "./_app";
 import { useContext, useEffect, useState } from "react";
 import { getItems } from "../lib/ajax/item";
 import { Container, Button, Table, Row, Col, Pagination, Form } from "react-bootstrap";
-import ItemRow from "@/components/item/itemCreate";
+import ItemRow from "@/components/item/ItemRow";
 import ItemCreate from "@/components/item/itemCreate";
 import ItemEdit from "@/components/item/itemEdit";
 import ItemDelete from "@/components/item/itemDelete";
