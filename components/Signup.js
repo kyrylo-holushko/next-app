@@ -44,6 +44,7 @@ export default function Signup(props){
 
     async function submitForm(e) {
         if(valid){
+            console.log("Form object in the SUBMIT FORM HANDLER: ", form);
             registerUser(form).then(res=>{
                 setResMsg(`${res.message}: ${res.data.username}`);
             }).catch(e=>{setResMsg(e.message)});
